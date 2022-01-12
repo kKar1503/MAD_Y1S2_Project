@@ -5,6 +5,7 @@ import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
+
 // =============================================
 // Import Screens
 // =============================================
@@ -16,7 +17,7 @@ import AllChatsScreen from './screens/Chats/chats';
 import ChattingScreen from './screens/Chats/chatting';
 import ProductScreen from './screens/Listings/product';
 import LoginScreen from './screens/login';
-import {Image, TouchableOpacity} from 'react-native';
+import { SafeAreaView, View, StyleSheet, Text, Image, TouchableOpacity, ScrollView, TextInput,} from 'react-native';
 
 // =============================================
 // Create Native Stack Navigator
@@ -72,6 +73,7 @@ const App = () => {
 						headerTintColor: 'white',
 						headerStyle: {backgroundColor: '#424242'},
 						headerTitleAlign: 'center',
+						
 					}}
 				/>
 				<Stack.Screen
@@ -81,6 +83,7 @@ const App = () => {
 						headerTintColor: 'white',
 						headerStyle: {backgroundColor: '#424242'},
 						headerTitleAlign: 'center',
+						
 					}}
 				/>
 				<Stack.Screen
@@ -90,6 +93,16 @@ const App = () => {
 						headerTintColor: 'white',
 						headerStyle: {backgroundColor: '#424242'},
 						headerTitleAlign: 'center',
+					    headerTitle: () => (
+							<View style={{flexDirection:"row"}}>
+								<Text
+								  style={{color:"white",justifyContent:"center",alignSelf:"center", fontSize:20,padding:8}}>Alyssa Sng</Text>
+								<Image
+									source={require('./assets/img/Chat2.png')}
+									style={{width:40,height:40}}
+								/>
+							</View>
+						)
 					}}
 				/>
 				<Stack.Screen
