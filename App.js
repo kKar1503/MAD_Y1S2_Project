@@ -59,21 +59,20 @@ const App = () => {
 				<Stack.Screen
 					name="Explore"
 					component={ExploreScreen}
-					options={{
+					options={({navigation}) => ({
 						headerTintColor: 'white',
 						headerStyle: {backgroundColor: '#424242'},
 						headerTitleAlign: 'center',
 						title: 'Hand It Down',
 						headerLeft: () => (
 							<TouchableOpacity
-								onPress={() => alert('This is a button!')}>
+								onPress={() => navigation.navigate('Home')}>
 								<Image
 									source={require('./assets/img/nav.png')}
 								/>
 							</TouchableOpacity>
 						),
-						headerBackVisible: true,
-					}}
+					})}
 				/>
 				<Stack.Screen
 					name="NewListing"
@@ -82,6 +81,7 @@ const App = () => {
 						headerTintColor: 'white',
 						headerStyle: {backgroundColor: '#424242'},
 						headerTitleAlign: 'center',
+						title: 'New Listing',
 					}}
 				/>
 				<Stack.Screen
@@ -91,18 +91,19 @@ const App = () => {
 						headerTintColor: 'white',
 						headerStyle: {backgroundColor: '#424242'},
 						headerTitleAlign: 'center',
+						title: 'Edit Profile',
 					}}
 				/>
 				<Stack.Screen
 					name="Chats"
 					component={AllChatsScreen}
-					options={({navigation})=>({
+					options={({navigation}) => ({
 						headerTintColor: 'white',
 						headerStyle: {backgroundColor: '#424242'},
 						headerTitleAlign: 'center',
 						headerLeft: () => (
 							<TouchableOpacity
-								onPress={() => navigation.navigate("Home")}>
+								onPress={() => navigation.navigate('Home')}>
 								<Image
 									source={require('./assets/img/nav.png')}
 								/>
@@ -140,13 +141,13 @@ const App = () => {
 				<Stack.Screen
 					name="Product"
 					component={ProductScreen}
-					options={({navigation})=>({
+					options={({navigation}) => ({
 						headerTintColor: 'white',
 						headerStyle: {backgroundColor: '#424242'},
 						headerTitleAlign: 'center',
 						headerLeft: () => (
 							<TouchableOpacity
-								onPress={() => navigation.navigate("Home")}>
+								onPress={() => navigation.navigate('Home')}>
 								<Image
 									source={require('./assets/img/nav.png')}
 								/>
@@ -161,7 +162,7 @@ const App = () => {
 						headerTintColor: 'white',
 						headerStyle: {backgroundColor: '#424242'},
 						headerTitleAlign: 'center',
-						headerShown:false
+						headerShown: false,
 					}}
 				/>
 			</Stack.Navigator>
