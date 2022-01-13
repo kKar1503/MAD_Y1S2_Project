@@ -13,8 +13,19 @@ const Chatting = ({navigation},props) => {
 
 	useEffect(() => {
 		setMessages([
+			{
+				_id: 1,
+				text: 'Hello developer',
+				createdAt: new Date(),
+				user: {
+				  _id: 1,
+				  name: 'React Native',
+				  avatar:require('../../assets/img/Chat2.png'),
+				},
+				
+			  },
 		  {
-			_id: 1,
+			_id: 2,
 			text: 'Hello developer',
 			createdAt: new Date(),
 			user: {
@@ -25,7 +36,7 @@ const Chatting = ({navigation},props) => {
 			
 		  },
 		  {
-			_id: 2,
+			_id: 3	,
 			text: 'Hello ',
 			createdAt: new Date(),
 			user: {
@@ -34,7 +45,18 @@ const Chatting = ({navigation},props) => {
 			  avatar:require('../../assets/img/Chat2.png'),
 			},
 			
+		  },{
+			_id: 3,
+			text: 'Hello ',
+			createdAt: new Date(),
+			user: {
+			  _id: 1,
+			  name: 'React Native',
+			  avatar:require('../../assets/img/Chat2.png'),
+			},
+			
 		  }
+		  
 		],)
 	  }, [])
 
@@ -60,13 +82,13 @@ const Chatting = ({navigation},props) => {
 			}}
 			wrapperStyle={{
 			  left: {
-				backgroundColor: '#424242',
-				width:300
+				backgroundColor: '#666666',
+				//width:300
 			  },
 			  right: {
-				backgroundColor: '#424242',
-				width:300,
-				alignContent:"flex-start"
+				backgroundColor: '#666666',
+				//width:300,
+				//alignContent:"flex-start"
 			  }
 			}}
 		  />
@@ -75,15 +97,17 @@ const Chatting = ({navigation},props) => {
 	  }
 
 	return (<View style={styles.container}>
-		<GiftedChat
-    
+		<GiftedChat  
 	{...props}
 	messages={messages}
 	onSend={messages => onSend(messages)}
 	user={{
 	  _id: 1,
+	  _id:2
 	}}
 	renderBubble={renderBubble}
+	showUserAvatar={true}
+	
   />
 	</View>);
 };
@@ -94,8 +118,8 @@ const Chatting = ({navigation},props) => {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		justifyContent: 'center',
-		alignItems: 'center',
+		//justifyContent: 'center',
+		//alignItems: 'center',
 		backgroundColor: '#303030',
 	},
 });

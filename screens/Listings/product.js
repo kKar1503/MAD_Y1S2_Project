@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
 	},
 	content:{
 		fontSize:15,
-		color:"#666666",
+		color:"#999999",
 		lineHeight:25 
 	  },
 	  productpic:{ 

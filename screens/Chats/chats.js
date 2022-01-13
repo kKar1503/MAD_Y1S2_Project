@@ -24,8 +24,10 @@ const DATA = [
  
   ];
 
-  const Item = ({ title,username,source }) => (
-	<TouchableOpacity style={styles.button}>
+  const Item = ({ title,username,source,navigation }) => (
+	<TouchableOpacity style={styles.button}
+	onPress={() => navigation.navigate("Chatting")}
+	>
 	  <Image source={source} style={styles.styleimage} />
 	  <View>
 	  <Text style={styles.title}>{title}</Text>
@@ -36,19 +38,18 @@ const DATA = [
   );
 const Chats = ({navigation}) => {
 	const renderItem = ({ item }) => (
-		<Item title={item.title} username={item.username} source={item.source}/>
+		<Item title={item.title} username={item.username} source={item.source} navigation={navigation}/>
 	  );
 	  
-	return( <View style={styles.container}>
-		
-     <ScrollView style={{paddingTop:10}} >
+	return( 
+	<ScrollView style={styles.container}>
        <FlatList
          data={DATA}
          renderItem={renderItem}
          keyExtractor={item => item.id}
+		 style={{paddingTop:10}}
        />
-     </ScrollView>
-	</View>);
+	</ScrollView>);
 };
 
 // =============================================
@@ -64,7 +65,7 @@ const styles = StyleSheet.create({
 	width:"97%",
 	marginVertical: 5,
 	marginHorizontal:6,
-	backgroundColor:'#333333',
+	backgroundColor:'#434343',
 	alignItems:"center",
  },
 
