@@ -77,7 +77,7 @@ import MyTextInput from './textinput';
 	  </View>
 		  <View>
 		  <TouchableOpacity style={styles.button}
-      onPress={() => this.props.navigation.navigate('About')}>
+      onPress={() => this.props.navigation.navigate('Home')}>
 			<Text style={styles.buttontext}>{this.state.buttontext="SIGN UP"}</Text>
 		  </TouchableOpacity>
 		  <TouchableOpacity>

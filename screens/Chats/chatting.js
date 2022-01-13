@@ -31,7 +31,7 @@ const Chatting = ({navigation},props) => {
 			user: {
 			  _id: 2,
 			  name: 'React Native',
-			  avatar:require('../../assets/img/Chat2.png'),
+			  avatar:require('../../assets/img/Chat1.png'),
 			},
 			
 		  },
