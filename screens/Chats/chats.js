@@ -42,7 +42,6 @@ const Chats = ({navigation}) => {
 	return( <View style={styles.container}>
 		
      <ScrollView style={{paddingTop:10}} >
-       
        <FlatList
          data={DATA}
          renderItem={renderItem}

@@ -46,7 +46,9 @@ import MyTextInput from './textinput';
 	  <MyTextInput placeholder="Password" style={styles.textinput}/>
 	  </View>
   
-	  <TouchableOpacity style={styles.button}>
+	  <TouchableOpacity style={styles.button}
+    onPress={() => this.props.navigation.navigate('Home')}>
+    
 			<Text style={styles.buttontext}>{this.state.buttontext="SIGN IN"}</Text>
 		  </TouchableOpacity>
   
@@ -74,7 +76,8 @@ import MyTextInput from './textinput';
 	  <MyTextInput placeholder="Comfirm Password" style={styles.textinput}/>
 	  </View>
 		  <View>
-		  <TouchableOpacity style={styles.button}>
+		  <TouchableOpacity style={styles.button}
+      onPress={() => this.props.navigation.navigate('About')}>
 			<Text style={styles.buttontext}>{this.state.buttontext="SIGN UP"}</Text>
 		  </TouchableOpacity>
 		  <TouchableOpacity>
@@ -89,7 +92,7 @@ import MyTextInput from './textinput';
 	  return (
 	  <ScrollView style={styles.container}>
 		  <View >
-			<View>
+			<View style={{paddingTop:25}}>
 		  <Image source={require('../assets/img/logo.png')} style={styles.styleimage} />
 		  <Text style={styles.handitdown}>HAND IT DOWN</Text>
 		  <Text style={styles.knowledge}>PASSING THE KNOWLEDGE</Text>

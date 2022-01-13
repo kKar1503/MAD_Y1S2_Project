@@ -96,11 +96,19 @@ const App = () => {
 				<Stack.Screen
 					name="Chats"
 					component={AllChatsScreen}
-					options={{
+					options={({navigation})=>({
 						headerTintColor: 'white',
 						headerStyle: {backgroundColor: '#424242'},
 						headerTitleAlign: 'center',
-					}}
+						headerLeft: () => (
+							<TouchableOpacity
+								onPress={() => navigation.navigate("Home")}>
+								<Image
+									source={require('./assets/img/nav.png')}
+								/>
+							</TouchableOpacity>
+						),
+					})}
 				/>
 				<Stack.Screen
 					name="Chatting"
@@ -132,11 +140,19 @@ const App = () => {
 				<Stack.Screen
 					name="Product"
 					component={ProductScreen}
-					options={{
+					options={({navigation})=>({
 						headerTintColor: 'white',
 						headerStyle: {backgroundColor: '#424242'},
 						headerTitleAlign: 'center',
-					}}
+						headerLeft: () => (
+							<TouchableOpacity
+								onPress={() => navigation.navigate("Home")}>
+								<Image
+									source={require('./assets/img/nav.png')}
+								/>
+							</TouchableOpacity>
+						),
+					})}
 				/>
 				<Stack.Screen
 					name="Login"
@@ -145,6 +161,7 @@ const App = () => {
 						headerTintColor: 'white',
 						headerStyle: {backgroundColor: '#424242'},
 						headerTitleAlign: 'center',
+						headerShown:false
 					}}
 				/>
 			</Stack.Navigator>
