@@ -37,7 +37,7 @@ import MyTextInput from './textinput';
 	return(
 	<View >
 	  <View style={styles.inputcontainer}>
-	  <Image source={require('../assets/img/user.png')} style={styles.userpic} />
+	  <Image source={require('../assets/img/profile.png')} style={styles.userpic} />
 	  <MyTextInput placeholder="Username" style={styles.textinput}/>
 	  </View>
 	  
@@ -63,7 +63,7 @@ import MyTextInput from './textinput';
 	return(
 	  <View>
 		  <View style={styles.inputcontainer}>
-	  <Image source={require('../assets/img/user.png')} style={styles.userpic} />
+	  <Image source={require('../assets/img/profile.png')} style={styles.userpic} />
 	  <MyTextInput placeholder="Username" style={styles.textinput}/>
 	  </View>
 	  
@@ -244,7 +244,7 @@ activesignup:{
  },
 
  userpic:{
-  width:14,
+  width:18,
   height:20,
   alignSelf:"center"
  },

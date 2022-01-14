@@ -38,6 +38,14 @@ const Home = ({navigation}) => {
 				title="Login"
 				onPress={() => navigation.navigate('Login')}
 			/>
+			<Button
+				title="Review"
+				onPress={() => navigation.navigate('Review')}
+			/>
+			<Button
+				title="allReviews"
+				onPress={() => navigation.navigate('allReviews')}
+			/>
 		</View>
 	);
 };

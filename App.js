@@ -16,6 +16,8 @@ import AllChatsScreen from './screens/Chats/chats';
 import ChattingScreen from './screens/Chats/chatting';
 import ProductScreen from './screens/Listings/product';
 import LoginScreen from './screens/login';
+import ReviewScreen from './screens/Reviews/Review';
+import allReviewsScreen from './screens/Reviews/allReviews';
 import {
 	SafeAreaView,
 	View,
@@ -163,6 +165,27 @@ const App = () => {
 						headerStyle: {backgroundColor: '#424242'},
 						headerTitleAlign: 'center',
 						headerShown: false,
+					}}
+				/>
+				<Stack.Screen
+					name="Review"
+					component={ReviewScreen}
+					options={{
+						headerShown:false,
+						headerTintColor: 'white',
+						headerStyle: {backgroundColor: '#424242'},
+						headerTitleAlign: 'center',
+						title: 'Review',
+					}}
+				/>
+				<Stack.Screen
+					name="allReviews"
+					component={allReviewsScreen}
+					options={{
+						headerTintColor: 'white',
+						headerStyle: {backgroundColor: '#424242'},
+						headerTitleAlign: 'center',
+						title: 'allReviews',
 					}}
 				/>
 			</Stack.Navigator>
