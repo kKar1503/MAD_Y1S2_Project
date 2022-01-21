@@ -11,6 +11,7 @@ import {
 	TouchableOpacity,
 	Image,
 } from 'react-native';
+import OrangeButton from '../CustomComponent/orangeButton';
 
 // =============================================
 // Main Page Implementation
@@ -123,11 +124,10 @@ const Edit = ({navigation}) => {
 				</View>
 			</ScrollView>
 			<View style={styles.footer}>
-				<TouchableOpacity style={styles.button}>
-					<Text style={[styles.buttonWord, styles.robotoBold]}>
-						SAVE CHANGES
-					</Text>
-				</TouchableOpacity>
+				<OrangeButton
+					text="SAVE CHANGES"
+					onPress={() => navigation.navigate('Home')}
+				/>
 			</View>
 		</View>
 	);
@@ -169,7 +169,7 @@ const styles = StyleSheet.create({
 		marginBottom: 20,
 	},
 	footer: {
-		width: '95%',
+		width: '100%',
 		alignItems: 'center',
 		justifyContent: 'center',
 		flexDirection: 'row',

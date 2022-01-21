@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 import {Picker} from '@react-native-picker/picker';
 import RadioGroup from 'react-native-radio-buttons-group';
+import OrangeButton from '../CustomComponent/orangeButton';
 
 // =============================================
 // RadioButtons Data
@@ -195,11 +196,10 @@ const NewProfile = ({navigation}) => {
 				</View>
 			</ScrollView>
 			<View style={styles.footer}>
-				<TouchableOpacity style={styles.button}>
-					<Text style={[styles.buttonWord, styles.robotoBold]}>
-						POST NEW AD
-					</Text>
-				</TouchableOpacity>
+				<OrangeButton
+					text="NEW AD"
+					onPress={() => navigation.navigate('Home')}
+				/>
 			</View>
 		</View>
 	);
@@ -236,7 +236,7 @@ const styles = StyleSheet.create({
 		fontSize: 25,
 	},
 	footer: {
-		width: '95%',
+		width: '100%',
 		alignItems: 'center',
 		justifyContent: 'center',
 		flexDirection: 'row',

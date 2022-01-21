@@ -10,7 +10,7 @@ import {
 	TextInput,
 	TouchableOpacity,
 	Image,
-	FlatList
+	FlatList,
 } from 'react-native';
 
 // =============================================
@@ -19,49 +19,48 @@ import {
 
 const DATA = [
 	{
-	  id: '1',
-	  title: 'Alyssa Sng',
-	  username:" alyssazxcslapdieyou",
-	  source:require('../../assets/img/Chat2.png'),
-	  comment:"No comments written",
+		id: '1',
+		title: 'Alyssa Sng',
+		username: ' alyssazxcslapdieyou',
+		source: require('../../assets/img/Chat2.png'),
+		comment: 'No comments written',
 	},
 	{
-	  id: '2',
-	  title: 'Sum Ting Wong',
-	  username:"somethingwrong",
-	  source:require('../../assets/img/Chat2.png'),
-	  comment:"No comments written",
-
+		id: '2',
+		title: 'Sum Ting Wong',
+		username: 'somethingwrong',
+		source: require('../../assets/img/Chat2.png'),
+		comment: 'No comments written',
 	},
- 
-  ];
-  const Item = ({ title,source,comment,navigation }) => (
-
-  <View style={styles.reviewContainer}>
-    <Image source={source} style={styles.styleImage}/>
-	<View style={styles.textContainer}>
-	<Text style={styles.title}>{title}</Text>
-	<Text style={styles.comment}>{comment}</Text>
+];
+const Item = ({title, source, comment, navigation}) => (
+	<View style={styles.reviewContainer}>
+		<Image source={source} style={styles.styleImage} />
+		<View style={styles.textContainer}>
+			<Text style={styles.title}>{title}</Text>
+			<Text style={styles.comment}>{comment}</Text>
+		</View>
 	</View>
-  </View>
-
- 
-  );
+);
 const allReviews = ({navigation}) => {
-	const renderItem = ({ item }) => (
-		<Item title={item.title} source={item.source} comment={item.comment} navigation={navigation}/>
-	  );
+	const renderItem = ({item}) => (
+		<Item
+			title={item.title}
+			source={item.source}
+			comment={item.comment}
+			navigation={navigation}
+		/>
+	);
 
 	return (
 		<ScrollView style={styles.container}>
-		<FlatList
-		  data={DATA}
-		  renderItem={renderItem}
-		  keyExtractor={item => item.id}
-		  style={{paddingTop:10}}
-		/>
-	 </ScrollView>
-
+			<FlatList
+				data={DATA}
+				renderItem={renderItem}
+				keyExtractor={item => item.id}
+				style={{paddingTop: 10}}
+			/>
+		</ScrollView>
 	);
 };
 
@@ -69,35 +68,34 @@ const allReviews = ({navigation}) => {
 // StyleSheet
 // =============================================
 const styles = StyleSheet.create({
-    container:{
-        flex: 1,
+	container: {
+		flex: 1,
 		alignContent: 'flex-start',
 		backgroundColor: '#303030',
 		paddingHorizontal: 5,
-    },
-	reviewContainer:{
+	},
+	reviewContainer: {
 		backgroundColor: 'black',
-		padding:15,
-		flexDirection:"row",
-		margin:3,
-		borderRadius:3,
-		
+		padding: 15,
+		flexDirection: 'row',
+		margin: 3,
+		borderRadius: 3,
 	},
-	styleImage:{
-		width:55,
-		height:55
+	styleImage: {
+		width: 55,
+		height: 55,
 	},
-	title:{
-      color:"white",
-	  fontSize:20,
-	  marginBottom:5
+	title: {
+		color: 'white',
+		fontSize: 20,
+		marginBottom: 5,
 	},
-	comment:{
-		color:"white"
+	comment: {
+		color: 'white',
 	},
-	textContainer:{
-      marginHorizontal:10
-	}
-})
+	textContainer: {
+		marginHorizontal: 10,
+	},
+});
 
 export default allReviews;

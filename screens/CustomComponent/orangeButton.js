@@ -1,6 +1,4 @@
 /**
- * Sample React Native App
- * https://github.com/facebook/react-native
  *
  * @format
  * @flow
@@ -8,30 +6,30 @@
  * Practical - Custom Label
  */
 import React, {Component} from 'react';
-import {StyleSheet, TextInput, View} from 'react-native';
-import {TouchableOpacity} from 'react-native-gesture-handler';
+import {StyleSheet, Text, TouchableOpacity} from 'react-native';
 import PropTypes from 'prop-types';
 
 export default class OrangeButton extends Component {
-	render(text) {
-		const text = this.props.text;
+	render() {
+		const {text, onPress} = this.props;
 		return (
-			<TouchableOpacity style={styles.button}>
+			<TouchableOpacity style={styles.button} onPress={() => onPress()}>
 				<Text style={[styles.buttonWord, styles.robotoBold]}>
-					{this.PropTypes.text}
+					{text}
 				</Text>
 			</TouchableOpacity>
 		);
 	}
 }
 
-OrangeButton.PropTypes = {
-	text: PropTypes.string,
+OrangeButton.propTypes = {
+	text: PropTypes.string.isRequired,
+	onPress: PropTypes.func.isRequired,
 };
 const styles = StyleSheet.create({
 	button: {
 		backgroundColor: '#FF8A65',
-		width: '100%',
+		width: '88%',
 		height: 65,
 		justifyContent: 'center',
 		alignItems: 'center',

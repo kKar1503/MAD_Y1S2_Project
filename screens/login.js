@@ -1,22 +1,18 @@
 // =============================================
 // Import necessary classes for development
 // =============================================
-import React, {useState, Component} from 'react';
-import PropTypes from 'prop-types';
+import React, {Component} from 'react';
 import {
 	StyleSheet,
 	Text,
 	View,
-	TextInput,
-	FlatList,
-	Picker,
 	ScrollView,
 	TouchableOpacity,
 	Image,
 } from 'react-native';
-import {Image as ReactImage} from 'react-native';
+
 import MyTextInput from './CustomComponent/loginInput';
-import orangeButton from './CustomComponent/orangeButton';
+import OrangeButton from './CustomComponent/orangeButton';
 
 // =============================================
 // Main Page Implementation
@@ -26,7 +22,6 @@ class Login extends Component {
 		super(props);
 		this.state = {
 			isActive: false,
-			buttontext: '',
 			username: '',
 			password: '',
 			newUsername: '',
@@ -92,7 +87,10 @@ class Login extends Component {
 					/>
 				</View>
 
-				<orangeButton PropTypes />
+				<OrangeButton
+					text="SIGN IN"
+					onPress={() => this.props.navigation.navigate('Home')}
+				/>
 				<TouchableOpacity>
 					<Text style={styles.question}>forgot password ?</Text>
 				</TouchableOpacity>
@@ -140,13 +138,10 @@ class Login extends Component {
 					/>
 				</View>
 				<View>
-					<TouchableOpacity
-						style={styles.button}
-						onPress={() => this.props.navigation.navigate('Home')}>
-						<Text style={styles.buttontext}>
-							{(this.state.buttontext = 'SIGN UP')}
-						</Text>
-					</TouchableOpacity>
+					<OrangeButton
+						text="SIGN UP"
+						onPress={() => this.props.navigation.navigate('Home')}
+					/>
 					<TouchableOpacity>
 						<Text style={styles.question}>
 							Already have an account ?
@@ -160,7 +155,7 @@ class Login extends Component {
 		return (
 			<ScrollView style={styles.container}>
 				<View>
-					<View style={{paddingTop: 25}}>
+					<View style={styles.logo}>
 						<Image
 							source={require('../assets/img/logo.png')}
 							style={styles.styleimage}
@@ -171,14 +166,7 @@ class Login extends Component {
 						</Text>
 					</View>
 
-					<View
-						style={{
-							flexDirection: 'row',
-							alignSelf: 'center',
-							marginTop: 15,
-							marginBottom: 20,
-							alignContent: 'center',
-						}}>
+					<View style={styles.rowButton}>
 						<TouchableOpacity onPress={this.handleHide}>
 							{this.state.isActive ? (
 								<Text style={styles.whitesignin}>Sign in</Text>
@@ -217,7 +205,17 @@ const styles = StyleSheet.create({
 		paddingLeft: 28,
 	},
 
-	styleimage: {alignSelf: 'center', width: 122, height: 150, paddingTop: 100},
+	logo: {
+		paddingTop: 20,
+	},
+	rowButton: {
+		flexDirection: 'row',
+		alignSelf: 'center',
+		marginTop: 15,
+		marginBottom: 20,
+		alignContent: 'center',
+	},
+	styleimage: {alignSelf: 'center', width: 122, height: 150, paddingTop: 10},
 
 	handitdown: {
 		alignSelf: 'center',
@@ -271,7 +269,6 @@ const styles = StyleSheet.create({
 		fontWeight: '400',
 		paddingLeft: 50,
 		paddingRight: 50,
-		marginRight: 50,
 		paddingBottom: 15,
 		marginTop: 30,
 		marginRight: 80,
@@ -286,7 +283,6 @@ const styles = StyleSheet.create({
 		fontWeight: '400',
 		paddingLeft: 50,
 		paddingRight: 50,
-		marginRight: 50,
 		paddingBottom: 15,
 		marginTop: 30,
 		marginRight: 80,
@@ -312,8 +308,6 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		alignSelf: 'center',
 		margin: 20,
-
-		alignItems: 'center',
 		justifyContent: 'center',
 		flexDirection: 'row',
 		position: 'relative',
