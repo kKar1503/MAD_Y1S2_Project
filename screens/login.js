@@ -5,7 +5,8 @@ import React, {useState,Component} from 'react';
 import PropTypes from "prop-types";
 import {StyleSheet, Text, View, TextInput, FlatList, Picker, ScrollView, TouchableOpacity,Image} from 'react-native';
 import {Image as ReactImage} from 'react-native';
-import MyTextInput from './textinput';
+import MyTextInput from './CustomComponent/textinput';
+import MyTextInput from './CustomComponent/orangeButton';
 
 // =============================================
 // Main Page Implementation
@@ -16,8 +17,12 @@ import MyTextInput from './textinput';
 		super(props);
 		this.state = {
 			isActive:false,
-			buttontext:""
-		 
+			buttontext:"",
+      username:"",
+      password:"",
+		  newUsername:"",
+      newPassword:"",
+      confirmPassword:""
 		};
 	}
 	handleShow = ()=>{
@@ -32,18 +37,36 @@ import MyTextInput from './textinput';
 		  isActive: false, 
 	  })
   }
+
+  changeUserName = (text) => {
+    this.setState({username: text})
+  }
+  changePassword = (text) => {
+    this.setState({password: text})
+  }
+
+  changeNewUserName = (text) => {
+    this.setState({newUsername: text})
+  }
+  changeNewPassword = (text) => {
+    this.setState({newPassword: text})
+  }
+  changeConfirmPassword = (text) => {
+    this.setState({confirmPassword: text})
+  }
+  
   
   notactive=()=>{
 	return(
 	<View >
 	  <View style={styles.inputcontainer}>
 	  <Image source={require('../assets/img/profile.png')} style={styles.userpic} />
-	  <MyTextInput placeholder="Username" style={styles.textinput}/>
+	  <MyTextInput placeholder="Username" style={styles.textinput} onChangeText={this.changeUserName} value={this.username}/>
 	  </View>
 	  
 	  <View style={styles.inputcontainer}>
 	  <Image source={require('../assets/img/password.png')} style={styles.passpic} />
-	  <MyTextInput placeholder="Password" style={styles.textinput}/>
+	  <MyTextInput placeholder="Password" style={styles.textinput} onChangeText={this.changePassword} value={this.password}/>
 	  </View>
   
 	  <TouchableOpacity style={styles.button}
@@ -64,16 +87,16 @@ import MyTextInput from './textinput';
 	  <View>
 		  <View style={styles.inputcontainer}>
 	  <Image source={require('../assets/img/profile.png')} style={styles.userpic} />
-	  <MyTextInput placeholder="Username" style={styles.textinput}/>
+	  <MyTextInput placeholder="New Username" style={styles.textinput} onChangeText={this.changeNewUserName} value={this.newUsername}/>
 	  </View>
 	  
 	  <View style={styles.inputcontainer}>
 	  <Image source={require('../assets/img/password.png')} style={styles.passpic} />
-	  <MyTextInput placeholder="Password" style={styles.textinput}/>
+	  <MyTextInput placeholder="New Password" style={styles.textinput} onChangeText={this.changeNewPassword} value={this.newPassword}/>
 	  </View>
 	  <View style={styles.inputcontainer}>
 	  <Image source={require('../assets/img/password.png')} style={styles.passpic} />
-	  <MyTextInput placeholder="Comfirm Password" style={styles.textinput}/>
+	  <MyTextInput placeholder="Comfirm Password" style={styles.textinput} onChangeText={this.changeConfirmPassword} value={this.confirmPassword}/>
 	  </View>
 		  <View>
 		  <TouchableOpacity style={styles.button}

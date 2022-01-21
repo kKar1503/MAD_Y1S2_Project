@@ -16,7 +16,8 @@
  export default class MyTextInput extends Component {
    state = {
      isFocused: false,
-     
+     Text:"",
+     value:"",
    };
  
    handleFocus = event => {
@@ -37,6 +38,7 @@
      const { isFocused } = this.state;
      const { onFocus, onBlur, ...otherProps } = this.props;
 
+
      return (
       
 
@@ -50,6 +52,8 @@
          onFocus={this.handleFocus}
          onBlur={this.handleBlur}
          style={styles.textInput}
+         onChangeText={text=>this.props.onChangeText(text)}
+         value={this.props.value}
          {...otherProps}
        />
      

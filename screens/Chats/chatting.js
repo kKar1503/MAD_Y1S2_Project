@@ -11,49 +11,44 @@ import { SafeAreaView, View, FlatList, StyleSheet, Text, Image, TouchableOpacity
 const Chatting = ({navigation},props) => {
 	const [messages, setMessages] = useState([]);
 
+	const user1={ _id: 1,
+		name: 'React Native',
+		avatar:require('../../assets/img/Chat2.png'),
+	}
+
+	const user2={
+		_id: 2,
+		name: 'React Native',
+		avatar:require('../../assets/img/Chat1.png'),
+	  }
 	useEffect(() => {
 		setMessages([
 			{
 				_id: 1,
 				text: 'Hello developer',
 				createdAt: new Date(),
-				user: {
-				  _id: 1,
-				  name: 'React Native',
-				  avatar:require('../../assets/img/Chat2.png'),
-				},
+				user: user1,
 				
 			  },
 		  {
 			_id: 2,
 			text: 'Hello developer',
 			createdAt: new Date(),
-			user: {
-			  _id: 2,
-			  name: 'React Native',
-			  avatar:require('../../assets/img/Chat1.png'),
-			},
+			user: user2,
 			
 		  },
 		  {
 			_id: 3	,
 			text: 'Hello ',
 			createdAt: new Date(),
-			user: {
-			  _id: 2,
-			  name: 'React Native',
-			  avatar:require('../../assets/img/Chat2.png'),
-			},
+			user: user2,
 			
-		  },{
-			_id: 3,
+		  },
+		  {
+			_id: 4,
 			text: 'Hello ',
 			createdAt: new Date(),
-			user: {
-			  _id: 1,
-			  name: 'React Native',
-			  avatar:require('../../assets/img/Chat2.png'),
-			},
+			user: user1,
 			
 		  }
 		  
