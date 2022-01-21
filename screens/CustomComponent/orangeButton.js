@@ -12,30 +12,29 @@
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import PropTypes from "prop-types";
 
- const BLUE = "#428AF8";
- const LIGHT_GRAY = "#D3D3D3";
  
  export default class OrangeButton extends Component {
-   state = {
-     Text:""
-   };
+
  
  
    render(text) {
 
 
-
+const text=this.props.text
      return (
         <TouchableOpacity style={styles.button}>
         <Text style={[styles.buttonWord, styles.robotoBold]}>
-            {text}
+            {this.PropTypes.text}
         </Text>
     </TouchableOpacity>
-     
+    
      );
    }
  }
- 
+
+ OrangeButton.PropTypes={
+     text:PropTypes.string
+ }
  const styles = StyleSheet.create({
 	button: {
 		backgroundColor: '#FF8A65',

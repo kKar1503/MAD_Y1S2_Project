@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 import {StyleSheet, Text, View, TextInput, FlatList, Picker, ScrollView, TouchableOpacity,Image} from 'react-native';
 import {Image as ReactImage} from 'react-native';
 import MyTextInput from './CustomComponent/textinput';
-import MyTextInput from './CustomComponent/orangeButton';
+import orangeButton from './CustomComponent/orangeButton';
 
 // =============================================
 // Main Page Implementation
@@ -69,12 +69,7 @@ import MyTextInput from './CustomComponent/orangeButton';
 	  <MyTextInput placeholder="Password" style={styles.textinput} onChangeText={this.changePassword} value={this.password}/>
 	  </View>
   
-	  <TouchableOpacity style={styles.button}
-    onPress={() => this.props.navigation.navigate('Home')}>
-    
-			<Text style={styles.buttontext}>{this.state.buttontext="SIGN IN"}</Text>
-		  </TouchableOpacity>
-  
+	  <orangeButton PropTypes/>
 		  <TouchableOpacity>
 	  <Text style={styles.question}>forgot password ?</Text>
 	  </TouchableOpacity>
