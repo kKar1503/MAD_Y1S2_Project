@@ -113,10 +113,7 @@ const Chatting = ({navigation}, props) => {
 				{...props}
 				messages={messages}
 				onSend={messages => onSend(messages)}
-				user={{
-					_id: 1,
-					_id: 2,
-				}}
+				user={user2}
 				renderBubble={renderBubble}
 				showUserAvatar={true}
 			/>
