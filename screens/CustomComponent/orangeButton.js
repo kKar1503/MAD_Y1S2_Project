@@ -4,38 +4,31 @@
  *
  * @format
  * @flow
- * 
+ *
  * Practical - Custom Label
  */
- import React, { Component } from 'react';
- import { StyleSheet, TextInput, View } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import PropTypes from "prop-types";
+import React, {Component} from 'react';
+import {StyleSheet, TextInput, View} from 'react-native';
+import {TouchableOpacity} from 'react-native-gesture-handler';
+import PropTypes from 'prop-types';
 
- 
- export default class OrangeButton extends Component {
+export default class OrangeButton extends Component {
+	render(text) {
+		const text = this.props.text;
+		return (
+			<TouchableOpacity style={styles.button}>
+				<Text style={[styles.buttonWord, styles.robotoBold]}>
+					{this.PropTypes.text}
+				</Text>
+			</TouchableOpacity>
+		);
+	}
+}
 
- 
- 
-   render(text) {
-
-
-const text=this.props.text
-     return (
-        <TouchableOpacity style={styles.button}>
-        <Text style={[styles.buttonWord, styles.robotoBold]}>
-            {this.PropTypes.text}
-        </Text>
-    </TouchableOpacity>
-    
-     );
-   }
- }
-
- OrangeButton.PropTypes={
-     text:PropTypes.string
- }
- const styles = StyleSheet.create({
+OrangeButton.PropTypes = {
+	text: PropTypes.string,
+};
+const styles = StyleSheet.create({
 	button: {
 		backgroundColor: '#FF8A65',
 		width: '100%',
@@ -52,5 +45,4 @@ const text=this.props.text
 	robotoBold: {
 		fontFamily: 'Roboto-Bold',
 	},
- });
- 
+});
