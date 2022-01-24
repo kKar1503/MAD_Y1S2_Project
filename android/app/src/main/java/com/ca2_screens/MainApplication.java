@@ -1,5 +1,6 @@
 package com.ca2_screens;
 
+import io.realm.react.RealmReactPackage; 
 import android.app.Application;
 import android.content.Context;
 import com.facebook.react.PackageList;
