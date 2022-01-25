@@ -69,7 +69,7 @@ class Login extends Component {
 					<MyTextInput
 						placeholder="Username"
 						style={styles.textinput}
-						onChangeText={this.changeUserName}
+						onChangeText={() => this.changeUserName()}
 						value={this.username}
 					/>
 				</View>
@@ -82,14 +82,14 @@ class Login extends Component {
 					<MyTextInput
 						placeholder="Password"
 						style={styles.textinput}
-						onChangeText={this.changePassword}
+						onChangeText={() => this.changePassword()}
 						value={this.password}
 					/>
 				</View>
 
 				<OrangeButton
 					text="SIGN IN"
-					onPress={() => this.props.navigation.navigate('Home')}
+					onPress={() => this.props.navigation.navigate('Explore')}
 				/>
 				<TouchableOpacity>
 					<Text style={styles.question}>forgot password ?</Text>
@@ -108,7 +108,7 @@ class Login extends Component {
 					<MyTextInput
 						placeholder="New Username"
 						style={styles.textinput}
-						onChangeText={this.changeNewUserName}
+						onChangeText={() => this.changeNewUserName()}
 						value={this.newUsername}
 					/>
 				</View>
@@ -121,7 +121,7 @@ class Login extends Component {
 					<MyTextInput
 						placeholder="New Password"
 						style={styles.textinput}
-						onChangeText={this.changeNewPassword}
+						onChangeText={() => this.changeNewPassword()}
 						value={this.newPassword}
 					/>
 				</View>
@@ -133,14 +133,16 @@ class Login extends Component {
 					<MyTextInput
 						placeholder="Comfirm Password"
 						style={styles.textinput}
-						onChangeText={this.changeConfirmPassword}
+						onChangeText={() => this.changeConfirmPassword()}
 						value={this.confirmPassword}
 					/>
 				</View>
 				<View>
 					<OrangeButton
 						text="SIGN UP"
-						onPress={() => this.props.navigation.navigate('Home')}
+						onPress={() =>
+							this.props.navigation.navigate('Explore')
+						}
 					/>
 					<TouchableOpacity>
 						<Text style={styles.question}>

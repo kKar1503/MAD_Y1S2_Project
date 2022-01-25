@@ -56,6 +56,7 @@ const Chats = ({navigation}) => {
 	return (
 		<SafeAreaView style={styles.container}>
 			<FlatList
+				nestedScrollEnabled={true}
 				data={DATA}
 				renderItem={renderItem}
 				keyExtractor={item => item.id}

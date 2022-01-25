@@ -4,7 +4,7 @@
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-
+import {createDrawerNavigator} from '@react-navigation/drawer';
 // =============================================
 // Import Screens
 // =============================================
@@ -27,17 +27,191 @@ import {
 	TouchableOpacity,
 	ScrollView,
 	TextInput,
+	Button,
 } from 'react-native';
 
 // =============================================
 // Create Native Stack Navigator
 // =============================================
 const Stack = createNativeStackNavigator();
-
+const Drawer = createDrawerNavigator();
 // =============================================
 // Export App with Native Stack Navigator
 // =============================================
+
+const chatNav = () => {
+	return (
+		<Stack.Navigator>
+			<Stack.Screen
+				name="Chats"
+				component={AllChatsScreen}
+				//options={{headerShown: false}}
+				options={{
+					headerStyle: {backgroundColor: '#424242'},
+					headerTintColor: 'white',
+					headerTitleAlign: 'center',
+				}}
+			/>
+			<Stack.Screen
+				name="Chatting"
+				component={ChattingScreen}
+				options={{
+					headerTintColor: 'white',
+					headerStyle: {backgroundColor: '#424242'},
+					headerTitleAlign: 'center',
+					headerTitle: () => (
+						<View style={{flexDirection: 'row'}}>
+							<Text
+								style={{
+									color: 'white',
+									justifyContent: 'center',
+									alignSelf: 'center',
+									fontSize: 20,
+									padding: 8,
+								}}>
+								Alyssa Sng
+							</Text>
+							<Image
+								source={require('./assets/img/Chat2.png')}
+								style={{width: 40, height: 40}}
+							/>
+						</View>
+					),
+				}}
+			/>
+		</Stack.Navigator>
+	);
+};
+
+const productNav = () => {
+	return (
+		<Stack.Navigator initialRouteName="Explore">
+			<Stack.Screen
+				name="Product"
+				component={ProductScreen}
+				options={{
+					headerTintColor: 'white',
+					headerStyle: {backgroundColor: '#424242'},
+					headerTitleAlign: 'center',
+					title: 'Explore',
+				}}
+			/>
+			<Stack.Screen
+				name="Chatting"
+				component={ChattingScreen}
+				options={{
+					headerTintColor: 'white',
+					headerStyle: {backgroundColor: '#424242'},
+					headerTitleAlign: 'center',
+					headerTitle: () => (
+						<View style={{flexDirection: 'row'}}>
+							<Text
+								style={{
+									color: 'white',
+									justifyContent: 'center',
+									alignSelf: 'center',
+									fontSize: 20,
+									padding: 8,
+								}}>
+								Alyssa Sng
+							</Text>
+							<Image
+								source={require('./assets/img/Chat2.png')}
+								style={{width: 40, height: 40}}
+							/>
+						</View>
+					),
+				}}
+			/>
+			<Stack.Screen
+				name="Explore"
+				component={ExploreScreen}
+				options={{
+					headerTintColor: 'white',
+					headerStyle: {backgroundColor: '#424242'},
+					headerTitleAlign: 'center',
+					title: 'Explore',
+				}}
+			/>
+		</Stack.Navigator>
+	);
+};
+const Draw = () => {
+	return (
+		<Drawer.Navigator initialRouteName="explore">
+			<Drawer.Screen
+				name="Explore"
+				component={productNav}
+				options={{
+					headerTintColor: 'white',
+					headerStyle: {backgroundColor: '#424242'},
+					headerTitleAlign: 'center',
+					title: 'Explore',
+					headerShown: false,
+				}}
+			/>
+			<Drawer.Screen
+				name="Chats"
+				component={chatNav}
+				options={{
+					headerShown: false,
+				}}
+			/>
+			<Drawer.Screen
+				name="Post New Listing"
+				component={NewListingScreen}
+				options={{
+					headerTintColor: 'white',
+					headerStyle: {backgroundColor: '#424242'},
+					headerTitleAlign: 'center',
+					title: 'New Listing',
+				}}
+			/>
+			<Drawer.Screen
+				name="My Reviews"
+				component={allReviewsScreen}
+				options={{
+					headerTintColor: 'white',
+					headerStyle: {backgroundColor: '#424242'},
+					headerTitleAlign: 'center',
+					title: 'My Reviews',
+				}}
+			/>
+			<Drawer.Screen
+				name="Settings"
+				component={EditProfileScreen}
+				options={{
+					headerTintColor: 'white',
+					headerStyle: {backgroundColor: '#424242'},
+					headerTitleAlign: 'center',
+					title: 'Settings',
+				}}
+			/>
+		</Drawer.Navigator>
+	);
+};
+
 const App = () => {
+	return (
+		<NavigationContainer>
+			<Stack.Navigator initialRouteName="Login">
+				<Stack.Screen
+					name="Login"
+					component={LoginScreen}
+					options={{headerShown: false}}
+				/>
+				<Stack.Screen
+					name="Explore"
+					component={Draw}
+					options={{headerShown: false}}
+				/>
+			</Stack.Navigator>
+		</NavigationContainer>
+	);
+};
+
+//----------------------------------------------------------------------- Previous
+const Ap = () => {
 	return (
 		<NavigationContainer>
 			<Stack.Navigator initialRouteName="Home">
@@ -171,7 +345,7 @@ const App = () => {
 					name="Review"
 					component={ReviewScreen}
 					options={{
-						headerShown:false,
+						headerShown: false,
 						headerTintColor: 'white',
 						headerStyle: {backgroundColor: '#424242'},
 						headerTitleAlign: 'center',

@@ -70,6 +70,7 @@ const Product = ({navigation}) => {
 						</Text>
 					</TouchableOpacity>
 					<TouchableOpacity
+						onPress={() => navigation.navigate('Chatting')}
 						style={{
 							width: 120,
 							height: 45,

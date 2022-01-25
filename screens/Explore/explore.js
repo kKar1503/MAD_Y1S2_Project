@@ -43,6 +43,7 @@ const Explore = ({navigation}) => {
 
 				<View style={styles.viewWrapper}>
 					<TouchableOpacity
+						onPress={() => navigation.navigate('Product')}
 						style={{
 							borderRadius: 10,
 						}}>

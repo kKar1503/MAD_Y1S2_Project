@@ -11,6 +11,7 @@ import {
 	TouchableOpacity,
 	Image,
 	FlatList,
+	SafeAreaView,
 } from 'react-native';
 
 // =============================================
@@ -53,14 +54,15 @@ const allReviews = ({navigation}) => {
 	);
 
 	return (
-		<ScrollView style={styles.container}>
+		<SafeAreaView style={styles.container}>
 			<FlatList
+				nestedScrollEnabled={true}
 				data={DATA}
 				renderItem={renderItem}
 				keyExtractor={item => item.id}
 				style={{paddingTop: 10}}
 			/>
-		</ScrollView>
+		</SafeAreaView>
 	);
 };
 
