@@ -171,17 +171,17 @@ class Login extends Component {
 					<View style={styles.rowButton}>
 						<TouchableOpacity onPress={this.handleHide}>
 							{this.state.isActive ? (
-								<Text style={styles.whitesignin}>Sign in</Text>
+								<Text style={styles.whitesignin}>Sign In</Text>
 							) : (
-								<Text style={styles.activesignin}>Sign in</Text>
+								<Text style={styles.activesignin}>Sign In</Text>
 							)}
 						</TouchableOpacity>
 
 						<TouchableOpacity onPress={this.handleShow}>
 							{this.state.isActive ? (
-								<Text style={styles.activesignup}>Sign up</Text>
+								<Text style={styles.activesignup}>Sign Up</Text>
 							) : (
-								<Text style={styles.whitesignup}>Sign in</Text>
+								<Text style={styles.whitesignup}>Sign Up</Text>
 							)}
 						</TouchableOpacity>
 					</View>
@@ -322,12 +322,12 @@ const styles = StyleSheet.create({
 	},
 
 	userpic: {
-		width: 18,
+		width: 20,
 		height: 20,
 		alignSelf: 'center',
 	},
 	passpic: {
-		width: 14,
+		width: 18,
 		height: 32,
 		alignSelf: 'center',
 	},

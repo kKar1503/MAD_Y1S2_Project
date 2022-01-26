@@ -18,6 +18,7 @@ import ProductScreen from './screens/Listings/product';
 import LoginScreen from './screens/login';
 import ReviewScreen from './screens/Reviews/Review';
 import allReviewsScreen from './screens/Reviews/allReviews';
+import CustomDrawer from './screens/CustomComponent/customDrawer';
 import {
 	SafeAreaView,
 	View,
@@ -138,7 +139,15 @@ const productNav = () => {
 };
 const Draw = () => {
 	return (
-		<Drawer.Navigator initialRouteName="explore">
+		<Drawer.Navigator
+			initialRouteName="Explore"
+			screenOptions={{
+				drawerStyle: {
+					backgroundColor: '#ff8657',
+					width: '73%',
+				},
+			}}
+			drawerContent={props => <CustomDrawer {...props} />}>
 			<Drawer.Screen
 				name="Explore"
 				component={productNav}
@@ -148,6 +157,8 @@ const Draw = () => {
 					headerTitleAlign: 'center',
 					title: 'Explore',
 					headerShown: false,
+					drawerLabelStyle: styles.drawer,
+					drawerActiveTintColor: 'white',
 				}}
 			/>
 			<Drawer.Screen
@@ -155,6 +166,8 @@ const Draw = () => {
 				component={chatNav}
 				options={{
 					headerShown: false,
+					drawerLabelStyle: styles.drawer,
+					drawerActiveTintColor: 'white',
 				}}
 			/>
 			<Drawer.Screen
@@ -165,6 +178,8 @@ const Draw = () => {
 					headerStyle: {backgroundColor: '#424242'},
 					headerTitleAlign: 'center',
 					title: 'New Listing',
+					drawerLabelStyle: styles.drawer,
+					drawerActiveTintColor: 'white',
 				}}
 			/>
 			<Drawer.Screen
@@ -175,6 +190,8 @@ const Draw = () => {
 					headerStyle: {backgroundColor: '#424242'},
 					headerTitleAlign: 'center',
 					title: 'My Reviews',
+					drawerLabelStyle: styles.drawer,
+					drawerActiveTintColor: 'white',
 				}}
 			/>
 			<Drawer.Screen
@@ -185,6 +202,8 @@ const Draw = () => {
 					headerStyle: {backgroundColor: '#424242'},
 					headerTitleAlign: 'center',
 					title: 'Settings',
+					drawerLabelStyle: styles.drawer,
+					drawerActiveTintColor: 'white',
 				}}
 			/>
 		</Drawer.Navigator>
@@ -210,161 +229,13 @@ const App = () => {
 	);
 };
 
-//----------------------------------------------------------------------- Previous
-const Ap = () => {
-	return (
-		<NavigationContainer>
-			<Stack.Navigator initialRouteName="Home">
-				<Stack.Screen
-					name="Home"
-					component={HomeScreen}
-					options={{
-						headerStyle: {backgroundColor: '#424242'},
-						headerTintColor: 'white',
-						headerTitleAlign: 'center',
-						headerLeft: () => (
-							<TouchableOpacity
-								onPress={() => alert('This is a button!')}>
-								<Image
-									source={require('./assets/img/nav.png')}
-								/>
-							</TouchableOpacity>
-						),
-					}}
-				/>
-				<Stack.Screen
-					name="Explore"
-					component={ExploreScreen}
-					options={({navigation}) => ({
-						headerTintColor: 'white',
-						headerStyle: {backgroundColor: '#424242'},
-						headerTitleAlign: 'center',
-						title: 'Hand It Down',
-						headerLeft: () => (
-							<TouchableOpacity
-								onPress={() => navigation.navigate('Home')}>
-								<Image
-									source={require('./assets/img/nav.png')}
-								/>
-							</TouchableOpacity>
-						),
-					})}
-				/>
-				<Stack.Screen
-					name="NewListing"
-					component={NewListingScreen}
-					options={{
-						headerTintColor: 'white',
-						headerStyle: {backgroundColor: '#424242'},
-						headerTitleAlign: 'center',
-						title: 'New Listing',
-					}}
-				/>
-				<Stack.Screen
-					name="EditProfile"
-					component={EditProfileScreen}
-					options={{
-						headerTintColor: 'white',
-						headerStyle: {backgroundColor: '#424242'},
-						headerTitleAlign: 'center',
-						title: 'Edit Profile',
-					}}
-				/>
-				<Stack.Screen
-					name="Chats"
-					component={AllChatsScreen}
-					options={({navigation}) => ({
-						headerTintColor: 'white',
-						headerStyle: {backgroundColor: '#424242'},
-						headerTitleAlign: 'center',
-						headerLeft: () => (
-							<TouchableOpacity
-								onPress={() => navigation.navigate('Home')}>
-								<Image
-									source={require('./assets/img/nav.png')}
-								/>
-							</TouchableOpacity>
-						),
-					})}
-				/>
-				<Stack.Screen
-					name="Chatting"
-					component={ChattingScreen}
-					options={{
-						headerTintColor: 'white',
-						headerStyle: {backgroundColor: '#424242'},
-						headerTitleAlign: 'center',
-						headerTitle: () => (
-							<View style={{flexDirection: 'row'}}>
-								<Text
-									style={{
-										color: 'white',
-										justifyContent: 'center',
-										alignSelf: 'center',
-										fontSize: 20,
-										padding: 8,
-									}}>
-									Alyssa Sng
-								</Text>
-								<Image
-									source={require('./assets/img/Chat2.png')}
-									style={{width: 40, height: 40}}
-								/>
-							</View>
-						),
-					}}
-				/>
-				<Stack.Screen
-					name="Product"
-					component={ProductScreen}
-					options={({navigation}) => ({
-						headerTintColor: 'white',
-						headerStyle: {backgroundColor: '#424242'},
-						headerTitleAlign: 'center',
-						headerLeft: () => (
-							<TouchableOpacity
-								onPress={() => navigation.navigate('Home')}>
-								<Image
-									source={require('./assets/img/nav.png')}
-								/>
-							</TouchableOpacity>
-						),
-					})}
-				/>
-				<Stack.Screen
-					name="Login"
-					component={LoginScreen}
-					options={{
-						headerTintColor: 'white',
-						headerStyle: {backgroundColor: '#424242'},
-						headerTitleAlign: 'center',
-						headerShown: false,
-					}}
-				/>
-				<Stack.Screen
-					name="Review"
-					component={ReviewScreen}
-					options={{
-						headerShown: false,
-						headerTintColor: 'white',
-						headerStyle: {backgroundColor: '#424242'},
-						headerTitleAlign: 'center',
-						title: 'Review',
-					}}
-				/>
-				<Stack.Screen
-					name="allReviews"
-					component={allReviewsScreen}
-					options={{
-						headerTintColor: 'white',
-						headerStyle: {backgroundColor: '#424242'},
-						headerTitleAlign: 'center',
-						title: 'allReviews',
-					}}
-				/>
-			</Stack.Navigator>
-		</NavigationContainer>
-	);
-};
+const styles = StyleSheet.create({
+	drawer: {
+		color: 'white',
+		fontSize: 18,
+		fontWeight: '400',
+		paddingLeft: 15,
+	},
+});
 
 export default App;
