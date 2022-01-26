@@ -32,7 +32,7 @@ const TestScreen = ({navigation}) => {
 			/>
 			<PopupDialogComponent
 				header="This is a very long title"
-				text="Hello world asddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+				text="Hello world"
 				confirmButtonText="Confirm"
 				onPressConfirm={() => alert('Hello world')}
 				onPressCancel={() => {
@@ -41,7 +41,6 @@ const TestScreen = ({navigation}) => {
 				}}
 				cancelButtonText="Cancel"
 				visible={showDialog}
-				height={150}
 			/>
 		</View>
 	);
