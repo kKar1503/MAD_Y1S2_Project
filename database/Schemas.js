@@ -7,7 +7,7 @@ export const UserSchema = {
 	name: USER_SCHEMA,
 	primaryKey: 'id',
 	properties: {
-		id: 'int', // Primary Key
+		id: 'objectId', // Primary Key
 		username: {typed: 'string', indexed: true},
 		password: 'string',
 		fullname: 'string',
@@ -29,6 +29,7 @@ export const insertNewUser = newUser =>
 			.then(realm => {
 				realm.write(() => {
 					realm.create(USER_SCHEMA, newUser);
+					console.log('done');
 					resolve(newUser);
 				});
 			})
@@ -76,7 +77,7 @@ export const queryUser = username =>
 			.then(realm => {
 				let foundUser = realm
 					.objects(USER_SCHEMA)
-					.find(`username CONTAINS[c] "${username}"`);
+					.filtered(`username ==[c] "${username}"`);
 				resolve(foundUser);
 			})
 			.catch(err => reject(err));
