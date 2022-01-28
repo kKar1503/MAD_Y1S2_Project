@@ -1,5 +1,14 @@
+/* eslint-disable react-native/no-inline-styles */
+
 // =============================================
-// Import necessary classes for development
+// Mobile Application Development
+// Name:        Yam Kar Lok & Vernell Lim Xi
+// Admission:   P2123181    & P2123136
+// Class:       DIT/FT/1B/04
+// =============================================
+
+// =============================================
+// Import Necessary Classes for Development
 // =============================================
 import React, {useState} from 'react';
 import {
@@ -11,10 +20,10 @@ import {
 	TouchableOpacity,
 	Image,
 } from 'react-native';
-import OrangeButton from '../CustomComponent/orangeButton';
+import CustomButton from '../CustomComponent/CustomButton';
 
 // =============================================
-// Main Page Implementation
+// Edit Profile Page Implementation
 // =============================================
 const Edit = ({navigation}) => {
 	const [name, setName] = useState('Jonathan Ooi');
@@ -124,7 +133,7 @@ const Edit = ({navigation}) => {
 				</View>
 			</ScrollView>
 			<View style={styles.footer}>
-				<OrangeButton
+				<CustomButton
 					text="SAVE CHANGES"
 					onPress={() => navigation.navigate('Home')}
 				/>
@@ -200,4 +209,7 @@ const styles = StyleSheet.create({
 	},
 });
 
+// =============================================
+// Export
+// =============================================
 export default Edit;
