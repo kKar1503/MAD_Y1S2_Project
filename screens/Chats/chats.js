@@ -1,5 +1,14 @@
+/* eslint-disable react-native/no-inline-styles */
+
 // =============================================
-// Import necessary classes for development
+// Mobile Application Development
+// Name:        Yam Kar Lok & Vernell Lim Xi
+// Admission:   P2123181    & P2123136
+// Class:       DIT/FT/1B/04
+// =============================================
+
+// =============================================
+// Import Necessary Classes for Development
 // =============================================
 import React from 'react';
 import {
@@ -10,13 +19,11 @@ import {
 	Text,
 	Image,
 	TouchableOpacity,
-	ScrollView,
 } from 'react-native';
 
 // =============================================
-// Main Page Implementation
+// Data Declaration for Gifted Chat
 // =============================================
-
 const DATA = [
 	{
 		id: '1',
@@ -43,6 +50,10 @@ const Item = ({title, username, source, navigation}) => (
 		</View>
 	</TouchableOpacity>
 );
+
+// =============================================
+// Chat Screen Implementation
+// =============================================
 const Chats = ({navigation}) => {
 	const renderItem = ({item}) => (
 		<Item
@@ -101,4 +112,7 @@ const styles = StyleSheet.create({
 	},
 });
 
+// =============================================
+// Export
+// =============================================
 export default Chats;

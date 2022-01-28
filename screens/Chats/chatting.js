@@ -1,28 +1,18 @@
+/* eslint-disable react-native/no-inline-styles */
+
 // =============================================
-// Import necessary classes for development
+// Mobile Application Development
+// Name:        Yam Kar Lok & Vernell Lim Xi
+// Admission:   P2123181    & P2123136
+// Class:       DIT/FT/1B/04
+// =============================================
+
+// =============================================
+// Import Necessary Classes for Development
 // =============================================
 import React, {useState, useCallback, useEffect} from 'react';
-import {
-	GiftedChat,
-	Send,
-	Composer,
-	Bubble,
-	Message,
-	MessageText,
-	GiftedAvatar,
-	utilse,
-} from 'react-native-gifted-chat';
-import {
-	SafeAreaView,
-	View,
-	FlatList,
-	StyleSheet,
-	Text,
-	Image,
-	TouchableOpacity,
-	ScrollView,
-	TextInput,
-} from 'react-native';
+import {GiftedChat, Bubble} from 'react-native-gifted-chat';
+import {View, StyleSheet} from 'react-native';
 
 // =============================================
 // Main Page Implementation
@@ -41,6 +31,8 @@ const Chatting = ({navigation}, props) => {
 		name: 'React Native',
 		avatar: require('../../assets/img/Chat1.png'),
 	};
+
+	// Sets Default Messages
 	useEffect(() => {
 		setMessages([
 			{
@@ -70,17 +62,19 @@ const Chatting = ({navigation}, props) => {
 		]);
 	}, []);
 
-	const onSend = useCallback((messages = []) => {
+	// Define onSend Function
+	const onSend = useCallback((newMessages = []) => {
 		setMessages(previousMessages =>
-			GiftedChat.append(previousMessages, messages),
+			GiftedChat.append(previousMessages, newMessages),
 		);
 	}, []);
 
-	const renderBubble = props => {
+	// Render Chat Bubbles
+	const renderBubble = bubbleProps => {
 		return (
 			<View style={{paddingTop: 5}}>
 				<Bubble
-					{...props}
+					{...bubbleProps}
 					textStyle={{
 						right: {
 							color: 'white',
@@ -112,7 +106,7 @@ const Chatting = ({navigation}, props) => {
 			<GiftedChat
 				{...props}
 				messages={messages}
-				onSend={messages => onSend(messages)}
+				onSend={messageToSend => onSend(messageToSend)}
 				user={user2}
 				renderBubble={renderBubble}
 				showUserAvatar={true}
@@ -133,4 +127,7 @@ const styles = StyleSheet.create({
 	},
 });
 
+// =============================================
+// Export
+// =============================================
 export default Chatting;
