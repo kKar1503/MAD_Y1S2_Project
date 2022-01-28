@@ -18,7 +18,6 @@ import {createDrawerNavigator} from '@react-navigation/drawer';
 // =============================================
 // Import Screens
 // =============================================
-import HomeScreen from './screens/home';
 import ExploreScreen from './screens/Explore/explore';
 import NewListingScreen from './screens/Listings/new';
 import EditProfileScreen from './screens/Profiles/edit';
@@ -30,17 +29,7 @@ import ReviewScreen from './screens/Reviews/Review';
 import allReviewsScreen from './screens/Reviews/allReviews';
 import TestScreen from './screens/TestScreen';
 import CustomDrawer from './screens/CustomComponent/customDrawer';
-import {
-	SafeAreaView,
-	View,
-	StyleSheet,
-	Text,
-	Image,
-	TouchableOpacity,
-	ScrollView,
-	TextInput,
-	Button,
-} from 'react-native';
+import {View, StyleSheet, Text, Image} from 'react-native';
 
 // =============================================
 // Initialize Native Stack & Drawer Navigator
