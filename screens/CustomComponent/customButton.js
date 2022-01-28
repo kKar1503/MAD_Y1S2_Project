@@ -1,46 +1,26 @@
-/**
- *
- * @format
- * @flow
- *
- * Practical - Custom Label
- */
+// =============================================
+// Mobile Application Development
+// Name:        Yam Kar Lok & Vernell Lim Xi
+// Admission:   P2123181    & P2123136
+// Class:       DIT/FT/1B/04
+// =============================================
+
+// =============================================
+// Import Necessary Classes for Development
+// =============================================
 import React, {Component} from 'react';
-import {
-	ImageBackground,
-	StyleSheet,
-	Text,
-	TouchableOpacity,
-} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity} from 'react-native';
 import PropTypes from 'prop-types';
 
+// =============================================
+// Implement CustomButton
+// =============================================
 export default class CustomButton extends Component {
 	render() {
-		const {
-			text,
-			onPress,
-			Color,
-			ButtonHeight,
-			ButtonMargin,
-			TextColor,
-			TextFont,
-		} = this.props;
+		const {text, onPress} = this.props;
 		return (
-			<TouchableOpacity
-				style={[
-					styles.button,
-					{
-						backgroundColor: Color,
-						height: ButtonHeight,
-						margin: ButtonMargin,
-					},
-				]}
-				onPress={() => onPress()}>
-				<Text
-					style={[
-						styles.robotoBold,
-						{fontSize: TextFont, color: TextColor},
-					]}>
+			<TouchableOpacity style={styles.button} onPress={() => onPress()}>
+				<Text style={[styles.buttonWord, styles.robotoBold]}>
 					{text}
 				</Text>
 			</TouchableOpacity>
@@ -48,23 +28,31 @@ export default class CustomButton extends Component {
 	}
 }
 
+// =============================================
+// Custom Prop with PropTypes
+// =============================================
 CustomButton.propTypes = {
 	text: PropTypes.string.isRequired,
 	onPress: PropTypes.func.isRequired,
-	Color: PropTypes.string,
-	ButtonHeight: PropTypes.number,
-	ButtonMargin: PropTypes.number,
-	TextColor: PropTypes.string,
-	TextFont: PropTypes.number,
 };
+
+// =============================================
+// Stylesheet
+// =============================================
 const styles = StyleSheet.create({
 	button: {
+		backgroundColor: '#FF8A65',
 		width: '88%',
+		height: 65,
 		justifyContent: 'center',
 		alignItems: 'center',
+		margin: 20,
 		borderRadius: 5,
 	},
-
+	buttonWord: {
+		color: 'white',
+		fontSize: 20,
+	},
 	robotoBold: {
 		fontFamily: 'Roboto-Bold',
 	},
