@@ -1,4 +1,3 @@
-/* eslint-disable react-native/no-inline-styles */
 import React, {Component} from 'react';
 import {StyleSheet, Text} from 'react-native';
 import PopupDialog, {
@@ -23,6 +22,7 @@ export default class PopupDialogComponent extends Component {
 		} = this.props;
 		return (
 			<PopupDialog
+				onTouchOutside={() => onPressCancel()}
 				dialogTitle={
 					<DialogTitle
 						style={styles.header}

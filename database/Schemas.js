@@ -8,7 +8,7 @@ export const UserSchema = {
 	primaryKey: 'id',
 	properties: {
 		id: 'objectId', // Primary Key
-		username: {typed: 'string', indexed: true},
+		username: {type: 'string', indexed: true},
 		password: 'string',
 		fullname: 'string',
 		email: 'string',
