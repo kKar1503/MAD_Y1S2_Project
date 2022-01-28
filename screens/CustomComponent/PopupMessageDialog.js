@@ -79,10 +79,18 @@ PopupDialogComponent.propTypes = {
 	header: PropTypes.string.isRequired,
 	text: PropTypes.string.isRequired,
 	onPressConfirm: PropTypes.func.isRequired,
-	confirmButtonText: PropTypes.string.isRequired,
+	confirmButtonText: PropTypes.string,
 	onPressCancel: PropTypes.func.isRequired,
-	cancelButtonText: PropTypes.string.isRequired,
+	cancelButtonText: PropTypes.string,
 	visible: PropTypes.bool.isRequired,
+};
+
+// =============================================
+// Custom Props with PropTypes
+// =============================================
+PopupDialogComponent.defaultProps = {
+	confirmButtonText: 'Confirm',
+	cancelButtonText: 'Cancel',
 };
 
 // =============================================

@@ -31,13 +31,10 @@ const TestScreen = ({navigation}) => {
 			<PopupDialogComponent
 				header="This is a very long title"
 				text="Hello worldHello worldHello worldHello worldHello worldHello worldHello worldHello worldHello worldHello worldHello worldHello worldHello worldHello worldHello world"
-				confirmButtonText="Confirm"
 				onPressConfirm={() => alert('Hello world')}
 				onPressCancel={() => {
 					setShowDialog(false);
-					console.log('cancelled');
 				}}
-				cancelButtonText="Cancel"
 				visible={showDialog}
 			/>
 		</View>

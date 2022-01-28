@@ -24,7 +24,7 @@ import EditProfileScreen from './screens/Profiles/EditProfile';
 import AllChatsScreen from './screens/Chats/Chats';
 import ChattingScreen from './screens/Chats/Chatting';
 import ProductScreen from './screens/Listings/ListingPage';
-import LoginScreen from './screens/login';
+import LoginScreen from './screens/Login';
 import ReviewScreen from './screens/Reviews/AddReview';
 import allReviewsScreen from './screens/Reviews/Reviews';
 import TestScreen from './screens/TestScreen';
