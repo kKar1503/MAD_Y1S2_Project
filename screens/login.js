@@ -1,3 +1,5 @@
+/* eslint-disable react-native/no-inline-styles */
+
 // =============================================
 // Mobile Application Development
 // Name:        Yam Kar Lok & Vernell Lim Xi
@@ -20,6 +22,8 @@ import {
 
 import MyTextInput from './CustomComponent/LoginInput';
 import CustomButton from './CustomComponent/CustomButton';
+import Authenticate from '../database/Authentication';
+import PopupMessageDialog from './CustomComponent/PopupMessageDialog';
 
 // =============================================
 // Main Page Implementation
@@ -32,10 +36,15 @@ class Login extends Component {
 			username: '',
 			password: '',
 			newUsername: '',
+			newName: '',
+			newEmail: '',
+			newBirthday: '',
+			newPhone: '',
 			newPassword: '',
 			confirmPassword: '',
 		};
 	}
+
 	handleShow = () => {
 		this.setState({
 			isActive: true,
@@ -51,6 +60,7 @@ class Login extends Component {
 	changeUserName = text => {
 		this.setState({username: text});
 	};
+
 	changePassword = text => {
 		this.setState({password: text});
 	};
@@ -58,14 +68,37 @@ class Login extends Component {
 	changeNewUserName = text => {
 		this.setState({newUsername: text});
 	};
+
+	changeNewName = text => {
+		this.setState({newName: text});
+	};
+
+	changeNewEmail = text => {
+		this.setState({newEmail: text});
+	};
+
+	changeNewBirthday = text => {
+		this.setState({newBirthday: text});
+	};
+
+	changeNewPhone = text => {
+		this.setState({newPhone: text});
+	};
+
 	changeNewPassword = text => {
 		this.setState({newPassword: text});
 	};
+
 	changeConfirmPassword = text => {
 		this.setState({confirmPassword: text});
 	};
 
+	displayDialog = () => {
+		this.messageDialog.showDialog();
+	};
+
 	notactive = () => {
+		const {username, password} = this.state;
 		return (
 			<View>
 				<View style={styles.inputcontainer}>
@@ -76,8 +109,8 @@ class Login extends Component {
 					<MyTextInput
 						placeholder="Username"
 						style={styles.textinput}
-						onChangeText={() => this.changeUserName()}
-						value={this.username}
+						onChangeText={this.changeUserName}
+						value={username}
 					/>
 				</View>
 
@@ -89,24 +122,49 @@ class Login extends Component {
 					<MyTextInput
 						placeholder="Password"
 						style={styles.textinput}
-						onChangeText={() => this.changePassword()}
-						value={this.password}
+						onChangeText={this.changePassword}
+						value={password}
+						secureTextEntry={true}
 					/>
 				</View>
-
-				<CustomButton
-					text="SIGN IN"
-					onPress={() => this.props.navigation.navigate('Explore')}
+				<View style={{alignItems: 'center'}}>
+					<CustomButton
+						text="SIGN IN"
+						onPress={() => {
+							Authenticate(username, password)
+								.then(user => {
+									this.props.navigation.navigate('Explore');
+								})
+								.catch(() => this.displayDialog());
+						}}
+						TextFont={25}
+						ButtonWidth={'60%'}
+					/>
+				</View>
+				<PopupMessageDialog
+					header="Error"
+					text="Your login credentials are incorrect, if you do not have an account please click Sign up!"
+					ref={c => (this.messageDialog = c)}
 				/>
 				<TouchableOpacity>
-					<Text style={styles.question}>forgot password ?</Text>
+					<Text style={styles.question}>Forgot Password?</Text>
 				</TouchableOpacity>
 			</View>
 		);
 	};
 	active = () => {
+		const {
+			newUsername,
+			newPassword,
+			confirmPassword,
+			newName,
+			newEmail,
+			newBirthday,
+			newPhone,
+		} = this.state;
+
 		return (
-			<View>
+			<ScrollView>
 				<View style={styles.inputcontainer}>
 					<Image
 						source={require('../assets/img/profile.png')}
@@ -115,21 +173,69 @@ class Login extends Component {
 					<MyTextInput
 						placeholder="New Username"
 						style={styles.textinput}
-						onChangeText={() => this.changeNewUserName()}
-						value={this.newUsername}
+						onChangeText={this.changeNewUserName}
+						value={newUsername}
 					/>
 				</View>
-
+				<View style={styles.inputcontainer}>
+					<Image
+						source={require('../assets/img/profile.png')}
+						style={styles.userpic}
+					/>
+					<MyTextInput
+						placeholder="Full Name"
+						style={styles.textinput}
+						onChangeText={this.changeNewName}
+						value={newName}
+					/>
+				</View>
+				<View style={styles.inputcontainer}>
+					<Image
+						source={require('../assets/img/profile.png')}
+						style={styles.userpic}
+					/>
+					<MyTextInput
+						placeholder="Email Address"
+						style={styles.textinput}
+						onChangeText={this.changeNewEmail}
+						value={newEmail}
+					/>
+				</View>
+				<View style={styles.inputcontainer}>
+					<Image
+						source={require('../assets/img/profile.png')}
+						style={styles.userpic}
+					/>
+					<MyTextInput
+						placeholder="Birthday"
+						style={styles.textinput}
+						onChangeText={this.changeNewBirthday}
+						value={newBirthday}
+					/>
+				</View>
+				<View style={styles.inputcontainer}>
+					<Image
+						source={require('../assets/img/profile.png')}
+						style={styles.userpic}
+					/>
+					<MyTextInput
+						placeholder="Phone Number"
+						style={styles.textinput}
+						onChangeText={this.changeNewPhone}
+						value={newPhone}
+					/>
+				</View>
 				<View style={styles.inputcontainer}>
 					<Image
 						source={require('../assets/img/password.png')}
 						style={styles.passpic}
 					/>
 					<MyTextInput
-						placeholder="New Password"
+						placeholder="Password"
 						style={styles.textinput}
-						onChangeText={() => this.changeNewPassword()}
-						value={this.newPassword}
+						onChangeText={this.changeNewPassword}
+						value={newPassword}
+						secureTextEntry={true}
 					/>
 				</View>
 				<View style={styles.inputcontainer}>
@@ -140,26 +246,25 @@ class Login extends Component {
 					<MyTextInput
 						placeholder="Comfirm Password"
 						style={styles.textinput}
-						onChangeText={() => this.changeConfirmPassword()}
-						value={this.confirmPassword}
+						onChangeText={this.changeConfirmPassword}
+						value={confirmPassword}
+						secureTextEntry={true}
 					/>
 				</View>
-				<View>
+				<View style={{alignItems: 'center', bottom: 0}}>
 					<CustomButton
 						text="SIGN UP"
-						onPress={() =>
-							this.props.navigation.navigate('Explore')
-						}
+						onPress={() => {
+							this.props.navigation.navigate('Explore');
+						}}
+						TextFont={25}
+						ButtonWidth={'60%'}
 					/>
-					<TouchableOpacity>
-						<Text style={styles.question}>
-							Already have an account ?
-						</Text>
-					</TouchableOpacity>
 				</View>
-			</View>
+			</ScrollView>
 		);
 	};
+
 	render(navigation) {
 		return (
 			<ScrollView style={styles.container}>
@@ -346,9 +451,10 @@ const styles = StyleSheet.create({
 	},
 
 	question: {
-		color: 'white',
+		color: 'red',
 		alignSelf: 'center',
 		padding: 6,
+		fontSize: 17,
 	},
 });
 
