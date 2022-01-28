@@ -70,7 +70,8 @@ const Profile = ({navigation}) => {
 				</Text>
 				<View style={{paddingVertical: 10, flexDirection: 'row'}}>
 					<Text style={styles.infoText}>Reviews:</Text>
-					<TouchableOpacity>
+					<TouchableOpacity
+						onPress={() => navigation.navigate('My Reviews')}>
 						<Text style={[styles.infoText, {paddingHorizontal: 5}]}>
 							(500+)
 						</Text>
@@ -92,10 +93,26 @@ const Profile = ({navigation}) => {
 							marginLeft: 9,
 							marginBottom: 30,
 						}}>
-						<View>
+						<View style={{paddingBottom: 10}}>
 							<Image
 								source={require('../../assets/img/cat1.png')}
+								style={styles.catImages}
 							/>
+							<Text style={styles.infoText}>Six of Brushes</Text>
+						</View>
+						<View style={{paddingBottom: 10}}>
+							<Image
+								source={require('../../assets/img/cat2.png')}
+								style={styles.catImages}
+							/>
+							<Text style={styles.infoText}>Math Books</Text>
+						</View>
+						<View style={{paddingBottom: 10}}>
+							<Image
+								source={require('../../assets/img/cat3.png')}
+								style={styles.catImages}
+							/>
+							<Text style={styles.infoText}>Math Books</Text>
 						</View>
 					</ScrollView>
 				</View>
@@ -128,6 +145,14 @@ const styles = StyleSheet.create({
 	infoText: {
 		color: 'lightgrey',
 		fontSize: 20,
+	},
+	catImages: {
+		width: 200,
+		height: undefined,
+		aspectRatio: 0.72,
+		borderRadius: 5,
+		marginRight: 50,
+		marginBottom: 30,
 	},
 });
 

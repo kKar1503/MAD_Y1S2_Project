@@ -197,7 +197,7 @@ const Draw = () => {
 					title: 'My Profile',
 					drawerLabelStyle: styles.drawer,
 					drawerActiveTintColor: 'white',
-                    headerTransparent:true
+					headerTransparent: true,
 				}}
 			/>
 			<Drawer.Screen
