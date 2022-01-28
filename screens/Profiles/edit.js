@@ -11,7 +11,7 @@ import {
 	TouchableOpacity,
 	Image,
 } from 'react-native';
-import OrangeButton from '../CustomComponent/orangeButton';
+import CustomButton from '../CustomComponent/customButton';
 
 // =============================================
 // Main Page Implementation
@@ -124,7 +124,7 @@ const Edit = ({navigation}) => {
 				</View>
 			</ScrollView>
 			<View style={styles.footer}>
-				<OrangeButton
+				<CustomButton
 					text="SAVE CHANGES"
 					onPress={() => navigation.navigate('Home')}
 				/>

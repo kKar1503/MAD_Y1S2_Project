@@ -11,7 +11,7 @@ import {
 	Image,
 	TouchableOpacity,
 } from 'react-native';
-import OrangeButton from '../CustomComponent/orangeButton';
+import CustomButton from '../CustomComponent/customButton';
 
 // =============================================
 // Main Page Implementation
@@ -71,14 +71,7 @@ const Product = ({navigation}) => {
 					</TouchableOpacity>
 					<TouchableOpacity
 						onPress={() => navigation.navigate('Chatting')}
-						style={{
-							width: 120,
-							height: 45,
-							backgroundColor: 'white',
-							justifyContent: 'center',
-							alignItems: 'center',
-							margin: 20,
-						}}>
+						style={styles.whitebutton}>
 						<Text
 							style={{
 								color: 'black',

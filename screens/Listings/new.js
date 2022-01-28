@@ -13,7 +13,7 @@ import {
 } from 'react-native';
 import {Picker} from '@react-native-picker/picker';
 import RadioGroup from 'react-native-radio-buttons-group';
-import OrangeButton from '../CustomComponent/orangeButton';
+import CustomButton from '../CustomComponent/customButton';
 
 // =============================================
 // RadioButtons Data
@@ -196,7 +196,7 @@ const NewProfile = ({navigation}) => {
 				</View>
 			</ScrollView>
 			<View style={styles.footer}>
-				<OrangeButton
+				<CustomButton
 					text="NEW AD"
 					onPress={() => navigation.navigate('Home')}
 				/>
