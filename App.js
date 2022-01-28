@@ -21,10 +21,11 @@ import {createDrawerNavigator} from '@react-navigation/drawer';
 import ExploreScreen from './screens/Explore/Explore';
 import NewListingScreen from './screens/Listings/NewListing';
 import EditProfileScreen from './screens/Profiles/EditProfile';
+import ProfileScreen from './screens/Profiles/Profile';
 import AllChatsScreen from './screens/Chats/Chats';
 import ChattingScreen from './screens/Chats/Chatting';
 import ProductScreen from './screens/Listings/ListingPage';
-import LoginScreen from './screens/login';
+import LoginScreen from './screens/Login';
 import ReviewScreen from './screens/Reviews/AddReview';
 import allReviewsScreen from './screens/Reviews/Reviews';
 import TestScreen from './screens/TestScreen';
@@ -132,7 +133,7 @@ const productNav = () => {
 const Draw = () => {
 	return (
 		<Drawer.Navigator
-			initialRouteName="Explore"
+			initialRouteName="Profile"
 			screenOptions={{
 				drawerStyle: {
 					backgroundColor: '#ff8657',
@@ -184,6 +185,19 @@ const Draw = () => {
 					title: 'My Reviews',
 					drawerLabelStyle: styles.drawer,
 					drawerActiveTintColor: 'white',
+				}}
+			/>
+			<Drawer.Screen
+				name="Profile"
+				component={ProfileScreen}
+				options={{
+					headerTintColor: 'white',
+					headerStyle: {backgroundColor: '#424242'},
+					headerTitleAlign: 'center',
+					title: 'My Profile',
+					drawerLabelStyle: styles.drawer,
+					drawerActiveTintColor: 'white',
+                    headerTransparent:true
 				}}
 			/>
 			<Drawer.Screen
