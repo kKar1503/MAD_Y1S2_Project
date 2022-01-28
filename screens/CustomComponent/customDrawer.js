@@ -1,20 +1,26 @@
-import React, {Component} from 'react';
+/* eslint-disable react-native/no-inline-styles */
+
+// =============================================
+// Mobile Application Development
+// Name:        Yam Kar Lok & Vernell Lim Xi
+// Admission:   P2123181    & P2123136
+// Class:       DIT/FT/1B/04
+// =============================================
+
+// =============================================
+// Import Necessary Classes for Development
+// =============================================
+import React from 'react';
 import {
 	DrawerContentScrollView,
 	DrawerItemList,
-	DrawerItem,
 } from '@react-navigation/drawer';
-import {
-	StyleSheet,
-	Text,
-	View,
-	ScrollView,
-	TouchableOpacity,
-	Image,
-	ImageBackground,
-} from 'react-native';
-import CustomSwitch from './customSwitch';
+import {StyleSheet, Text, View, TouchableOpacity, Image} from 'react-native';
+import CustomSwitch from './CustomSwitch';
 
+// =============================================
+// Drawer Component
+// =============================================
 const CustomDrawer = props => {
 	const onSelectSwitch = index => {
 		alert('Selected index: ' + index);
@@ -53,6 +59,10 @@ const CustomDrawer = props => {
 		</View>
 	);
 };
+
+// =============================================
+// Stylesheet
+// =============================================
 const styles = StyleSheet.create({
 	styleImage: {
 		width: 80,
@@ -65,8 +75,6 @@ const styles = StyleSheet.create({
 		padding: 5,
 	},
 	profile: {
-		//alignSelf: 'center',
-		//alignContent: 'center',
 		margin: 30,
 		marginLeft: 6,
 		paddingBottom: 7,
@@ -79,4 +87,8 @@ const styles = StyleSheet.create({
 		alignContent: 'flex-start',
 	},
 });
+
+// =============================================
+// Export
+// =============================================
 export default CustomDrawer;

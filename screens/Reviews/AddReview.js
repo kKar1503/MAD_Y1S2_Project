@@ -1,12 +1,18 @@
 // =============================================
-// Import necessary classes for development
+// Mobile Application Development
+// Name:        Yam Kar Lok & Vernell Lim Xi
+// Admission:   P2123181    & P2123136
+// Class:       DIT/FT/1B/04
 // =============================================
-import React, {useState} from 'react';
+
+// =============================================
+// Import Necessary Classes for Development
+// =============================================
+import React, from 'react';
 import {
 	StyleSheet,
 	Text,
 	View,
-	ScrollView,
 	TextInput,
 	TouchableOpacity,
 	Image,

@@ -1,17 +1,29 @@
+/* eslint-disable react-native/no-inline-styles */
+
 // =============================================
-// Import necessary classes for development
+// Mobile Application Development
+// Name:        Yam Kar Lok & Vernell Lim Xi
+// Admission:   P2123181    & P2123136
+// Class:       DIT/FT/1B/04
+// =============================================
+
+// =============================================
+// Import Necessary Classes for Development
 // =============================================
 import React from 'react';
 import {
 	StyleSheet,
 	Text,
 	View,
-	Button,
 	ScrollView,
 	Image,
 	TouchableOpacity,
 } from 'react-native';
+<<<<<<< HEAD:screens/Listings/ListingPage.js
+import CustomButton from '../CustomComponent/CustomButton';
+=======
 import CustomButton from '../CustomComponent/customButton';
+>>>>>>> 66e15dd565cf404bc9f317266ccc0d05d3c27ff1:screens/Listings/product.js
 
 // =============================================
 // Main Page Implementation
@@ -151,4 +163,7 @@ const styles = StyleSheet.create({
 	},
 });
 
+// =============================================
+// Export
+// =============================================
 export default Product;

@@ -1,5 +1,14 @@
+/* eslint-disable react-native/no-inline-styles */
+
 // =============================================
-// Import necessary classes for development
+// Mobile Application Development
+// Name:        Yam Kar Lok & Vernell Lim Xi
+// Admission:   P2123181    & P2123136
+// Class:       DIT/FT/1B/04
+// =============================================
+
+// =============================================
+// Import Necessary Classes for Development
 // =============================================
 import React, {useState} from 'react';
 import {
@@ -11,10 +20,14 @@ import {
 	TouchableOpacity,
 	Image,
 } from 'react-native';
+<<<<<<< HEAD:screens/Profiles/EditProfile.js
+import CustomButton from '../CustomComponent/CustomButton';
+=======
 import CustomButton from '../CustomComponent/customButton';
+>>>>>>> 66e15dd565cf404bc9f317266ccc0d05d3c27ff1:screens/Profiles/edit.js
 
 // =============================================
-// Main Page Implementation
+// Edit Profile Page Implementation
 // =============================================
 const Edit = ({navigation}) => {
 	const [name, setName] = useState('Jonathan Ooi');
@@ -200,4 +213,7 @@ const styles = StyleSheet.create({
 	},
 });
 
+// =============================================
+// Export
+// =============================================
 export default Edit;

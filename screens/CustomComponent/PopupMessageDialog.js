@@ -1,3 +1,13 @@
+// =============================================
+// Mobile Application Development
+// Name:        Yam Kar Lok & Vernell Lim Xi
+// Admission:   P2123181    & P2123136
+// Class:       DIT/FT/1B/04
+// =============================================
+
+// =============================================
+// Import Necessary Classes for Development
+// =============================================
 import React, {Component} from 'react';
 import {StyleSheet, Text} from 'react-native';
 import PopupDialog, {
@@ -9,6 +19,9 @@ import PopupDialog, {
 } from 'react-native-popup-dialog';
 import PropTypes from 'prop-types';
 
+// =============================================
+// Implements Popup Dialog Component
+// =============================================
 export default class PopupDialogComponent extends Component {
 	render() {
 		const {
@@ -59,6 +72,9 @@ export default class PopupDialogComponent extends Component {
 	}
 }
 
+// =============================================
+// Custom Props with PropTypes
+// =============================================
 PopupDialogComponent.propTypes = {
 	header: PropTypes.string.isRequired,
 	text: PropTypes.string.isRequired,
@@ -69,6 +85,9 @@ PopupDialogComponent.propTypes = {
 	visible: PropTypes.bool.isRequired,
 };
 
+// =============================================
+// Stylesheet
+// =============================================
 const styles = StyleSheet.create({
 	container: {
 		flexDirection: 'column',
