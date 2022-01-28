@@ -90,6 +90,7 @@ class Login extends Component {
 				<CustomButton
 					text="SIGN IN"
 					onPress={() => this.props.navigation.navigate('Explore')}
+					Color="#e88764"
 				/>
 				<TouchableOpacity>
 					<Text style={styles.question}>forgot password ?</Text>
@@ -143,6 +144,7 @@ class Login extends Component {
 						onPress={() =>
 							this.props.navigation.navigate('Explore')
 						}
+						Color="#e88764"
 					/>
 					<TouchableOpacity>
 						<Text style={styles.question}>

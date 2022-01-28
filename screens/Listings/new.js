@@ -199,6 +199,7 @@ const NewProfile = ({navigation}) => {
 				<CustomButton
 					text="NEW AD"
 					onPress={() => navigation.navigate('Home')}
+					Color="#e88764"
 				/>
 			</View>
 		</View>
