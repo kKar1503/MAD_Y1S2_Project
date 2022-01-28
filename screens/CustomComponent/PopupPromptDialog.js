@@ -22,21 +22,20 @@ import PropTypes from 'prop-types';
 // =============================================
 // Implements Popup Prompt Component
 // =============================================
-export default class PopupMessageComponent extends Component {
-	state = {
-		visibility: false,
-	};
-	showDialog() {
-		this.setState({visibility: true});
-	}
-
+export default class PopupPromptComponent extends Component {
 	render() {
-		const {header, text, dismissText} = this.props;
-		const {visibility} = this.state;
-
+		const {
+			header,
+			text,
+			onPressConfirm,
+			confirmButtonText,
+			onPressCancel,
+			cancelButtonText,
+			visible,
+		} = this.props;
 		return (
 			<PopupDialog
-				onTouchOutside={() => this.setState({visibility: false})}
+				onTouchOutside={() => onPressCancel()}
 				dialogTitle={
 					<DialogTitle
 						style={styles.header}
@@ -45,7 +44,7 @@ export default class PopupMessageComponent extends Component {
 					/>
 				}
 				width={0.7}
-				visible={visibility}
+				visible={visible}
 				dialogAnimation={
 					new SlideAnimation({
 						slideFrom: 'bottom',
@@ -54,8 +53,13 @@ export default class PopupMessageComponent extends Component {
 				footer={
 					<DialogFooter style={styles.footer}>
 						<DialogButton
-							onPress={() => this.setState({visibility: false})}
-							text={dismissText}
+							onPress={() => onPressConfirm()}
+							text={confirmButtonText}
+							textStyle={styles.footerText}
+						/>
+						<DialogButton
+							onPress={() => onPressCancel()}
+							text={cancelButtonText}
 							textStyle={styles.footerText}
 						/>
 					</DialogFooter>
@@ -71,17 +75,22 @@ export default class PopupMessageComponent extends Component {
 // =============================================
 // Custom Props with PropTypes
 // =============================================
-PopupMessageComponent.propTypes = {
+PopupPromptComponent.propTypes = {
 	header: PropTypes.string.isRequired,
 	text: PropTypes.string.isRequired,
-	dismissText: PropTypes.string,
+	onPressConfirm: PropTypes.func.isRequired,
+	confirmButtonText: PropTypes.string,
+	onPressCancel: PropTypes.func.isRequired,
+	cancelButtonText: PropTypes.string,
+	visible: PropTypes.bool.isRequired,
 };
 
 // =============================================
 // Custom Props with PropTypes
 // =============================================
-PopupMessageComponent.defaultProps = {
-	dismissText: 'Dismiss',
+PopupPromptComponent.defaultProps = {
+	confirmButtonText: 'Confirm',
+	cancelButtonText: 'Cancel',
 };
 
 // =============================================

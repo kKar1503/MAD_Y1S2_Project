@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
 import {StyleSheet, Text, View, Button} from 'react-native';
 import {insertNewUser, queryUser} from '../database/Schemas';
-import PopupDialogComponent from './CustomComponent/PopupMessageDialog';
+import PopupDialogComponent from './CustomComponent/PopupPromptDialog';
+import PopupMessageComponent from './CustomComponent/PopupMessageDialog';
 
 const newUser = {
 	id: 2,
@@ -17,6 +18,10 @@ const TestScreen = ({navigation}) => {
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
 	const [showDialog, setShowDialog] = useState(false);
+
+	const displayDialog = () => {
+		this.messageDialog.showDialog();
+	};
 	return (
 		<View>
 			<Text>{username}</Text>
@@ -24,18 +29,16 @@ const TestScreen = ({navigation}) => {
 			<Button
 				title="hello"
 				onPress={() => {
-					setShowDialog(true);
-					alert('done');
+					// setShowDialog(true);
+					// alert('done');
+					displayDialog();
 				}}
 			/>
-			<PopupDialogComponent
+			<PopupMessageComponent
 				header="This is a very long title"
 				text="Hello worldHello worldHello worldHello worldHello worldHello worldHello worldHello worldHello worldHello worldHello worldHello worldHello worldHello worldHello world"
-				onPressConfirm={() => alert('Hello world')}
-				onPressCancel={() => {
-					setShowDialog(false);
-				}}
 				visible={showDialog}
+				ref={c => (this.messageDialog = c)}
 			/>
 		</View>
 	);
