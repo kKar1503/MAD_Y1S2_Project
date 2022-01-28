@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 
 import MyTextInput from './CustomComponent/loginInput';
-import OrangeButton from './CustomComponent/orangeButton';
+import CustomButton from './CustomComponent/customButton';
 
 // =============================================
 // Main Page Implementation
@@ -87,7 +87,7 @@ class Login extends Component {
 					/>
 				</View>
 
-				<OrangeButton
+				<CustomButton
 					text="SIGN IN"
 					onPress={() => this.props.navigation.navigate('Explore')}
 				/>
@@ -138,7 +138,7 @@ class Login extends Component {
 					/>
 				</View>
 				<View>
-					<OrangeButton
+					<CustomButton
 						text="SIGN UP"
 						onPress={() =>
 							this.props.navigation.navigate('Explore')

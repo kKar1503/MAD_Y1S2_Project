@@ -19,7 +19,11 @@ import {
 	Image,
 	TouchableOpacity,
 } from 'react-native';
+<<<<<<< HEAD:screens/Listings/ListingPage.js
 import CustomButton from '../CustomComponent/CustomButton';
+=======
+import CustomButton from '../CustomComponent/customButton';
+>>>>>>> 66e15dd565cf404bc9f317266ccc0d05d3c27ff1:screens/Listings/product.js
 
 // =============================================
 // Main Page Implementation
@@ -79,14 +83,7 @@ const Product = ({navigation}) => {
 					</TouchableOpacity>
 					<TouchableOpacity
 						onPress={() => navigation.navigate('Chatting')}
-						style={{
-							width: 120,
-							height: 45,
-							backgroundColor: 'white',
-							justifyContent: 'center',
-							alignItems: 'center',
-							margin: 20,
-						}}>
+						style={styles.whitebutton}>
 						<Text
 							style={{
 								color: 'black',
