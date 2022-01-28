@@ -18,6 +18,7 @@ import ProductScreen from './screens/Listings/product';
 import LoginScreen from './screens/login';
 import ReviewScreen from './screens/Reviews/Review';
 import allReviewsScreen from './screens/Reviews/allReviews';
+import TestScreen from './screens/TestScreen';
 import CustomDrawer from './screens/CustomComponent/customDrawer';
 import {
 	SafeAreaView,
@@ -204,6 +205,16 @@ const Draw = () => {
 					title: 'Settings',
 					drawerLabelStyle: styles.drawer,
 					drawerActiveTintColor: 'white',
+				}}
+			/>
+			<Drawer.Screen
+				name="Test"
+				component={TestScreen}
+				options={{
+					headerTintColor: 'white',
+					headerStyle: {backgroundColor: '#424242'},
+					headerTitleAlign: 'center',
+					title: 'Test',
 				}}
 			/>
 		</Drawer.Navigator>
