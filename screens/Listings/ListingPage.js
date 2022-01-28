@@ -19,11 +19,7 @@ import {
 	Image,
 	TouchableOpacity,
 } from 'react-native';
-<<<<<<< HEAD:screens/Listings/ListingPage.js
 import CustomButton from '../CustomComponent/CustomButton';
-=======
-import CustomButton from '../CustomComponent/customButton';
->>>>>>> 66e15dd565cf404bc9f317266ccc0d05d3c27ff1:screens/Listings/product.js
 
 // =============================================
 // Main Page Implementation

@@ -21,11 +21,7 @@ import {
 } from 'react-native';
 import {Picker} from '@react-native-picker/picker';
 import RadioGroup from 'react-native-radio-buttons-group';
-<<<<<<< HEAD:screens/Listings/NewListing.js
 import CustomButton from '../CustomComponent/CustomButton';
-=======
-import CustomButton from '../CustomComponent/customButton';
->>>>>>> 66e15dd565cf404bc9f317266ccc0d05d3c27ff1:screens/Listings/new.js
 
 // =============================================
 // RadioButtons Data

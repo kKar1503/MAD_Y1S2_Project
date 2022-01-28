@@ -20,11 +20,7 @@ import {
 	TouchableOpacity,
 	Image,
 } from 'react-native';
-<<<<<<< HEAD:screens/Profiles/EditProfile.js
 import CustomButton from '../CustomComponent/CustomButton';
-=======
-import CustomButton from '../CustomComponent/customButton';
->>>>>>> 66e15dd565cf404bc9f317266ccc0d05d3c27ff1:screens/Profiles/edit.js
 
 // =============================================
 // Edit Profile Page Implementation
