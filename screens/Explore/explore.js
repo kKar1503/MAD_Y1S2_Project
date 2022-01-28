@@ -1,3 +1,11 @@
+/* eslint-disable react-native/no-inline-styles */
+// =============================================
+// Mobile Application Development
+// Name:        Yam Kar Lok & Vernell Lim Xi
+// Admission:   P2123181    & P2123136
+// Class:       DIT/FT/1B/04
+// =============================================
+
 // =============================================
 // Import necessary classes for development
 // =============================================
@@ -188,4 +196,7 @@ const styles = StyleSheet.create({
 	},
 });
 
+// =============================================
+// Export
+// =============================================
 export default Explore;

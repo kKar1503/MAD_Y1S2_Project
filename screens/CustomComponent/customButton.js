@@ -1,19 +1,20 @@
-/**
- *
- * @format
- * @flow
- *
- * Practical - Custom Label
- */
+// =============================================
+// Mobile Application Development
+// Name:        Yam Kar Lok & Vernell Lim Xi
+// Admission:   P2123181    & P2123136
+// Class:       DIT/FT/1B/04
+// =============================================
+
+// =============================================
+// Import Necessary Classes for Development
+// =============================================
 import React, {Component} from 'react';
-import {
-	ImageBackground,
-	StyleSheet,
-	Text,
-	TouchableOpacity,
-} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity} from 'react-native';
 import PropTypes from 'prop-types';
 
+// =============================================
+// Custom Button Implementation
+// =============================================
 export default class CustomButton extends Component {
 	render() {
 		const {
@@ -50,6 +51,9 @@ export default class CustomButton extends Component {
 	}
 }
 
+// =============================================
+// Custom Prop using PropTypes
+// =============================================
 CustomButton.propTypes = {
 	text: PropTypes.string.isRequired,
 	onPress: PropTypes.func.isRequired,
@@ -60,6 +64,10 @@ CustomButton.propTypes = {
 	TextFont: PropTypes.number,
 	ButtonWidth: PropTypes.string,
 };
+
+// =============================================
+// Default Props
+// =============================================
 CustomButton.defaultProps = {
 	ButtonHeight: 65,
 	ButtonWidth: '88%',
@@ -69,6 +77,9 @@ CustomButton.defaultProps = {
 	Color: '#e88764',
 };
 
+// =============================================
+// Stylesheet
+// =============================================
 const styles = StyleSheet.create({
 	button: {
 		justifyContent: 'center',

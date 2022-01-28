@@ -1,5 +1,3 @@
-/* eslint-disable react-native/no-inline-styles */
-
 // =============================================
 // Mobile Application Development
 // Name:        Yam Kar Lok & Vernell Lim Xi
