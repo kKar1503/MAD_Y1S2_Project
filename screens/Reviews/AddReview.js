@@ -8,7 +8,7 @@
 // =============================================
 // Import Necessary Classes for Development
 // =============================================
-import React, from 'react';
+import React from 'react';
 import {
 	StyleSheet,
 	Text,

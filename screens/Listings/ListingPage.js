@@ -67,28 +67,24 @@ const Product = ({navigation}) => {
 				</View>
 
 				<View style={{flexDirection: 'row'}}>
-					<TouchableOpacity style={styles.orangebutton}>
-						<Text
-							style={{
-								color: 'white',
-								fontWeight: '500',
-								fontSize: 25,
-							}}>
-							Reserve
-						</Text>
-					</TouchableOpacity>
-					<TouchableOpacity
-						onPress={() => navigation.navigate('Chatting')}
-						style={styles.whitebutton}>
-						<Text
-							style={{
-								color: 'black',
-								fontWeight: '500',
-								fontSize: 25,
-							}}>
-							contact
-						</Text>
-					</TouchableOpacity>
+					<CustomButton
+						text="Reserve"
+						onPress={() => {}}
+						ButtonHeight={45}
+						ButtonWidth={'45%'}
+						TextFont={25}
+					/>
+					<CustomButton
+						text="Contact"
+						onPress={() => {
+							navigation.navigate('Chatting');
+						}}
+						ButtonHeight={45}
+						ButtonWidth={'33%'}
+						Color="white"
+						TextFont={25}
+						TextColor="black"
+					/>
 				</View>
 			</ScrollView>
 		</View>

@@ -11,8 +11,8 @@ import {
 	Image,
 } from 'react-native';
 
-import MyTextInput from './CustomComponent/loginInput';
-import CustomButton from './CustomComponent/customButton';
+import MyTextInput from './CustomComponent/LoginInput';
+import CustomButton from './CustomComponent/CustomButton';
 
 // =============================================
 // Main Page Implementation
@@ -90,7 +90,6 @@ class Login extends Component {
 				<CustomButton
 					text="SIGN IN"
 					onPress={() => this.props.navigation.navigate('Explore')}
-					Color="#e88764"
 				/>
 				<TouchableOpacity>
 					<Text style={styles.question}>forgot password ?</Text>
@@ -144,7 +143,6 @@ class Login extends Component {
 						onPress={() =>
 							this.props.navigation.navigate('Explore')
 						}
-						Color="#e88764"
 					/>
 					<TouchableOpacity>
 						<Text style={styles.question}>
