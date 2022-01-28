@@ -13,12 +13,13 @@
 import React, {useState, useCallback, useEffect} from 'react';
 import {GiftedChat, Bubble} from 'react-native-gifted-chat';
 import {View, StyleSheet} from 'react-native';
-
+import reply from './ChatFunction/replies';
 // =============================================
 // Main Page Implementation
 // =============================================
 const Chatting = ({navigation}, props) => {
 	const [messages, setMessages] = useState([]);
+	const [count, setCount] = useState(0);
 
 	const user1 = {
 		_id: 1,
@@ -63,12 +64,34 @@ const Chatting = ({navigation}, props) => {
 	}, []);
 
 	// Define onSend Function
-	const onSend = useCallback((newMessages = []) => {
+	const onSend = (newMessages = []) => {
 		setMessages(previousMessages =>
 			GiftedChat.append(previousMessages, newMessages),
 		);
-	}, []);
+		setCount(count + 1);
+		console.log(count);
 
+		let msg = {
+			_id: messages.length + 1,
+			text: reply[count],
+			createdAt: new Date(),
+			user: user1,
+		};
+		if (count >= reply.length) {
+			msg.text = 'Automatic';
+		}
+
+		setTimeout(() => {
+			setMessages(previousMessages =>
+				GiftedChat.append(previousMessages, msg),
+			);
+			console.log('here');
+		}, 1000);
+	};
+
+	const onQuickReply = useCallback(quickReply => {
+		console.log('hello');
+	}, []);
 	// Render Chat Bubbles
 	const renderBubble = bubbleProps => {
 		return (
@@ -110,6 +133,7 @@ const Chatting = ({navigation}, props) => {
 				user={user2}
 				renderBubble={renderBubble}
 				showUserAvatar={true}
+				onQuickReply={quickReply => onQuickReply(quickReply)}
 			/>
 		</View>
 	);
