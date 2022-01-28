@@ -1,9 +1,22 @@
+/* eslint-disable react-native/no-inline-styles */
+
+// =============================================
+// Mobile Application Development
+// Name:        Yam Kar Lok & Vernell Lim Xi
+// Admission:   P2123181    & P2123136
+// Class:       DIT/FT/1B/04
+// =============================================
+
+// =============================================
+// Import Necessary Classes for Development
+// =============================================
 import React, {useState} from 'react';
+import {Text, View, TouchableOpacity} from 'react-native';
 
-import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
-
+// =============================================
+// Custom Switch for Changing Theme
+// =============================================
 const CustomSwitch = ({
-	navigation,
 	selectionMode,
 	roundCorner,
 	option1,
@@ -40,7 +53,7 @@ const CustomSwitch = ({
 						flex: 1,
 
 						backgroundColor:
-							getSelectionMode == 1 ? selectionColor : 'white',
+							getSelectionMode === 1 ? selectionColor : 'white',
 						borderRadius: getRoundCorner ? 25 : 0,
 						justifyContent: 'center',
 						alignItems: 'center',
@@ -48,7 +61,7 @@ const CustomSwitch = ({
 					<Text
 						style={{
 							color:
-								getSelectionMode == 1
+								getSelectionMode === 1
 									? 'white'
 									: selectionColor,
 						}}>
@@ -63,7 +76,7 @@ const CustomSwitch = ({
 						flex: 1,
 
 						backgroundColor:
-							getSelectionMode == 2 ? selectionColor : 'white',
+							getSelectionMode === 2 ? selectionColor : 'white',
 						borderRadius: getRoundCorner ? 25 : 0,
 						justifyContent: 'center',
 						alignItems: 'center',
@@ -71,7 +84,7 @@ const CustomSwitch = ({
 					<Text
 						style={{
 							color:
-								getSelectionMode == 2
+								getSelectionMode === 2
 									? 'white'
 									: selectionColor,
 						}}>
@@ -82,4 +95,8 @@ const CustomSwitch = ({
 		</View>
 	);
 };
+
+// =============================================
+// Export
+// =============================================
 export default CustomSwitch;

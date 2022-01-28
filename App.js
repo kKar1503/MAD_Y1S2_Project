@@ -8,7 +8,7 @@
 // =============================================
 
 // =============================================
-// Import necessary classes for development
+// Import Necessary Classes for Development
 // =============================================
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
@@ -21,14 +21,14 @@ import {createDrawerNavigator} from '@react-navigation/drawer';
 import ExploreScreen from './screens/Explore/explore';
 import NewListingScreen from './screens/Listings/new';
 import EditProfileScreen from './screens/Profiles/edit';
-import AllChatsScreen from './screens/Chats/chats';
-import ChattingScreen from './screens/Chats/chatting';
+import AllChatsScreen from './screens/Chats/Chats';
+import ChattingScreen from './screens/Chats/Chatting';
 import ProductScreen from './screens/Listings/product';
 import LoginScreen from './screens/login';
 import ReviewScreen from './screens/Reviews/Review';
 import allReviewsScreen from './screens/Reviews/allReviews';
 import TestScreen from './screens/TestScreen';
-import CustomDrawer from './screens/CustomComponent/customDrawer';
+import CustomDrawer from './screens/CustomComponent/CustomDrawer';
 import {View, StyleSheet, Text, Image} from 'react-native';
 
 // =============================================

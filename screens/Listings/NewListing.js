@@ -1,3 +1,12 @@
+/* eslint-disable react-native/no-inline-styles */
+
+// =============================================
+// Mobile Application Development
+// Name:        Yam Kar Lok & Vernell Lim Xi
+// Admission:   P2123181    & P2123136
+// Class:       DIT/FT/1B/04
+// =============================================
+
 // =============================================
 // Import Necessary Classes for Development
 // =============================================
@@ -6,14 +15,13 @@ import {
 	StyleSheet,
 	Text,
 	View,
-	TouchableOpacity,
 	ScrollView,
 	Image,
 	TextInput,
 } from 'react-native';
 import {Picker} from '@react-native-picker/picker';
 import RadioGroup from 'react-native-radio-buttons-group';
-import OrangeButton from '../CustomComponent/orangeButton';
+import CustomButton from '../CustomComponent/CustomButton';
 
 // =============================================
 // RadioButtons Data
@@ -69,7 +77,7 @@ const collectionRadioButtonsData = [
 ];
 
 // =============================================
-// Main Page Implementation
+// New Listing Page Implementation
 // =============================================
 const NewProfile = ({navigation}) => {
 	const [dynamicHeight, setDynamicHeight] = useState(60);
@@ -180,9 +188,10 @@ const NewProfile = ({navigation}) => {
 						]}
 						onChangeText={text => {
 							let newHeight = 60;
-							if (text.length > 25)
+							if (text.length > 25) {
 								newHeight +=
 									((text.length - 30) / 170) * 140 + 40;
+							}
 							setDynamicHeight(newHeight);
 							console.log(dynamicHeight);
 						}}
@@ -196,7 +205,7 @@ const NewProfile = ({navigation}) => {
 				</View>
 			</ScrollView>
 			<View style={styles.footer}>
-				<OrangeButton
+				<CustomButton
 					text="NEW AD"
 					onPress={() => navigation.navigate('Home')}
 				/>
@@ -266,4 +275,7 @@ const styles = StyleSheet.create({
 	},
 });
 
+// =============================================
+// Export
+// =============================================
 export default NewProfile;

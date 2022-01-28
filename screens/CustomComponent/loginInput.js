@@ -1,18 +1,27 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- *
- * Practical - Custom Label
- */
+/* eslint-disable react-native/no-inline-styles */
+
+// =============================================
+// Mobile Application Development
+// Name:        Yam Kar Lok & Vernell Lim Xi
+// Admission:   P2123181    & P2123136
+// Class:       DIT/FT/1B/04
+// =============================================
+
+// =============================================
+// Import Necessary Classes for Development
+// =============================================
 import React, {Component} from 'react';
 import {StyleSheet, TextInput} from 'react-native';
 
+// =============================================
+// Define Colors
+// =============================================
 const BLUE = '#428AF8';
 const LIGHT_GRAY = '#D3D3D3';
 
+// =============================================
+// Implementation of Login TextInput
+// =============================================
 export default class LoginInput extends Component {
 	state = {
 		isFocused: false,
@@ -55,6 +64,9 @@ export default class LoginInput extends Component {
 	}
 }
 
+// =============================================
+// Stylesheet
+// =============================================
 const styles = StyleSheet.create({
 	textInput: {
 		height: 40,
