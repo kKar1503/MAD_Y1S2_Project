@@ -30,7 +30,7 @@ import ReviewScreen from './screens/Reviews/AddReview';
 import allReviewsScreen from './screens/Reviews/Reviews';
 import TestScreen from './screens/TestScreen';
 import CustomDrawer from './screens/CustomComponent/CustomDrawer';
-import {View, StyleSheet, Text, Image} from 'react-native';
+import {View, StyleSheet, Text, Image, TouchableOpacity} from 'react-native';
 
 // =============================================
 // Initialize Native Stack & Drawer Navigator
@@ -128,12 +128,55 @@ const productNav = () => {
 };
 
 // =============================================
+// Profile Stack Navigator
+// =============================================
+const profileNav = ({navigation}) => {
+	return (
+		<Stack.Navigator initialRouteName="Profile">
+			<Stack.Screen
+				name="Profile"
+				component={ProfileScreen}
+				options={{
+					headerTintColor: 'white',
+					headerTitleAlign: 'center',
+					title: 'My Profile',
+					drawerActiveTintColor: 'white',
+					headerTransparent: true,
+					headerShadowVisible: false,
+					headerRight: () => (
+						<TouchableOpacity
+							onPress={() => navigation.navigate('Settings')}>
+							<Image
+								style={{width: 20, height: 20}}
+								source={require('./assets/img/dots.png')}
+							/>
+						</TouchableOpacity>
+					),
+				}}
+			/>
+			<Stack.Screen
+				name="Settings"
+				component={EditProfileScreen}
+				options={{
+					headerTintColor: 'white',
+					headerStyle: {backgroundColor: '#424242'},
+					headerTitleAlign: 'center',
+					title: 'Settings',
+					drawerLabelStyle: styles.drawer,
+					drawerActiveTintColor: 'white',
+				}}
+			/>
+		</Stack.Navigator>
+	);
+};
+
+// =============================================
 // Drawer Navigator
 // =============================================
 const Draw = () => {
 	return (
 		<Drawer.Navigator
-			initialRouteName="Profile"
+			initialRouteName="Explore"
 			screenOptions={{
 				drawerStyle: {
 					backgroundColor: '#ff8657',
@@ -189,29 +232,13 @@ const Draw = () => {
 			/>
 			<Drawer.Screen
 				name="Profile"
-				component={ProfileScreen}
+				component={profileNav}
 				options={{
-					headerTintColor: 'white',
-					headerStyle: {backgroundColor: '#424242'},
-					headerTitleAlign: 'center',
-					title: 'My Profile',
+					headerShown: false,
 					drawerLabelStyle: styles.drawer,
-					drawerActiveTintColor: 'white',
-					headerTransparent: true,
 				}}
 			/>
-			<Drawer.Screen
-				name="Settings"
-				component={EditProfileScreen}
-				options={{
-					headerTintColor: 'white',
-					headerStyle: {backgroundColor: '#424242'},
-					headerTitleAlign: 'center',
-					title: 'Settings',
-					drawerLabelStyle: styles.drawer,
-					drawerActiveTintColor: 'white',
-				}}
-			/>
+
 			<Drawer.Screen
 				name="Test"
 				component={TestScreen}

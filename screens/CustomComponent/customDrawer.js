@@ -31,7 +31,7 @@ const CustomDrawer = props => {
 				<View style={styles.border}>
 					<TouchableOpacity
 						style={styles.profile}
-						onPress={() => props.navigation.navigate('Settings')}>
+						onPress={() => props.navigation.navigate('Profile')}>
 						<Image
 							source={require('../../assets/img/Chat1.png')}
 							style={styles.styleImage}

@@ -120,7 +120,9 @@ const Profile = ({navigation}) => {
 		</View>
 	);
 };
-
+// =============================================
+// StyleSheet
+// =============================================
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
@@ -155,5 +157,7 @@ const styles = StyleSheet.create({
 		marginBottom: 30,
 	},
 });
-
+// =============================================
+// Export Profile
+// =============================================
 export default Profile;
