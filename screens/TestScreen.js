@@ -1,7 +1,5 @@
 import React, {useState} from 'react';
 import {StyleSheet, Text, View, Button} from 'react-native';
-import PopupDialog from 'react-native-popup-dialog/dist/PopupDialog';
-import {UserState} from 'realm';
 import {insertNewUser, queryUser} from '../database/Schemas';
 import PopupDialogComponent from './CustomComponent/PopupMessageDialog';
 

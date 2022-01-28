@@ -1,3 +1,12 @@
+/* eslint-disable react-native/no-inline-styles */
+
+// =============================================
+// Mobile Application Development
+// Name:        Yam Kar Lok & Vernell Lim Xi
+// Admission:   P2123181    & P2123136
+// Class:       DIT/FT/1B/04
+// =============================================
+
 // =============================================
 // Import necessary classes for development
 // =============================================
@@ -5,6 +14,7 @@ import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createDrawerNavigator} from '@react-navigation/drawer';
+
 // =============================================
 // Import Screens
 // =============================================
@@ -33,21 +43,20 @@ import {
 } from 'react-native';
 
 // =============================================
-// Create Native Stack Navigator
+// Initialize Native Stack & Drawer Navigator
 // =============================================
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
-// =============================================
-// Export App with Native Stack Navigator
-// =============================================
 
+// =============================================
+// Chat Stack Navigator
+// =============================================
 const chatNav = () => {
 	return (
 		<Stack.Navigator>
 			<Stack.Screen
 				name="Chats"
 				component={AllChatsScreen}
-				//options={{headerShown: false}}
 				options={{
 					headerStyle: {backgroundColor: '#424242'},
 					headerTintColor: 'white',
@@ -63,14 +72,7 @@ const chatNav = () => {
 					headerTitleAlign: 'center',
 					headerTitle: () => (
 						<View style={{flexDirection: 'row'}}>
-							<Text
-								style={{
-									color: 'white',
-									justifyContent: 'center',
-									alignSelf: 'center',
-									fontSize: 20,
-									padding: 8,
-								}}>
+							<Text style={styles.chattingHeader}>
 								Alyssa Sng
 							</Text>
 							<Image
@@ -85,6 +87,9 @@ const chatNav = () => {
 	);
 };
 
+// =============================================
+// Product Stack Navigator
+// =============================================
 const productNav = () => {
 	return (
 		<Stack.Navigator initialRouteName="Explore">
@@ -107,14 +112,7 @@ const productNav = () => {
 					headerTitleAlign: 'center',
 					headerTitle: () => (
 						<View style={{flexDirection: 'row'}}>
-							<Text
-								style={{
-									color: 'white',
-									justifyContent: 'center',
-									alignSelf: 'center',
-									fontSize: 20,
-									padding: 8,
-								}}>
+							<Text style={styles.chattingHeader}>
 								Alyssa Sng
 							</Text>
 							<Image
@@ -138,6 +136,10 @@ const productNav = () => {
 		</Stack.Navigator>
 	);
 };
+
+// =============================================
+// Drawer Navigator
+// =============================================
 const Draw = () => {
 	return (
 		<Drawer.Navigator
@@ -221,6 +223,9 @@ const Draw = () => {
 	);
 };
 
+// =============================================
+// App Configuration for Navigation Container
+// =============================================
 const App = () => {
 	return (
 		<NavigationContainer>
@@ -240,6 +245,9 @@ const App = () => {
 	);
 };
 
+// =============================================
+// Stylesheet
+// =============================================
 const styles = StyleSheet.create({
 	drawer: {
 		color: 'white',
@@ -247,6 +255,16 @@ const styles = StyleSheet.create({
 		fontWeight: '400',
 		paddingLeft: 15,
 	},
+	chattingHeader: {
+		color: 'white',
+		justifyContent: 'center',
+		alignSelf: 'center',
+		fontSize: 20,
+		padding: 8,
+	},
 });
 
+// =============================================
+// Export
+// =============================================
 export default App;
