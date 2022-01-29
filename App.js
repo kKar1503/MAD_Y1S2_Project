@@ -21,6 +21,7 @@ import {createDrawerNavigator} from '@react-navigation/drawer';
 import ExploreScreen from './screens/Explore/Explore';
 import NewListingScreen from './screens/Listings/NewListing';
 import EditProfileScreen from './screens/Profiles/EditProfile';
+import ProfileScreen from './screens/Profiles/Profile';
 import AllChatsScreen from './screens/Chats/Chats';
 import ChattingScreen from './screens/Chats/Chatting';
 import ProductScreen from './screens/Listings/ListingPage';
@@ -29,7 +30,7 @@ import ReviewScreen from './screens/Reviews/AddReview';
 import allReviewsScreen from './screens/Reviews/Reviews';
 import TestScreen from './screens/TestScreen';
 import CustomDrawer from './screens/CustomComponent/CustomDrawer';
-import {View, StyleSheet, Text, Image} from 'react-native';
+import {View, StyleSheet, Text, Image, TouchableOpacity} from 'react-native';
 
 // =============================================
 // Initialize Native Stack & Drawer Navigator
@@ -127,6 +128,49 @@ const productNav = () => {
 };
 
 // =============================================
+// Profile Stack Navigator
+// =============================================
+const profileNav = ({navigation}) => {
+	return (
+		<Stack.Navigator initialRouteName="Profile">
+			<Stack.Screen
+				name="Profile"
+				component={ProfileScreen}
+				options={{
+					headerTintColor: 'white',
+					headerTitleAlign: 'center',
+					title: 'My Profile',
+					drawerActiveTintColor: 'white',
+					headerTransparent: true,
+					headerShadowVisible: false,
+					headerRight: () => (
+						<TouchableOpacity
+							onPress={() => navigation.navigate('Settings')}>
+							<Image
+								style={{width: 20, height: 20}}
+								source={require('./assets/img/dots.png')}
+							/>
+						</TouchableOpacity>
+					),
+				}}
+			/>
+			<Stack.Screen
+				name="Settings"
+				component={EditProfileScreen}
+				options={{
+					headerTintColor: 'white',
+					headerStyle: {backgroundColor: '#424242'},
+					headerTitleAlign: 'center',
+					title: 'Settings',
+					drawerLabelStyle: styles.drawer,
+					drawerActiveTintColor: 'white',
+				}}
+			/>
+		</Stack.Navigator>
+	);
+};
+
+// =============================================
 // Drawer Navigator
 // =============================================
 const Draw = () => {
@@ -187,17 +231,14 @@ const Draw = () => {
 				}}
 			/>
 			<Drawer.Screen
-				name="Settings"
-				component={EditProfileScreen}
+				name="Profile"
+				component={profileNav}
 				options={{
-					headerTintColor: 'white',
-					headerStyle: {backgroundColor: '#424242'},
-					headerTitleAlign: 'center',
-					title: 'Settings',
+					headerShown: false,
 					drawerLabelStyle: styles.drawer,
-					drawerActiveTintColor: 'white',
 				}}
 			/>
+
 			<Drawer.Screen
 				name="Test"
 				component={TestScreen}
