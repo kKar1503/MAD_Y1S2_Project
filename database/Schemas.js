@@ -7,7 +7,7 @@ export const UserSchema = {
 	name: USER_SCHEMA,
 	primaryKey: 'id',
 	properties: {
-		id: 'objectId', // Primary Key
+		id: 'int', // Primary Key
 		username: {type: 'string', indexed: true},
 		password: 'string',
 		fullname: 'string',
@@ -27,9 +27,14 @@ export const insertNewUser = newUser =>
 	new Promise((resolve, reject) => {
 		Realm.open(databaseOptions)
 			.then(realm => {
+				const lastUser = realm
+					.objects(USER_SCHEMA)
+					.sorted('id', true)[0];
+				const highestId = lastUser == null ? 0 : lastUser.id;
+				newUser.id = highestId == null ? 1 : highestId + 1;
 				realm.write(() => {
 					realm.create(USER_SCHEMA, newUser);
-					console.log('done');
+					console.log('new user created');
 					resolve(newUser);
 				});
 			})

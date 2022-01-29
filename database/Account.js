@@ -8,12 +8,12 @@
 // =============================================
 // Import Necessary Classes for Development
 // =============================================
-import {queryUser} from './Schemas';
+import {queryUser, insertNewUser} from './Schemas';
 
 // =============================================
 // Main Logic for Authenticating User Login
 // =============================================
-const Authenticate = (username, password) =>
+export const Authenticate = (username, password) =>
 	new Promise((resolve, reject) => {
 		queryUser(username)
 			.then(user => {
@@ -27,7 +27,15 @@ const Authenticate = (username, password) =>
 			});
 	});
 
-// =============================================
-// Export
-// =============================================
-export default Authenticate;
+export const Signup = newUser =>
+	new Promise((resolve, reject) => {
+		insertNewUser(newUser)
+			.then(user => {
+				console.log(`${user.username} is created!`);
+				resolve();
+			})
+			.catch(err => {
+				console.log(err);
+				reject();
+			});
+	});

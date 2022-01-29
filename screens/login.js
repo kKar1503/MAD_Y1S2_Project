@@ -22,7 +22,7 @@ import {
 
 import MyTextInput from './CustomComponent/LoginInput';
 import CustomButton from './CustomComponent/CustomButton';
-import Authenticate from '../database/Authentication';
+import {Authenticate, Signup} from '../database/Account';
 import PopupMessageDialog from './CustomComponent/PopupMessageDialog';
 
 // =============================================
@@ -41,7 +41,8 @@ class Login extends Component {
 			newBirthday: '',
 			newPhone: '',
 			newPassword: '',
-			confirmPassword: '',
+			newConfirmPassword: '',
+			validInputs: false,
 		};
 	}
 
@@ -89,12 +90,28 @@ class Login extends Component {
 		this.setState({newPassword: text});
 	};
 
-	changeConfirmPassword = text => {
-		this.setState({confirmPassword: text});
+	changeNewConfirmPassword = text => {
+		this.setState({newConfirmPassword: text});
 	};
 
-	displayDialog = () => {
-		this.messageDialog.showDialog();
+	toggleValidInputs = validation => {
+		this.setState({validInputs: validation});
+	};
+
+	showWrongLoginDialog = () => {
+		this.wrongLoginDialog.showDialog();
+	};
+
+	showPasswordMismatchDialog = () => {
+		this.passwordMismatchDialog.showDialog();
+	};
+
+	showInvalidInputsDialog = () => {
+		this.invalidInputDialog.showDialog();
+	};
+
+	showSignupFailedDialog = () => {
+		this.signupFailedDialog.showDialog();
 	};
 
 	notactive = () => {
@@ -135,7 +152,7 @@ class Login extends Component {
 								.then(user => {
 									this.props.navigation.navigate('Explore');
 								})
-								.catch(() => this.displayDialog());
+								.catch(() => this.wrongLoginDialog());
 						}}
 						TextFont={25}
 						ButtonWidth={'60%'}
@@ -144,7 +161,7 @@ class Login extends Component {
 				<PopupMessageDialog
 					header="Error"
 					text="Your login credentials are incorrect, if you do not have an account please click Sign up!"
-					ref={c => (this.messageDialog = c)}
+					ref={c => (this.showWrongLoginDialog = c)}
 				/>
 				<TouchableOpacity>
 					<Text style={styles.question}>Forgot Password?</Text>
@@ -156,11 +173,12 @@ class Login extends Component {
 		const {
 			newUsername,
 			newPassword,
-			confirmPassword,
+			newConfirmPassword,
 			newName,
 			newEmail,
 			newBirthday,
 			newPhone,
+			validInputs,
 		} = this.state;
 
 		return (
@@ -246,8 +264,8 @@ class Login extends Component {
 					<MyTextInput
 						placeholder="Comfirm Password"
 						style={styles.textinput}
-						onChangeText={this.changeConfirmPassword}
-						value={confirmPassword}
+						onChangeText={this.changeNewConfirmPassword}
+						value={newConfirmPassword}
 						secureTextEntry={true}
 					/>
 				</View>
@@ -255,12 +273,54 @@ class Login extends Component {
 					<CustomButton
 						text="SIGN UP"
 						onPress={() => {
-							this.props.navigation.navigate('Explore');
+							console.log({newUsername});
+							console.log({newName});
+							console.log({newEmail});
+							console.log({newBirthday});
+							console.log({newPhone});
+							console.log({newPassword});
+							console.log({newConfirmPassword});
+							if (newPassword !== newConfirmPassword) {
+								this.showPasswordMismatchDialog();
+							} else if (!{validInputs}) {
+								this.showInvalidInputsDialog();
+							} else {
+								const newUser = {
+									username: newUsername,
+									password: newPassword,
+									fullname: newName,
+									email: newEmail,
+									birthday: new Date(),
+									phone: parseInt(newPhone, 10),
+								};
+								Signup(newUser)
+									.then(() => {
+										this.handleHide();
+									})
+									.catch(() => {
+										this.showSignupFailedDialog();
+									});
+							}
 						}}
 						TextFont={25}
 						ButtonWidth={'60%'}
 					/>
 				</View>
+				<PopupMessageDialog
+					header="Error"
+					text="Your password does not match, please check again!"
+					ref={c => (this.passwordMismatchDialog = c)}
+				/>
+				<PopupMessageDialog
+					header="Error"
+					text="Please check the input fields"
+					ref={c => (this.invalidInputsDialog = c)}
+				/>
+				<PopupMessageDialog
+					header="Error"
+					text="Unable to create account, please try again later!"
+					ref={c => (this.signupFailedDialog = c)}
+				/>
 			</ScrollView>
 		);
 	};
