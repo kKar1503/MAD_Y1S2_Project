@@ -11,14 +11,7 @@
 // Import Necessary Classes for Development
 // =============================================
 import React from 'react';
-import {
-	StyleSheet,
-	Text,
-	View,
-	ScrollView,
-	Image,
-	TouchableOpacity,
-} from 'react-native';
+import {StyleSheet, Text, View, ScrollView, Image} from 'react-native';
 import CustomButton from '../CustomComponent/CustomButton';
 
 // =============================================

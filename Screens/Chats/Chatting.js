@@ -13,7 +13,7 @@
 import React, {useState, useCallback, useEffect} from 'react';
 import {GiftedChat, Bubble} from 'react-native-gifted-chat';
 import {View, StyleSheet} from 'react-native';
-import reply from './ChatFunction/replies';
+import reply from './ChatFunction/Replies';
 // =============================================
 // Main Page Implementation
 // =============================================
