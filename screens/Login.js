@@ -1,3 +1,5 @@
+/* eslint-disable react-native/no-inline-styles */
+
 // =============================================
 // Mobile Application Development
 // Name:        Yam Kar Lok & Vernell Lim Xi
@@ -18,8 +20,11 @@ import {
 	Image,
 } from 'react-native';
 
-import MyTextInput from './CustomComponent/LoginInput';
+import LoginInput from './CustomComponent/LoginInput';
 import CustomButton from './CustomComponent/CustomButton';
+import {Authenticate, Signup} from '../database/Account';
+import PopupMessageDialog from './CustomComponent/PopupMessageDialog';
+import DatePicker from 'react-native-date-picker';
 
 // =============================================
 // Main Page Implementation
@@ -32,10 +37,17 @@ class Login extends Component {
 			username: '',
 			password: '',
 			newUsername: '',
+			newName: '',
+			newEmail: '',
+			newBirthday: new Date(),
+			newPhone: '',
 			newPassword: '',
-			confirmPassword: '',
+			newConfirmPassword: '',
+			validInputs: false,
+			showDatePicker: false,
 		};
 	}
+
 	handleShow = () => {
 		this.setState({
 			isActive: true,
@@ -51,6 +63,7 @@ class Login extends Component {
 	changeUserName = text => {
 		this.setState({username: text});
 	};
+
 	changePassword = text => {
 		this.setState({password: text});
 	};
@@ -58,14 +71,57 @@ class Login extends Component {
 	changeNewUserName = text => {
 		this.setState({newUsername: text});
 	};
+
+	changeNewName = text => {
+		this.setState({newName: text});
+	};
+
+	changeNewEmail = text => {
+		this.setState({newEmail: text});
+	};
+
+	changeNewPhone = text => {
+		this.setState({newPhone: text});
+	};
+
 	changeNewPassword = text => {
 		this.setState({newPassword: text});
 	};
-	changeConfirmPassword = text => {
-		this.setState({confirmPassword: text});
+
+	changeNewConfirmPassword = text => {
+		this.setState({newConfirmPassword: text});
+	};
+
+	toggleValidInputs = validation => {
+		this.setState({validInputs: validation});
+	};
+
+	toggleDatePicker = show => {
+		this.setState({showDatePicker: show});
+	};
+
+	setBirthday = date => {
+		this.setState({newBirthday: date});
+	};
+
+	showWrongLoginDialog = () => {
+		this.wrongLoginDialog.showDialog();
+	};
+
+	showPasswordMismatchDialog = () => {
+		this.passwordMismatchDialog.showDialog();
+	};
+
+	showInvalidInputsDialog = () => {
+		this.invalidInputDialog.showDialog();
+	};
+
+	showSignupFailedDialog = () => {
+		this.signupFailedDialog.showDialog();
 	};
 
 	notactive = () => {
+		const {username, password} = this.state;
 		return (
 			<View>
 				<View style={styles.inputcontainer}>
@@ -73,11 +129,11 @@ class Login extends Component {
 						source={require('../assets/img/profile.png')}
 						style={styles.userpic}
 					/>
-					<MyTextInput
+					<LoginInput
 						placeholder="Username"
 						style={styles.textinput}
-						onChangeText={() => this.changeUserName()}
-						value={this.username}
+						onChangeText={this.changeUserName}
+						value={username}
 					/>
 				</View>
 
@@ -86,80 +142,217 @@ class Login extends Component {
 						source={require('../assets/img/password.png')}
 						style={styles.passpic}
 					/>
-					<MyTextInput
+					<LoginInput
 						placeholder="Password"
 						style={styles.textinput}
-						onChangeText={() => this.changePassword()}
-						value={this.password}
+						onChangeText={this.changePassword}
+						value={password}
+						secureTextEntry={true}
 					/>
 				</View>
-
-				<CustomButton
-					text="SIGN IN"
-					onPress={() => this.props.navigation.navigate('Explore')}
+				<View style={{alignItems: 'center'}}>
+					<CustomButton
+						text="SIGN IN"
+						onPress={() => {
+							Authenticate(username, password)
+								.then(user => {
+									console.log(
+										`${user.username}[${user.id}] logged in. Their birthday is ${user.birthday}`,
+									);
+									this.props.navigation.navigate('Explore');
+								})
+								.catch(() => this.wrongLoginDialog());
+						}}
+						TextFont={25}
+						ButtonWidth={'60%'}
+					/>
+				</View>
+				<PopupMessageDialog
+					header="Error"
+					text="Your login credentials are incorrect, if you do not have an account please click Sign up!"
+					ref={c => (this.showWrongLoginDialog = c)}
 				/>
 				<TouchableOpacity>
-					<Text style={styles.question}>forgot password ?</Text>
+					<Text style={styles.question}>Forgot Password?</Text>
 				</TouchableOpacity>
 			</View>
 		);
 	};
 	active = () => {
+		const {
+			newUsername,
+			newPassword,
+			newConfirmPassword,
+			newName,
+			newEmail,
+			newBirthday,
+			newPhone,
+			validInputs,
+			showDatePicker,
+		} = this.state;
+
 		return (
-			<View>
+			<ScrollView>
 				<View style={styles.inputcontainer}>
 					<Image
 						source={require('../assets/img/profile.png')}
 						style={styles.userpic}
 					/>
-					<MyTextInput
+					<LoginInput
 						placeholder="New Username"
 						style={styles.textinput}
-						onChangeText={() => this.changeNewUserName()}
-						value={this.newUsername}
-					/>
-				</View>
-
-				<View style={styles.inputcontainer}>
-					<Image
-						source={require('../assets/img/password.png')}
-						style={styles.passpic}
-					/>
-					<MyTextInput
-						placeholder="New Password"
-						style={styles.textinput}
-						onChangeText={() => this.changeNewPassword()}
-						value={this.newPassword}
+						onChangeText={this.changeNewUserName}
+						value={newUsername}
 					/>
 				</View>
 				<View style={styles.inputcontainer}>
 					<Image
-						source={require('../assets/img/password.png')}
-						style={styles.passpic}
+						source={require('../assets/img/profile.png')}
+						style={styles.userpic}
 					/>
-					<MyTextInput
-						placeholder="Comfirm Password"
+					<LoginInput
+						placeholder="Full Name"
 						style={styles.textinput}
-						onChangeText={() => this.changeConfirmPassword()}
-						value={this.confirmPassword}
+						onChangeText={this.changeNewName}
+						value={newName}
 					/>
 				</View>
-				<View>
-					<CustomButton
-						text="SIGN UP"
-						onPress={() =>
-							this.props.navigation.navigate('Explore')
-						}
+				<View style={styles.inputcontainer}>
+					<Image
+						source={require('../assets/img/profile.png')}
+						style={styles.userpic}
 					/>
-					<TouchableOpacity>
-						<Text style={styles.question}>
-							Already have an account ?
-						</Text>
+					<LoginInput
+						placeholder="Email Address"
+						style={styles.textinput}
+						onChangeText={this.changeNewEmail}
+						value={newEmail}
+					/>
+				</View>
+				<View style={styles.inputcontainer}>
+					<Image
+						source={require('../assets/img/profile.png')}
+						style={styles.userpic}
+					/>
+					<DatePicker
+						modal
+						mode="date"
+						open={showDatePicker}
+						date={newBirthday}
+						onConfirm={date => {
+							console.log(date);
+							console.log(typeof date);
+							this.toggleDatePicker(false);
+							this.setBirthday(date);
+						}}
+						onCancel={() => {
+							this.toggleDatePicker(false);
+						}}
+					/>
+					<TouchableOpacity
+						onPress={() => this.toggleDatePicker(true)}
+						style={{width: '86%'}}>
+						<LoginInput
+							placeholder="Birthday"
+							style={[styles.textinput, {width: '100%'}]}
+							editable={false}
+						/>
 					</TouchableOpacity>
 				</View>
-			</View>
+				<View style={styles.inputcontainer}>
+					<Image
+						source={require('../assets/img/profile.png')}
+						style={styles.userpic}
+					/>
+					<LoginInput
+						placeholder="Phone Number"
+						style={styles.textinput}
+						onChangeText={this.changeNewPhone}
+						value={newPhone}
+					/>
+				</View>
+				<View style={styles.inputcontainer}>
+					<Image
+						source={require('../assets/img/password.png')}
+						style={styles.passpic}
+					/>
+					<LoginInput
+						placeholder="Password"
+						style={styles.textinput}
+						onChangeText={this.changeNewPassword}
+						value={newPassword}
+						secureTextEntry={true}
+					/>
+				</View>
+				<View style={styles.inputcontainer}>
+					<Image
+						source={require('../assets/img/password.png')}
+						style={styles.passpic}
+					/>
+					<LoginInput
+						placeholder="Comfirm Password"
+						style={styles.textinput}
+						onChangeText={this.changeNewConfirmPassword}
+						value={newConfirmPassword}
+						secureTextEntry={true}
+					/>
+				</View>
+				<View style={{alignItems: 'center', bottom: 0}}>
+					<CustomButton
+						text="SIGN UP"
+						onPress={() => {
+							console.log({newUsername});
+							console.log({newName});
+							console.log({newEmail});
+							console.log({newBirthday});
+							console.log({newPhone});
+							console.log({newPassword});
+							console.log({newConfirmPassword});
+							if (newPassword !== newConfirmPassword) {
+								this.showPasswordMismatchDialog();
+							} else if (!{validInputs}) {
+								this.showInvalidInputsDialog();
+							} else {
+								const newUser = {
+									username: newUsername,
+									password: newPassword,
+									fullname: newName,
+									email: newEmail,
+									birthday: newBirthday,
+									phone: parseInt(newPhone, 10),
+								};
+								Signup(newUser)
+									.then(() => {
+										this.handleHide();
+									})
+									.catch(() => {
+										this.showSignupFailedDialog();
+									});
+							}
+						}}
+						TextFont={25}
+						ButtonWidth={'60%'}
+					/>
+				</View>
+				<PopupMessageDialog
+					header="Error"
+					text="Your password does not match, please check again!"
+					ref={c => (this.passwordMismatchDialog = c)}
+				/>
+				<PopupMessageDialog
+					header="Error"
+					text="Please check the input fields"
+					ref={c => (this.invalidInputsDialog = c)}
+				/>
+				<PopupMessageDialog
+					header="Error"
+					text="Unable to create account, please try again later!"
+					ref={c => (this.signupFailedDialog = c)}
+				/>
+			</ScrollView>
 		);
 	};
+
 	render(navigation) {
 		return (
 			<ScrollView style={styles.container}>
@@ -213,7 +406,6 @@ const styles = StyleSheet.create({
 		paddingHorizontal: 15,
 		paddingLeft: 28,
 	},
-
 	logo: {
 		paddingTop: 20,
 	},
@@ -224,8 +416,12 @@ const styles = StyleSheet.create({
 		marginBottom: 20,
 		alignContent: 'center',
 	},
-	styleimage: {alignSelf: 'center', width: 122, height: 150, paddingTop: 10},
-
+	styleimage: {
+		alignSelf: 'center',
+		width: 122,
+		height: 150,
+		paddingTop: 10,
+	},
 	handitdown: {
 		alignSelf: 'center',
 		color: 'rgba(54, 153, 255, 1)',
@@ -233,7 +429,6 @@ const styles = StyleSheet.create({
 		fontWeight: '700',
 		fontFamily: 'Montserrat',
 	},
-
 	knowledge: {
 		alignSelf: 'center',
 		color: 'rgba(54, 153, 255, 1)',
@@ -241,7 +436,6 @@ const styles = StyleSheet.create({
 		fontWeight: '700',
 		fontFamily: 'Montserrat',
 	},
-
 	whitesignin: {
 		textAlign: 'center',
 		color: 'white',
@@ -270,7 +464,6 @@ const styles = StyleSheet.create({
 		borderBottomWidth: 2,
 		borderBottomColor: '#ff9e61',
 	},
-
 	whitesignup: {
 		textAlign: 'center',
 		color: 'white',
@@ -309,7 +502,6 @@ const styles = StyleSheet.create({
 		color: 'white',
 		width: '86%',
 	},
-
 	button: {
 		height: 60,
 		width: '86%',
@@ -327,7 +519,6 @@ const styles = StyleSheet.create({
 			height: 10,
 		},
 	},
-
 	userpic: {
 		width: 20,
 		height: 20,
@@ -338,18 +529,20 @@ const styles = StyleSheet.create({
 		height: 32,
 		alignSelf: 'center',
 	},
-
 	buttontext: {
 		color: 'white',
 		fontSize: 20,
 		fontWeight: '700',
 	},
-
 	question: {
-		color: 'white',
+		color: 'red',
 		alignSelf: 'center',
 		padding: 6,
+		fontSize: 17,
 	},
 });
 
+// =============================================
+// Export
+// =============================================
 export default Login;
