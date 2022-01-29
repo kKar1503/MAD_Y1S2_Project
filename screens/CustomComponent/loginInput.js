@@ -54,7 +54,7 @@ export default class LoginInput extends Component {
 				onFocus={this.handleFocus}
 				onBlur={this.handleBlur}
 				style={styles.textInput}
-				onChangeText={text => this.props.onChangeText(text)}
+				onChangeText={text => this.props.onChangeText(text.toString())}
 				value={this.props.value}
 				{...otherProps}
 			/>

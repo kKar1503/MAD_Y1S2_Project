@@ -3,6 +3,7 @@ import {StyleSheet, Text, View, Button} from 'react-native';
 import {insertNewUser, queryUser} from '../database/Schemas';
 import PopupDialogComponent from './CustomComponent/PopupPromptDialog';
 import PopupMessageComponent from './CustomComponent/PopupMessageDialog';
+import ValidatingInput from './CustomComponent/ValidationInput';
 
 const newUser = {
 	id: 2,
@@ -15,30 +16,19 @@ const newUser = {
 };
 
 const TestScreen = ({navigation}) => {
-	const [username, setUsername] = useState('');
-	const [password, setPassword] = useState('');
-	const [showDialog, setShowDialog] = useState(false);
+	const [value, setValue] = useState('');
 
-	const displayDialog = () => {
-		this.messageDialog.showDialog();
-	};
 	return (
 		<View>
-			<Text>{username}</Text>
-			<Text>{password}</Text>
-			<Button
-				title="hello"
-				onPress={() => {
-					// setShowDialog(true);
-					// alert('done');
-					displayDialog();
+			<ValidatingInput
+				type="password"
+				value={value}
+				onChangeText={text => {
+					setValue(text);
 				}}
-			/>
-			<PopupMessageComponent
-				header="This is a very long title"
-				text="Hello worldHello worldHello worldHello worldHello worldHello worldHello worldHello worldHello worldHello worldHello worldHello worldHello worldHello worldHello world"
-				visible={showDialog}
-				ref={c => (this.messageDialog = c)}
+				placeholder="Test"
+				locale="en-SG"
+				required={true}
 			/>
 		</View>
 	);

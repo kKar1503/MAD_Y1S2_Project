@@ -20,10 +20,11 @@ import {
 	Image,
 } from 'react-native';
 
-import MyTextInput from './CustomComponent/LoginInput';
+import LoginInput from './CustomComponent/LoginInput';
 import CustomButton from './CustomComponent/CustomButton';
 import {Authenticate, Signup} from '../database/Account';
 import PopupMessageDialog from './CustomComponent/PopupMessageDialog';
+import DatePicker from 'react-native-date-picker';
 
 // =============================================
 // Main Page Implementation
@@ -38,11 +39,12 @@ class Login extends Component {
 			newUsername: '',
 			newName: '',
 			newEmail: '',
-			newBirthday: '',
+			newBirthday: new Date(),
 			newPhone: '',
 			newPassword: '',
 			newConfirmPassword: '',
 			validInputs: false,
+			showDatePicker: false,
 		};
 	}
 
@@ -78,10 +80,6 @@ class Login extends Component {
 		this.setState({newEmail: text});
 	};
 
-	changeNewBirthday = text => {
-		this.setState({newBirthday: text});
-	};
-
 	changeNewPhone = text => {
 		this.setState({newPhone: text});
 	};
@@ -96,6 +94,14 @@ class Login extends Component {
 
 	toggleValidInputs = validation => {
 		this.setState({validInputs: validation});
+	};
+
+	toggleDatePicker = show => {
+		this.setState({showDatePicker: show});
+	};
+
+	setBirthday = date => {
+		this.setState({newBirthday: date});
 	};
 
 	showWrongLoginDialog = () => {
@@ -123,7 +129,7 @@ class Login extends Component {
 						source={require('../assets/img/profile.png')}
 						style={styles.userpic}
 					/>
-					<MyTextInput
+					<LoginInput
 						placeholder="Username"
 						style={styles.textinput}
 						onChangeText={this.changeUserName}
@@ -136,7 +142,7 @@ class Login extends Component {
 						source={require('../assets/img/password.png')}
 						style={styles.passpic}
 					/>
-					<MyTextInput
+					<LoginInput
 						placeholder="Password"
 						style={styles.textinput}
 						onChangeText={this.changePassword}
@@ -150,6 +156,9 @@ class Login extends Component {
 						onPress={() => {
 							Authenticate(username, password)
 								.then(user => {
+									console.log(
+										`${user.username}[${user.id}] logged in. Their birthday is ${user.birthday}`,
+									);
 									this.props.navigation.navigate('Explore');
 								})
 								.catch(() => this.wrongLoginDialog());
@@ -179,6 +188,7 @@ class Login extends Component {
 			newBirthday,
 			newPhone,
 			validInputs,
+			showDatePicker,
 		} = this.state;
 
 		return (
@@ -188,7 +198,7 @@ class Login extends Component {
 						source={require('../assets/img/profile.png')}
 						style={styles.userpic}
 					/>
-					<MyTextInput
+					<LoginInput
 						placeholder="New Username"
 						style={styles.textinput}
 						onChangeText={this.changeNewUserName}
@@ -200,7 +210,7 @@ class Login extends Component {
 						source={require('../assets/img/profile.png')}
 						style={styles.userpic}
 					/>
-					<MyTextInput
+					<LoginInput
 						placeholder="Full Name"
 						style={styles.textinput}
 						onChangeText={this.changeNewName}
@@ -212,7 +222,7 @@ class Login extends Component {
 						source={require('../assets/img/profile.png')}
 						style={styles.userpic}
 					/>
-					<MyTextInput
+					<LoginInput
 						placeholder="Email Address"
 						style={styles.textinput}
 						onChangeText={this.changeNewEmail}
@@ -224,19 +234,37 @@ class Login extends Component {
 						source={require('../assets/img/profile.png')}
 						style={styles.userpic}
 					/>
-					<MyTextInput
-						placeholder="Birthday"
-						style={styles.textinput}
-						onChangeText={this.changeNewBirthday}
-						value={newBirthday}
+					<DatePicker
+						modal
+						mode="date"
+						open={showDatePicker}
+						date={newBirthday}
+						onConfirm={date => {
+							console.log(date);
+							console.log(typeof date);
+							this.toggleDatePicker(false);
+							this.setBirthday(date);
+						}}
+						onCancel={() => {
+							this.toggleDatePicker(false);
+						}}
 					/>
+					<TouchableOpacity
+						onPress={() => this.toggleDatePicker(true)}
+						style={{width: '86%'}}>
+						<LoginInput
+							placeholder="Birthday"
+							style={[styles.textinput, {width: '100%'}]}
+							editable={false}
+						/>
+					</TouchableOpacity>
 				</View>
 				<View style={styles.inputcontainer}>
 					<Image
 						source={require('../assets/img/profile.png')}
 						style={styles.userpic}
 					/>
-					<MyTextInput
+					<LoginInput
 						placeholder="Phone Number"
 						style={styles.textinput}
 						onChangeText={this.changeNewPhone}
@@ -248,7 +276,7 @@ class Login extends Component {
 						source={require('../assets/img/password.png')}
 						style={styles.passpic}
 					/>
-					<MyTextInput
+					<LoginInput
 						placeholder="Password"
 						style={styles.textinput}
 						onChangeText={this.changeNewPassword}
@@ -261,7 +289,7 @@ class Login extends Component {
 						source={require('../assets/img/password.png')}
 						style={styles.passpic}
 					/>
-					<MyTextInput
+					<LoginInput
 						placeholder="Comfirm Password"
 						style={styles.textinput}
 						onChangeText={this.changeNewConfirmPassword}
@@ -290,7 +318,7 @@ class Login extends Component {
 									password: newPassword,
 									fullname: newName,
 									email: newEmail,
-									birthday: new Date(),
+									birthday: newBirthday,
 									phone: parseInt(newPhone, 10),
 								};
 								Signup(newUser)
@@ -378,7 +406,6 @@ const styles = StyleSheet.create({
 		paddingHorizontal: 15,
 		paddingLeft: 28,
 	},
-
 	logo: {
 		paddingTop: 20,
 	},
@@ -389,8 +416,12 @@ const styles = StyleSheet.create({
 		marginBottom: 20,
 		alignContent: 'center',
 	},
-	styleimage: {alignSelf: 'center', width: 122, height: 150, paddingTop: 10},
-
+	styleimage: {
+		alignSelf: 'center',
+		width: 122,
+		height: 150,
+		paddingTop: 10,
+	},
 	handitdown: {
 		alignSelf: 'center',
 		color: 'rgba(54, 153, 255, 1)',
@@ -398,7 +429,6 @@ const styles = StyleSheet.create({
 		fontWeight: '700',
 		fontFamily: 'Montserrat',
 	},
-
 	knowledge: {
 		alignSelf: 'center',
 		color: 'rgba(54, 153, 255, 1)',
@@ -406,7 +436,6 @@ const styles = StyleSheet.create({
 		fontWeight: '700',
 		fontFamily: 'Montserrat',
 	},
-
 	whitesignin: {
 		textAlign: 'center',
 		color: 'white',
@@ -435,7 +464,6 @@ const styles = StyleSheet.create({
 		borderBottomWidth: 2,
 		borderBottomColor: '#ff9e61',
 	},
-
 	whitesignup: {
 		textAlign: 'center',
 		color: 'white',
@@ -474,7 +502,6 @@ const styles = StyleSheet.create({
 		color: 'white',
 		width: '86%',
 	},
-
 	button: {
 		height: 60,
 		width: '86%',
@@ -492,7 +519,6 @@ const styles = StyleSheet.create({
 			height: 10,
 		},
 	},
-
 	userpic: {
 		width: 20,
 		height: 20,
@@ -503,13 +529,11 @@ const styles = StyleSheet.create({
 		height: 32,
 		alignSelf: 'center',
 	},
-
 	buttontext: {
 		color: 'white',
 		fontSize: 20,
 		fontWeight: '700',
 	},
-
 	question: {
 		color: 'red',
 		alignSelf: 'center',
@@ -518,4 +542,7 @@ const styles = StyleSheet.create({
 	},
 });
 
+// =============================================
+// Export
+// =============================================
 export default Login;
