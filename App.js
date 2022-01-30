@@ -18,18 +18,18 @@ import {createDrawerNavigator} from '@react-navigation/drawer';
 // =============================================
 // Import Screens
 // =============================================
-import ExploreScreen from './screens/Explore/Explore';
-import NewListingScreen from './screens/Listings/NewListing';
-import EditProfileScreen from './screens/Profiles/EditProfile';
-import ProfileScreen from './screens/Profiles/Profile';
-import AllChatsScreen from './screens/Chats/Chats';
-import ChattingScreen from './screens/Chats/Chatting';
-import ProductScreen from './screens/Listings/ListingPage';
-import LoginScreen from './screens/Login';
-import ReviewScreen from './screens/Reviews/AddReview';
-import allReviewsScreen from './screens/Reviews/Reviews';
-import TestScreen from './screens/TestScreen';
-import CustomDrawer from './screens/CustomComponent/CustomDrawer';
+import ExploreScreen from './Screens/Explore/Explore';
+import NewListingScreen from './Screens/Listings/NewListing';
+import EditProfileScreen from './Screens/Profiles/EditProfile';
+import ProfileScreen from './Screens/Profiles/Profile';
+import AllChatsScreen from './Screens/Chats/Chats';
+import ChattingScreen from './Screens/Chats/Chatting';
+import ProductScreen from './Screens/Listings/ListingPage';
+import LoginScreen from './Screens/Login';
+import ReviewScreen from './Screens/Reviews/AddReview';
+import allReviewsScreen from './Screens/Reviews/Reviews';
+import TestScreen from './Screens/TestScreen';
+import CustomDrawer from './Screens/CustomComponent/CustomDrawer';
 import {View, StyleSheet, Text, Image, TouchableOpacity} from 'react-native';
 
 // =============================================
