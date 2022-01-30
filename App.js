@@ -176,7 +176,7 @@ const profileNav = ({navigation}) => {
 const Draw = () => {
 	return (
 		<Drawer.Navigator
-			initialRouteName="Explore"
+			initialRouteName="Login"
 			screenOptions={{
 				drawerStyle: {
 					backgroundColor: '#ff8657',
@@ -249,6 +249,16 @@ const Draw = () => {
 					title: 'Test',
 				}}
 			/>
+			<Drawer.Screen
+				name="Login"
+				component={LoginScreen}
+				options={{
+					title: 'Logout',
+					headerShown: false,
+					swipeEdgeWidth: 0,
+					drawerLabelStyle: styles.drawer,
+				}}
+			/>
 		</Drawer.Navigator>
 	);
 };
@@ -259,18 +269,7 @@ const Draw = () => {
 const App = () => {
 	return (
 		<NavigationContainer>
-			<Stack.Navigator initialRouteName="Login">
-				<Stack.Screen
-					name="Login"
-					component={LoginScreen}
-					options={{headerShown: false}}
-				/>
-				<Stack.Screen
-					name="Explore"
-					component={Draw}
-					options={{headerShown: false}}
-				/>
-			</Stack.Navigator>
+			<Draw />
 		</NavigationContainer>
 	);
 };

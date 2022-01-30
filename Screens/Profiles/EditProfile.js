@@ -135,7 +135,7 @@ const Edit = ({navigation}) => {
 			<View style={styles.footer}>
 				<CustomButton
 					text="SAVE CHANGES"
-					onPress={() => navigation.navigate('Home')}
+					onPress={() => navigation.navigate('Profile')}
 				/>
 			</View>
 		</View>
