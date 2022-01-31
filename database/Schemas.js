@@ -1,6 +1,7 @@
 import Realm from 'realm';
 
 export const USER_SCHEMA = 'User';
+export const REVIEW_SCHEMA = 'Review';
 
 // Definitions for Models and Properties
 export const UserSchema = {
@@ -14,18 +15,35 @@ export const UserSchema = {
 		email: 'string',
 		birthday: 'date',
 		phone: 'int',
+		bio: 'string?',
 	},
 };
 
-const databaseOptions = {
+export const ReviewSchema = {
+	name: REVIEW_SCHEMA,
+	primaryKey: 'id',
+	properties: {
+		id: 'int', // Primary Key
+		stars: 'int',
+		reviewee: 'string',
+		recipient: USER_SCHEMA,
+	},
+};
+
+const userDatabaseOptions = {
 	path: 'user.realm',
 	schema: [UserSchema],
+};
+
+const reviewDatabaseOptions = {
+	path: 'review.realm',
+	schema: [ReviewSchema],
 };
 
 // Functions
 export const insertNewUser = newUser =>
 	new Promise((resolve, reject) => {
-		Realm.open(databaseOptions)
+		Realm.open(userDatabaseOptions)
 			.then(realm => {
 				const lastUser = realm
 					.objects(USER_SCHEMA)
@@ -43,7 +61,7 @@ export const insertNewUser = newUser =>
 
 export const updateUser = user =>
 	new Promise((resolve, reject) => {
-		Realm.open(databaseOptions)
+		Realm.open(userDatabaseOptions)
 			.then(realm => {
 				realm.write(() => {
 					let updatingUser = realm.objectForPrimaryKey(
@@ -62,7 +80,7 @@ export const updateUser = user =>
 
 export const updateUserPassword = user =>
 	new Promise((resolve, reject) => {
-		Realm.open(databaseOptions)
+		Realm.open(userDatabaseOptions)
 			.then(realm => {
 				realm.write(() => {
 					let updatingUser = realm.objectForPrimaryKey(
@@ -78,7 +96,7 @@ export const updateUserPassword = user =>
 
 export const queryUser = username =>
 	new Promise((resolve, reject) => {
-		Realm.open(databaseOptions)
+		Realm.open(userDatabaseOptions)
 			.then(realm => {
 				let foundUser = realm
 					.objects(USER_SCHEMA)
@@ -90,7 +108,7 @@ export const queryUser = username =>
 
 export const queryUserById = id =>
 	new Promise((resolve, reject) => {
-		Realm.open(databaseOptions)
+		Realm.open(userDatabaseOptions)
 			.then(realm => {
 				let foundUser = realm.objectForPrimaryKey(USER_SCHEMA, id);
 				resolve(foundUser);
@@ -98,14 +116,42 @@ export const queryUserById = id =>
 			.catch(err => reject(err));
 	});
 
-export const queryAllUsers = () =>
+export const postNewReview = (id, newReview) =>
 	new Promise((resolve, reject) => {
-		Realm.open(databaseOptions)
+		Realm.open(reviewDatabaseOptions)
 			.then(realm => {
-				let allUsers = realm.objects(USER_SCHEMA);
-				resolve(allUsers);
+				const lastReview = realm
+					.objects(REVIEW_SCHEMA)
+					.sorted('id', true)[0];
+				const highestId = lastReview == null ? 0 : lastReview.id;
+				const user = realm.objectForPrimaryKey(USER_SCHEMA, id);
+				newReview.recipient = user;
+				newReview.id = highestId == null ? 1 : highestId + 1;
+				realm.write(() => {
+					realm.create(REVIEW_SCHEMA, newReview);
+					console.log('new review created');
+					resolve(newReview);
+				});
 			})
 			.catch(err => reject(err));
 	});
 
-export default new Realm(databaseOptions);
+// Working halfway
+export const queryAllReviews = id =>
+	new Promise((resolve, reject) => {
+		Realm.open(userDatabaseOptions)
+			.then(realm => {
+				let foundUser = realm.objectForPrimaryKey(USER_SCHEMA, id);
+				if (
+					foundUser.reviews.length === 0 ||
+					foundUser.reviews == null
+				) {
+					reject();
+				} else {
+					resolve(foundUser.reviews);
+				}
+			})
+			.catch(err => reject(err));
+	});
+
+export default new Realm(userDatabaseOptions);

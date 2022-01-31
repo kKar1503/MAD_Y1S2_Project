@@ -8,24 +8,38 @@
 // =============================================
 // Import Necessary Classes for Development
 // =============================================
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
 	StyleSheet,
 	Text,
 	View,
 	ScrollView,
-	TextInput,
 	TouchableOpacity,
 	Image,
 	ImageBackground,
 } from 'react-native';
-import CustomButton from '../CustomComponent/CustomButton';
+import {LoadUserData} from '../../database/Account';
 
 // =============================================
 // Profile Page
 // =============================================
 
 const Profile = ({navigation}) => {
+	const [fullName, setFullName] = useState('');
+	const [username, setUsername] = useState('');
+	const [email, setEmail] = useState('');
+	const [bio, setBio] = useState('');
+	useEffect(() => {
+		LoadUserData()
+			.then(data => {
+				setUsername(data.username);
+				setFullName(data.fullname);
+				setEmail(data.email);
+				setBio(data.bio);
+			})
+			.catch(err => console.log(err));
+	});
+
 	return (
 		<View style={styles.container}>
 			<View style={{width: '100%', height: '45%'}}>
@@ -39,10 +53,10 @@ const Profile = ({navigation}) => {
 								alignItems: 'center',
 							}}>
 							<Text style={[styles.profileText, {fontSize: 25}]}>
-								Jonathan Ooi
+								{fullName}
 							</Text>
 							<Text style={[styles.profileText]}>
-								@jonathanooi
+								@{username}
 							</Text>
 						</View>
 					</View>
@@ -78,10 +92,10 @@ const Profile = ({navigation}) => {
 					</TouchableOpacity>
 				</View>
 				<View style={{paddingVertical: 10, flexDirection: 'row'}}>
-					<Text style={styles.infoText}>Location:</Text>
+					<Text style={styles.infoText}>Email:</Text>
 
 					<Text style={[styles.infoText, {paddingHorizontal: 5}]}>
-						Tampines
+						{email}
 					</Text>
 				</View>
 				<View style={{paddingVertical: 10}}>
