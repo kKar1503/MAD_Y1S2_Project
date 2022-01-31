@@ -25,10 +25,11 @@ import CustomButton from './CustomComponent/CustomButton';
 import {Authenticate, Signup} from '../database/Account';
 import PopupMessageDialog from './CustomComponent/PopupMessageDialog';
 import DatePicker from 'react-native-date-picker';
-
+import AsyncStorage from '@react-native-community/async-storage';
 // =============================================
 // Main Page Implementation
 // =============================================
+const STORAGE_USERNAME_KEY = '@save-username';
 class Login extends Component {
 	constructor(props) {
 		super(props);
@@ -120,6 +121,18 @@ class Login extends Component {
 		this.signupFailedDialog.showDialog();
 	};
 
+	saveData = async () => {
+		try {
+			AsyncStorage.clear();
+			await AsyncStorage.setItem(
+				STORAGE_USERNAME_KEY,
+				this.state.username,
+			);
+			console.log('Data saved');
+		} catch (e) {
+			console.log('Data not saved');
+		}
+	};
 	notactive = () => {
 		const {username, password} = this.state;
 		return (
@@ -159,6 +172,7 @@ class Login extends Component {
 									console.log(
 										`${user.username}[${user.id}] logged in. Their birthday is ${user.birthday}`,
 									);
+									this.saveData();
 									this.setState({username: '', password: ''});
 									this.props.navigation.navigate('Explore');
 								})
@@ -325,6 +339,7 @@ class Login extends Component {
 								this.setState({
 									newUsername: '',
 									newPassword: '',
+									newConfirmPassword: '',
 									newName: '',
 									newEmail: '',
 									newBirthday: new Date(),

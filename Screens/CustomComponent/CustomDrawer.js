@@ -17,15 +17,32 @@ import {
 } from '@react-navigation/drawer';
 import {StyleSheet, Text, View, TouchableOpacity, Image} from 'react-native';
 import CustomSwitch from './CustomSwitch';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
+import AsyncStorage from '@react-native-community/async-storage';
+import realm, {queryUser} from '../../database/Schemas';
 // =============================================
 // Drawer Component
 // =============================================
 const CustomDrawer = props => {
+	const STORAGE_USERNAME_KEY = '@save-username';
 	const [night, setNight] = useState(true);
+	const [username, setUsername] = useState('');
 	const onSelectSwitch = index => {
 		alert('Selected index: ' + index);
 	};
+	const loadData = async () => {
+		try {
+			const savedName = await AsyncStorage.getItem(STORAGE_USERNAME_KEY);
+			setUsername(savedName);
+		} catch (e) {
+			alert('Could not load data');
+		}
+	};
+	useEffect(() => {
+		loadData();
+		console.log('User:' + queryUser(username));
+		console.log(queryUser(username)._W);
+	}, []);
 	return (
 		<View style={{flex: 1}}>
 			<DrawerContentScrollView {...props}>
@@ -41,7 +58,7 @@ const CustomDrawer = props => {
 							Jonathan Ooi
 						</Text>
 						<Text style={[styles.name, {fontSize: 15}]}>
-							@jonathanooi
+							@{username}
 						</Text>
 					</TouchableOpacity>
 				</View>
