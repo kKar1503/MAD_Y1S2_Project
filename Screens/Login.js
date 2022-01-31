@@ -219,8 +219,8 @@ class Login extends Component {
 				</View>
 				<View style={styles.inputcontainer}>
 					<Image
-						source={require('../assets/img/profile.png')}
-						style={styles.userpic}
+						source={require('../assets/img/email.png')}
+						style={[styles.userpic, {height: 15}]}
 					/>
 					<LoginInput
 						placeholder="Email Address"
@@ -231,7 +231,7 @@ class Login extends Component {
 				</View>
 				<View style={styles.inputcontainer}>
 					<Image
-						source={require('../assets/img/profile.png')}
+						source={require('../assets/img/birthday.png')}
 						style={styles.userpic}
 					/>
 					<DatePicker
@@ -261,7 +261,7 @@ class Login extends Component {
 				</View>
 				<View style={styles.inputcontainer}>
 					<Image
-						source={require('../assets/img/profile.png')}
+						source={require('../assets/img/phone.png')}
 						style={styles.userpic}
 					/>
 					<LoginInput
