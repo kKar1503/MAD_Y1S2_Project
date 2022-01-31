@@ -159,6 +159,7 @@ class Login extends Component {
 									console.log(
 										`${user.username}[${user.id}] logged in. Their birthday is ${user.birthday}`,
 									);
+									this.setState({username: '', password: ''});
 									this.props.navigation.navigate('Explore');
 								})
 								.catch(() => this.wrongLoginDialog());
@@ -321,6 +322,14 @@ class Login extends Component {
 									birthday: newBirthday,
 									phone: parseInt(newPhone, 10),
 								};
+								this.setState({
+									newUsername: '',
+									newPassword: '',
+									newName: '',
+									newEmail: '',
+									newBirthday: new Date(),
+									newPhone: '',
+								});
 								Signup(newUser)
 									.then(() => {
 										this.handleHide();

@@ -73,7 +73,7 @@ const Profile = ({navigation}) => {
 					<TouchableOpacity
 						onPress={() => navigation.navigate('My Reviews')}>
 						<Text style={[styles.infoText, {paddingHorizontal: 5}]}>
-							(500+)
+							(2)
 						</Text>
 					</TouchableOpacity>
 				</View>

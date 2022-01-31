@@ -49,7 +49,7 @@ const CustomDrawer = props => {
 			</DrawerContentScrollView>
 			<View style={{padding: 20, alignSelf: 'flex-end'}}>
 				<CustomSwitch
-					selectionMode={true}
+					selectionMode={2}
 					roundCorner={true}
 					option1={'Dark'}
 					option2={'Light'}
