@@ -88,6 +88,16 @@ export const queryUser = username =>
 			.catch(err => reject(err));
 	});
 
+export const queryUserById = id =>
+	new Promise((resolve, reject) => {
+		Realm.open(databaseOptions)
+			.then(realm => {
+				let foundUser = realm.objectForPrimaryKey(USER_SCHEMA, id);
+				resolve(foundUser);
+			})
+			.catch(err => reject(err));
+	});
+
 export const queryAllUsers = () =>
 	new Promise((resolve, reject) => {
 		Realm.open(databaseOptions)

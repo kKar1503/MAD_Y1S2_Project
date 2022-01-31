@@ -29,7 +29,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 // =============================================
 // Main Page Implementation
 // =============================================
-const STORAGE_USERNAME_KEY = '@save-username';
+const STORAGE_USERID = '@current_login_id';
 class Login extends Component {
 	constructor(props) {
 		super(props);
@@ -121,18 +121,16 @@ class Login extends Component {
 		this.signupFailedDialog.showDialog();
 	};
 
-	saveData = async () => {
+	saveUserIdReference = async id => {
 		try {
 			AsyncStorage.clear();
-			await AsyncStorage.setItem(
-				STORAGE_USERNAME_KEY,
-				this.state.username,
-			);
+			await AsyncStorage.setItem(STORAGE_USERID, id.toString());
 			console.log('Data saved');
 		} catch (e) {
 			console.log('Data not saved');
 		}
 	};
+
 	notactive = () => {
 		const {username, password} = this.state;
 		return (
@@ -169,14 +167,14 @@ class Login extends Component {
 						onPress={() => {
 							Authenticate(username, password)
 								.then(user => {
-									console.log(
-										`${user.username}[${user.id}] logged in. Their birthday is ${user.birthday}`,
-									);
-									this.saveData();
+									this.saveUserIdReference(user.id);
 									this.setState({username: '', password: ''});
 									this.props.navigation.navigate('Explore');
 								})
-								.catch(() => this.wrongLoginDialog());
+								.catch(err => {
+									console.log(err);
+									this.showWrongLoginDialog();
+								});
 						}}
 						TextFont={25}
 						ButtonWidth={'60%'}
@@ -185,7 +183,7 @@ class Login extends Component {
 				<PopupMessageDialog
 					header="Error"
 					text="Your login credentials are incorrect, if you do not have an account please click Sign up!"
-					ref={c => (this.showWrongLoginDialog = c)}
+					ref={c => (this.wrongLoginDialog = c)}
 				/>
 				<TouchableOpacity>
 					<Text style={styles.question}>Forgot Password?</Text>

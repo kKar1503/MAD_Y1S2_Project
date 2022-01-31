@@ -8,11 +8,14 @@
 // =============================================
 // Import Necessary Classes for Development
 // =============================================
-import {queryUser, insertNewUser} from './Schemas';
+import AsyncStorage from '@react-native-community/async-storage';
+import {queryUser, insertNewUser, queryUserById} from './Schemas';
 
 // =============================================
 // Main Logic for Authenticating User Login
 // =============================================
+const STORAGE_USERID = '@current_login_id';
+
 export const Authenticate = (username, password) =>
 	new Promise((resolve, reject) => {
 		queryUser(username)
@@ -38,4 +41,15 @@ export const Signup = newUser =>
 				console.log(err);
 				reject();
 			});
+	});
+
+export const LoadUserData = () =>
+	new Promise((resolve, reject) => {
+		AsyncStorage.getItem(STORAGE_USERID)
+			.then(id => {
+				if (id != null) {
+					resolve(queryUserById(parseInt(id, 10)));
+				}
+			})
+			.catch(err => reject(err));
 	});
