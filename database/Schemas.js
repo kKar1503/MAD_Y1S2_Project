@@ -71,6 +71,7 @@ export const updateUser = user =>
 					updatingUser.fullname = user.fullname;
 					updatingUser.email = user.email;
 					updatingUser.birthday = user.birthday;
+					updatingUser.bio = user.bio;
 					updatingUser.phone = user.phone;
 					resolve();
 				});

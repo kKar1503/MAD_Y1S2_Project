@@ -19,16 +19,19 @@ import {
 	ImageBackground,
 } from 'react-native';
 import {LoadUserData} from '../../database/Account';
+import {useIsFocused} from '@react-navigation/native';
 
 // =============================================
 // Profile Page
 // =============================================
-
 const Profile = ({navigation}) => {
 	const [fullName, setFullName] = useState('');
 	const [username, setUsername] = useState('');
 	const [email, setEmail] = useState('');
 	const [bio, setBio] = useState('');
+
+	const isFocused = useIsFocused();
+
 	useEffect(() => {
 		LoadUserData()
 			.then(data => {
@@ -38,7 +41,8 @@ const Profile = ({navigation}) => {
 				setBio(data.bio);
 			})
 			.catch(err => console.log(err));
-	});
+		console.log('ur mom ded');
+	}, [isFocused]);
 
 	return (
 		<View style={styles.container}>
@@ -78,9 +82,7 @@ const Profile = ({navigation}) => {
 						lineHeight: 25,
 						paddingVertical: 10,
 					}}>
-					Jonathan is a smart student studying in Singapore
-					Polytechnics,and he always believe giving back to others,
-					especially his juniors!
+					{bio == null ? 'No bio added.' : bio}
 				</Text>
 				<View style={{paddingVertical: 10, flexDirection: 'row'}}>
 					<Text style={styles.infoText}>Reviews:</Text>

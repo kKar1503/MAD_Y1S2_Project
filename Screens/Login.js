@@ -266,7 +266,7 @@ class Login extends Component {
 						onPress={() => this.toggleDatePicker(true)}
 						style={{width: '86%'}}>
 						<LoginInput
-							placeholder="Birthday"
+							placeholder={newBirthday}
 							style={[styles.textinput, {width: '100%'}]}
 							editable={false}
 						/>

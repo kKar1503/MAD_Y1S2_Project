@@ -10,7 +10,7 @@
 // =============================================
 // Import Necessary Classes for Development
 // =============================================
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
 	StyleSheet,
 	Text,
@@ -21,16 +21,33 @@ import {
 	Image,
 } from 'react-native';
 import CustomButton from '../CustomComponent/CustomButton';
+import {LoadUserData} from '../../database/Account';
+import {updateUser} from '../../database/Schemas';
 
 // =============================================
 // Edit Profile Page Implementation
 // =============================================
 const Edit = ({navigation}) => {
-	const [name, setName] = useState('Jonathan Ooi');
-	const [email, setEmail] = useState('jonathan.ooi@gmail.com');
-	const [birthday, setBirthday] = useState('27th November 2021');
-	const [location, setLocation] = useState('Singapore');
-	const [phone, setPhone] = useState('(+65) 83214321');
+	const [name, setName] = useState('');
+	const [username, setUsername] = useState('');
+	const [email, setEmail] = useState('');
+	const [birthday, setBirthday] = useState(new Date());
+	const [bio, setBio] = useState('');
+	const [phone, setPhone] = useState(0);
+	const [userid, setUserid] = useState(0);
+
+	useEffect(() => {
+		LoadUserData().then(data => {
+			setName(data.fullname);
+			setUsername(data.username);
+			setEmail(data.email);
+			setBirthday(data.birthday);
+			setBio(data.bio);
+			setPhone(data.phone);
+			setUserid(data.id);
+		});
+	}, []);
+
 	return (
 		<View style={styles.container}>
 			<ScrollView>
@@ -50,28 +67,21 @@ const Edit = ({navigation}) => {
 								{
 									fontSize: 25,
 									color: 'white',
-									marginBottom: 20,
+									marginBottom: 10,
 								},
 							]}>
-							Jonathan Ooi
+							{name}
 						</Text>
 						<Text
 							style={[
 								styles.robotoReg,
 								{
-									fontSize: 15,
-									color: '#666666',
+									fontSize: 18,
+									color: '#888888',
 									marginBottom: 10,
 								},
 							]}>
-							@jonathanooi
-						</Text>
-						<Text
-							style={[
-								styles.robotoReg,
-								{fontSize: 15, color: '#666666'},
-							]}>
-							Member since 1 year ago
+							@{username}
 						</Text>
 					</View>
 				</View>
@@ -103,8 +113,8 @@ const Edit = ({navigation}) => {
 					<TextInput
 						style={[styles.textInput, styles.robotoReg]}
 						placeholder="Birthday"
-						value={birthday}
-						onChangeText={text => setBirthday(text)}
+						value={`${birthday.getDate()}/${birthday.getMonth()}/${birthday.getFullYear()}`}
+						// onChangeText={text => setBirthday(text)}
 						placeholderTextColor={'#9E9E9E'}
 						maxLength={40}
 					/>
@@ -113,9 +123,9 @@ const Edit = ({navigation}) => {
 					<Image source={require('../../assets/img/location.png')} />
 					<TextInput
 						style={[styles.textInput, styles.robotoReg]}
-						placeholder="Location"
-						value={location}
-						onChangeText={text => setLocation(text)}
+						placeholder="Bio"
+						value={bio}
+						onChangeText={text => setBio(text)}
 						placeholderTextColor={'#9E9E9E'}
 						maxLength={40}
 					/>
@@ -125,8 +135,10 @@ const Edit = ({navigation}) => {
 					<TextInput
 						style={[styles.textInput, styles.robotoReg]}
 						placeholder="Phone"
-						value={phone}
-						onChangeText={text => setPhone(text)}
+						value={phone.toString()}
+						onChangeText={text => {
+							setPhone(parseInt(text, 10));
+						}}
 						placeholderTextColor={'#9E9E9E'}
 						maxLength={40}
 					/>
@@ -135,7 +147,20 @@ const Edit = ({navigation}) => {
 			<View style={styles.footer}>
 				<CustomButton
 					text="SAVE CHANGES"
-					onPress={() => navigation.navigate('Profile')}
+					onPress={() => {
+						const userObj = {
+							id: userid,
+							fullname: name,
+							email: email,
+							birthday: birthday,
+							bio: bio,
+							phone: phone,
+						};
+						updateUser(userObj)
+							.then(() => console.log('updated ur mom'))
+							.catch(err => console.log(err));
+						navigation.navigate('Profile');
+					}}
 				/>
 			</View>
 		</View>
