@@ -21,6 +21,7 @@ import {
 } from 'react-native';
 
 import LoginInput from './CustomComponent/LoginInput';
+import ValidatingInput from './CustomComponent/ValidationInput';
 import CustomButton from './CustomComponent/CustomButton';
 import {Authenticate, Signup} from '../database/Account';
 import PopupMessageDialog from './CustomComponent/PopupMessageDialog';
@@ -30,6 +31,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 // Main Page Implementation
 // =============================================
 const STORAGE_USERID = '@current_login_id';
+const defaultDate = new Date();
 class Login extends Component {
 	constructor(props) {
 		super(props);
@@ -40,7 +42,7 @@ class Login extends Component {
 			newUsername: '',
 			newName: '',
 			newEmail: '',
-			newBirthday: new Date(),
+			newBirthday: defaultDate,
 			newPhone: '',
 			newPassword: '',
 			newConfirmPassword: '',
@@ -211,11 +213,12 @@ class Login extends Component {
 						source={require('../assets/img/profile.png')}
 						style={styles.userpic}
 					/>
-					<LoginInput
-						placeholder="New Username"
+					<ValidatingInput
+						placeholder="Username"
 						style={styles.textinput}
 						onChangeText={this.changeNewUserName}
 						value={newUsername}
+						type="number"
 					/>
 				</View>
 				<View style={styles.inputcontainer}>
@@ -266,9 +269,14 @@ class Login extends Component {
 						onPress={() => this.toggleDatePicker(true)}
 						style={{width: '86%'}}>
 						<LoginInput
-							placeholder={newBirthday}
+							placeholder="Birthday"
 							style={[styles.textinput, {width: '100%'}]}
 							editable={false}
+							value={
+								newBirthday === defaultDate
+									? null
+									: `${newBirthday.getDate()}/${newBirthday.getMonth()}/${newBirthday.getFullYear()}`
+							}
 						/>
 					</TouchableOpacity>
 				</View>
