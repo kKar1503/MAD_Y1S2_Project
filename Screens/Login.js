@@ -218,7 +218,7 @@ class Login extends Component {
 						style={styles.textinput}
 						onChangeText={this.changeNewUserName}
 						value={newUsername}
-						type="number"
+						type="alphanumeric"
 					/>
 				</View>
 				<View style={styles.inputcontainer}>
@@ -226,11 +226,13 @@ class Login extends Component {
 						source={require('../assets/img/profile.png')}
 						style={styles.userpic}
 					/>
-					<LoginInput
+					<ValidatingInput
 						placeholder="Full Name"
 						style={styles.textinput}
 						onChangeText={this.changeNewName}
 						value={newName}
+						type="alpha"
+						withSpace={true}
 					/>
 				</View>
 				<View style={styles.inputcontainer}>
@@ -238,11 +240,12 @@ class Login extends Component {
 						source={require('../assets/img/email.png')}
 						style={[styles.userpic, {height: 15}]}
 					/>
-					<LoginInput
+					<ValidatingInput
 						placeholder="Email Address"
 						style={styles.textinput}
 						onChangeText={this.changeNewEmail}
 						value={newEmail}
+						type="email"
 					/>
 				</View>
 				<View style={styles.inputcontainer}>
@@ -285,11 +288,12 @@ class Login extends Component {
 						source={require('../assets/img/phone.png')}
 						style={styles.userpic}
 					/>
-					<LoginInput
-						placeholder="Phone Number"
+					<ValidatingInput
+						placeholder="Mobile Phone"
 						style={styles.textinput}
 						onChangeText={this.changeNewPhone}
 						value={newPhone}
+						type="phone"
 					/>
 				</View>
 				<View style={styles.inputcontainer}>
@@ -297,12 +301,13 @@ class Login extends Component {
 						source={require('../assets/img/password.png')}
 						style={styles.passpic}
 					/>
-					<LoginInput
+					<ValidatingInput
 						placeholder="Password"
 						style={styles.textinput}
 						onChangeText={this.changeNewPassword}
 						value={newPassword}
 						secureTextEntry={true}
+						type="password"
 					/>
 				</View>
 				<View style={styles.inputcontainer}>
@@ -310,12 +315,13 @@ class Login extends Component {
 						source={require('../assets/img/password.png')}
 						style={styles.passpic}
 					/>
-					<LoginInput
+					<ValidatingInput
 						placeholder="Comfirm Password"
 						style={styles.textinput}
 						onChangeText={this.changeNewConfirmPassword}
 						value={newConfirmPassword}
 						secureTextEntry={true}
+						type="password"
 					/>
 				</View>
 				<View style={{alignItems: 'center', bottom: 0}}>

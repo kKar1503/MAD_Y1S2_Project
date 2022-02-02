@@ -75,13 +75,29 @@ class ValidatingInput extends Component {
 				}
 				break;
 			case 'alpha':
-				if (!validator.isAlpha(text)) {
-					is_valid = false;
+				if (this.props.withSpace) {
+					if (!validator.isAlpha(text, undefined, {ignore: ' '})) {
+						is_valid = false;
+					}
+				} else {
+					if (!validator.isAlpha(text)) {
+						is_valid = false;
+					}
 				}
 				break;
 			case 'alphanumeric':
-				if (!validator.isAlphanumeric(text)) {
-					is_valid = false;
+				if (this.props.withSpace) {
+					if (
+						!validator.isAlphanumeric(text, undefined, {
+							ignore: ' ',
+						})
+					) {
+						is_valid = false;
+					}
+				} else {
+					if (!validator.isAlphanumeric(text)) {
+						is_valid = false;
+					}
 				}
 				break;
 			case 'phone':
@@ -209,6 +225,7 @@ ValidatingInput.propTypes = {
 	value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
 	locale: PropTypes.string,
 	onChangeText: PropTypes.func,
+	withSpace: PropTypes.bool,
 };
 
 // =============================================
@@ -216,6 +233,7 @@ ValidatingInput.propTypes = {
 // =============================================
 ValidatingInput.defaultProps = {
 	type: 'default',
+	withSpace: false,
 };
 
 // =============================================

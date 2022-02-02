@@ -19,7 +19,6 @@ import {StyleSheet, Text, View, TouchableOpacity, Image} from 'react-native';
 import CustomSwitch from './CustomSwitch';
 import {useState, useEffect} from 'react';
 import {LoadUserData} from '../../database/Account';
-import {useIsFocused} from '@react-navigation/native';
 // =============================================
 // Drawer Component
 // =============================================
@@ -27,8 +26,6 @@ const CustomDrawer = props => {
 	const [night, setNight] = useState(true);
 	const [username, setUsername] = useState('');
 	const [fullName, setFullName] = useState('');
-
-	const isFocused = useIsFocused();
 
 	const onSelectSwitch = index => {
 		alert('Selected index: ' + index);
@@ -39,9 +36,10 @@ const CustomDrawer = props => {
 			.then(data => {
 				setUsername(data.username);
 				setFullName(data.fullname);
+				console.log('urmom');
 			})
 			.catch(err => console.log(err));
-	}, [isFocused]);
+	});
 
 	return (
 		<View style={{flex: 1}}>
