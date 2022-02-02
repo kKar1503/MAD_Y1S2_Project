@@ -12,7 +12,7 @@ import validator from 'validator';
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {Keyboard} from 'react-native';
-import LoginInput from './LoginInput';
+import InputField from './InputField';
 
 // =============================================
 // Implementation of Validating TextInput
@@ -204,7 +204,7 @@ class ValidatingInput extends Component {
 		}
 
 		return (
-			<LoginInput
+			<InputField
 				ref={r => {
 					this.input = r;
 				}}

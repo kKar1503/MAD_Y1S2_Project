@@ -20,7 +20,7 @@ import {
 	Image,
 } from 'react-native';
 
-import LoginInput from './CustomComponent/LoginInput';
+import InputField from './CustomComponent/InputField';
 import ValidatingInput from './CustomComponent/ValidationInput';
 import CustomButton from './CustomComponent/CustomButton';
 import {Authenticate, Signup} from '../database/Account';
@@ -142,7 +142,7 @@ class Login extends Component {
 						source={require('../assets/img/profile.png')}
 						style={styles.userpic}
 					/>
-					<LoginInput
+					<InputField
 						placeholder="Username"
 						style={styles.textinput}
 						onChangeText={this.changeUserName}
@@ -155,7 +155,7 @@ class Login extends Component {
 						source={require('../assets/img/password.png')}
 						style={styles.passpic}
 					/>
-					<LoginInput
+					<InputField
 						placeholder="Password"
 						style={styles.textinput}
 						onChangeText={this.changePassword}
@@ -271,7 +271,7 @@ class Login extends Component {
 					<TouchableOpacity
 						onPress={() => this.toggleDatePicker(true)}
 						style={{width: '86%'}}>
-						<LoginInput
+						<InputField
 							placeholder="Birthday"
 							style={[styles.textinput, {width: '100%'}]}
 							editable={false}
