@@ -26,8 +26,8 @@ import AllChatsScreen from './Screens/Chats/Chats';
 import ChattingScreen from './Screens/Chats/Chatting';
 import ProductScreen from './Screens/Listings/ListingPage';
 import LoginScreen from './Screens/Login';
-import ReviewScreen from './Screens/Reviews/AddReview';
-import allReviewsScreen from './Screens/Reviews/Reviews';
+import AddReviewScreen from './Screens/Reviews/AddReview';
+import ReviewsScreen from './Screens/Reviews/Reviews';
 import TestScreen from './Screens/TestScreen';
 import CustomDrawer from './Screens/CustomComponent/CustomDrawer';
 import {View, StyleSheet, Text, Image, TouchableOpacity} from 'react-native';
@@ -220,7 +220,7 @@ const Draw = () => {
 			/>
 			<Drawer.Screen
 				name="My Reviews"
-				component={allReviewsScreen}
+				component={ReviewsScreen}
 				options={{
 					headerTintColor: 'white',
 					headerStyle: {backgroundColor: '#424242'},

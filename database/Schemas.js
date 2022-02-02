@@ -2,6 +2,7 @@ import Realm from 'realm';
 
 export const USER_SCHEMA = 'User';
 export const REVIEW_SCHEMA = 'Review';
+export const LISTING_SCHEMA = 'Listing';
 
 // Definitions for Models and Properties
 export const UserSchema = {
@@ -26,7 +27,21 @@ export const ReviewSchema = {
 		id: 'int', // Primary Key
 		stars: 'int',
 		reviewee: 'string',
-		recipient: USER_SCHEMA,
+		recipient: 'string',
+	},
+};
+
+export const ListingSchema = {
+	name: LISTING_SCHEMA,
+	primaryKey: 'id',
+	properties: {
+		id: 'int', // Primary Key
+		title: {type: 'string', indexed: true},
+		owner: 'string',
+		collection: 'string[]',
+		category: 'string',
+		condition: 'string',
+		description: 'string',
 	},
 };
 
@@ -38,6 +53,11 @@ const userDatabaseOptions = {
 const reviewDatabaseOptions = {
 	path: 'review.realm',
 	schema: [ReviewSchema],
+};
+
+const listingDatabaseOptions = {
+	path: 'listing.realm',
+	schema: [ListingSchema],
 };
 
 // Functions
