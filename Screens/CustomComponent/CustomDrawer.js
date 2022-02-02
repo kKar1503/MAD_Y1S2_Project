@@ -36,7 +36,6 @@ const CustomDrawer = props => {
 			.then(data => {
 				setUsername(data.username);
 				setFullName(data.fullname);
-				console.log('urmom');
 			})
 			.catch(err => console.log(err));
 	});

@@ -354,7 +354,7 @@ class Login extends Component {
 									newConfirmPassword: '',
 									newName: '',
 									newEmail: '',
-									newBirthday: new Date(),
+									newBirthday: defaultDate,
 									newPhone: '',
 								});
 								Signup(newUser)
