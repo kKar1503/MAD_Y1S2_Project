@@ -23,6 +23,10 @@ import {
 import CustomButton from '../CustomComponent/CustomButton';
 import {LoadUserData} from '../../database/Account';
 import {updateUser} from '../../database/Schemas';
+import {useIsFocused} from '@react-navigation/native';
+import ValidatingInput from '../CustomComponent/ValidationInput';
+import DatePicker from 'react-native-date-picker';
+import InputField from '../CustomComponent/InputField';
 
 // =============================================
 // Edit Profile Page Implementation
@@ -33,8 +37,12 @@ const Edit = ({navigation}) => {
 	const [email, setEmail] = useState('');
 	const [birthday, setBirthday] = useState(new Date());
 	const [bio, setBio] = useState('');
-	const [phone, setPhone] = useState(0);
+	const [phone, setPhone] = useState('');
 	const [userid, setUserid] = useState(0);
+	const [currentName, setCurrentName] = useState('');
+	const [showDatePicker, setShowDatePicker] = useState(false);
+
+	const isFocused = useIsFocused();
 
 	useEffect(() => {
 		LoadUserData().then(data => {
@@ -43,10 +51,11 @@ const Edit = ({navigation}) => {
 			setEmail(data.email);
 			setBirthday(data.birthday);
 			setBio(data.bio);
-			setPhone(data.phone);
+			setPhone(data.phone.toString());
 			setUserid(data.id);
+			setCurrentName(data.fullname);
 		});
-	}, []);
+	}, [isFocused]);
 
 	return (
 		<View style={styles.container}>
@@ -70,7 +79,7 @@ const Edit = ({navigation}) => {
 									marginBottom: 10,
 								},
 							]}>
-							{name}
+							{currentName}
 						</Text>
 						<Text
 							style={[
@@ -88,59 +97,81 @@ const Edit = ({navigation}) => {
 
 				<View style={(styles.viewWrapper, styles.inputFields)}>
 					<Image source={require('../../assets/img/profile.png')} />
-					<TextInput
+					<ValidatingInput
 						style={[styles.textInput, styles.robotoReg]}
 						placeholder="Name"
 						value={name}
 						onChangeText={text => setName(text)}
-						placeholderTextColor={'#9E9E9E'}
-						maxLength={40}
+						maxLength={20}
+						type="alpha"
+						withSpace={true}
 					/>
 				</View>
 				<View style={(styles.viewWrapper, styles.inputFields)}>
 					<Image source={require('../../assets/img/email.png')} />
-					<TextInput
+					<ValidatingInput
 						style={[styles.textInput, styles.robotoReg]}
 						placeholder="Email"
 						value={email}
 						onChangeText={text => setEmail(text)}
-						placeholderTextColor={'#9E9E9E'}
-						maxLength={40}
+						maxLength={30}
+						type="email"
 					/>
 				</View>
 				<View style={(styles.viewWrapper, styles.inputFields)}>
 					<Image source={require('../../assets/img/birthday.png')} />
-					<TextInput
-						style={[styles.textInput, styles.robotoReg]}
-						placeholder="Birthday"
-						value={`${birthday.getDate()}/${birthday.getMonth()}/${birthday.getFullYear()}`}
-						// onChangeText={text => setBirthday(text)}
-						placeholderTextColor={'#9E9E9E'}
-						maxLength={40}
+					<DatePicker
+						modal
+						mode="date"
+						open={showDatePicker}
+						date={birthday}
+						onConfirm={date => {
+							setShowDatePicker(false);
+							setBirthday(date);
+						}}
+						onCancel={() => {
+							setShowDatePicker(false);
+						}}
 					/>
+					<TouchableOpacity
+						onPress={() => setShowDatePicker(true)}
+						style={{width: '86%'}}>
+						<InputField
+							placeholder="Birthday"
+							style={[
+								styles.textInput,
+								styles.robotoReg,
+								{width: '100%'},
+							]}
+							editable={false}
+							value={`${birthday.getDate()}/${
+								birthday.getMonth() + 1
+							}/${birthday.getFullYear()}`}
+						/>
+					</TouchableOpacity>
 				</View>
 				<View style={(styles.viewWrapper, styles.inputFields)}>
 					<Image source={require('../../assets/img/location.png')} />
-					<TextInput
+					<ValidatingInput
 						style={[styles.textInput, styles.robotoReg]}
 						placeholder="Bio"
 						value={bio}
 						onChangeText={text => setBio(text)}
-						placeholderTextColor={'#9E9E9E'}
 						maxLength={40}
+						type="alphanumeric"
+						withSpace={true}
 					/>
 				</View>
 				<View style={(styles.viewWrapper, styles.inputFields)}>
 					<Image source={require('../../assets/img/phone.png')} />
-					<TextInput
+					<ValidatingInput
 						style={[styles.textInput, styles.robotoReg]}
 						placeholder="Phone"
-						value={phone.toString()}
-						onChangeText={text => {
-							setPhone(parseInt(text, 10));
-						}}
-						placeholderTextColor={'#9E9E9E'}
-						maxLength={40}
+						value={phone}
+						onChangeText={text => setPhone(text)}
+						maxLength={8}
+						type="phone"
+						locale="en-SG"
 					/>
 				</View>
 			</ScrollView>
@@ -154,7 +185,7 @@ const Edit = ({navigation}) => {
 							email: email,
 							birthday: birthday,
 							bio: bio,
-							phone: phone,
+							phone: parseInt(phone, 10),
 						};
 						updateUser(userObj)
 							.then(() => console.log('updated ur mom'))
@@ -185,10 +216,8 @@ const styles = StyleSheet.create({
 		alignSelf: 'center',
 	},
 	textInput: {
-		borderBottomColor: '#666666',
-		borderBottomWidth: 3,
 		marginLeft: 20,
-		width: 300,
+		width: '86%',
 		maxHeight: 60,
 		color: 'white',
 		fontSize: 20,

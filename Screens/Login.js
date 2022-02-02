@@ -278,7 +278,9 @@ class Login extends Component {
 							value={
 								newBirthday === defaultDate
 									? null
-									: `${newBirthday.getDate()}/${newBirthday.getMonth()}/${newBirthday.getFullYear()}`
+									: `${newBirthday.getDate()}/${
+											newBirthday.getMonth() + 1
+									  }/${newBirthday.getFullYear()}`
 							}
 						/>
 					</TouchableOpacity>
@@ -294,6 +296,7 @@ class Login extends Component {
 						onChangeText={this.changeNewPhone}
 						value={newPhone}
 						type="phone"
+						locale="en-SG"
 					/>
 				</View>
 				<View style={styles.inputcontainer}>
