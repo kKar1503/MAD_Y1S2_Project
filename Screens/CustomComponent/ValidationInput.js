@@ -11,7 +11,7 @@
 import validator from 'validator';
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {Keyboard} from 'react-native';
+import {Keyboard, StyleSheet, View} from 'react-native';
 import InputField from './InputField';
 
 // =============================================
@@ -204,15 +204,19 @@ class ValidatingInput extends Component {
 		}
 
 		return (
-			<InputField
-				ref={r => {
-					this.input = r;
-				}}
-				keyboardType={keyboardType}
-				autoFocus={false}
-				underlineColorAndroid={this.state.validated ? '#D3D3D3' : 'red'}
-				{...props}
-			/>
+			<View>
+				<InputField
+					ref={r => {
+						this.input = r;
+					}}
+					keyboardType={keyboardType}
+					autoFocus={false}
+					underlineColorAndroid={
+						this.state.validated ? '#D3D3D3' : 'red'
+					}
+					{...props}
+				/>
+			</View>
 		);
 	}
 }
@@ -236,6 +240,20 @@ ValidatingInput.defaultProps = {
 	withSpace: false,
 };
 
+const styles = StyleSheet.create({
+	inputFields: {
+		flexDirection: 'row',
+		justifyContent: 'flex-start',
+		alignItems: 'center',
+		marginBottom: 20,
+	},
+	viewWrapper: {
+		marginVertical: 20,
+		width: '95%',
+		flexDirection: 'row',
+		alignSelf: 'center',
+	},
+});
 // =============================================
 // Export
 // =============================================

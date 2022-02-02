@@ -42,7 +42,7 @@ const DATA = [
 const Item = ({title, username, source, navigation}) => (
 	<TouchableOpacity
 		style={styles.button}
-		onPress={() => navigation.navigate('Chatting')}>
+		onPress={() => navigation.navigate('ChattingStack')}>
 		<Image source={source} style={styles.styleimage} />
 		<View>
 			<Text style={styles.title}>{title}</Text>

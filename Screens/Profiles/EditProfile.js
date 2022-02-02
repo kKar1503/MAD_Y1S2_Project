@@ -95,31 +95,30 @@ const Edit = ({navigation}) => {
 					</View>
 				</View>
 
-				<View style={(styles.viewWrapper, styles.inputFields)}>
-					<Image source={require('../../assets/img/profile.png')} />
-					<ValidatingInput
-						style={[styles.textInput, styles.robotoReg]}
-						placeholder="Name"
-						value={name}
-						onChangeText={text => setName(text)}
-						maxLength={20}
-						type="alpha"
-						withSpace={true}
-					/>
-				</View>
-				<View style={(styles.viewWrapper, styles.inputFields)}>
-					<Image source={require('../../assets/img/email.png')} />
-					<ValidatingInput
-						style={[styles.textInput, styles.robotoReg]}
-						placeholder="Email"
-						value={email}
-						onChangeText={text => setEmail(text)}
-						maxLength={30}
-						type="email"
-					/>
-				</View>
-				<View style={(styles.viewWrapper, styles.inputFields)}>
-					<Image source={require('../../assets/img/birthday.png')} />
+				<ValidatingInput
+					style={[styles.textInput, styles.robotoReg]}
+					placeholder="Name"
+					value={name}
+					onChangeText={text => setName(text)}
+					maxLength={20}
+					type="alpha"
+					withSpace={true}
+					image={require('../../assets/img/profile.png')}
+				/>
+
+				<ValidatingInput
+					style={[styles.textInput, styles.robotoReg]}
+					placeholder="Email"
+					value={email}
+					onChangeText={text => setEmail(text)}
+					maxLength={30}
+					type="email"
+					image={require('../../assets/img/email.png')}
+					height={13}
+					width={19}
+				/>
+
+				<View>
 					<DatePicker
 						modal
 						mode="date"
@@ -147,33 +146,36 @@ const Edit = ({navigation}) => {
 							value={`${birthday.getDate()}/${
 								birthday.getMonth() + 1
 							}/${birthday.getFullYear()}`}
+							image={require('../../assets/img/birthday.png')}
 						/>
 					</TouchableOpacity>
 				</View>
-				<View style={(styles.viewWrapper, styles.inputFields)}>
-					<Image source={require('../../assets/img/info.png')} />
-					<ValidatingInput
-						style={[styles.textInput, styles.robotoReg]}
-						placeholder="Bio"
-						value={bio}
-						onChangeText={text => setBio(text)}
-						maxLength={40}
-						type="alphanumeric"
-						withSpace={true}
-					/>
-				</View>
-				<View style={(styles.viewWrapper, styles.inputFields)}>
-					<Image source={require('../../assets/img/phone.png')} />
-					<ValidatingInput
-						style={[styles.textInput, styles.robotoReg]}
-						placeholder="Phone"
-						value={phone}
-						onChangeText={text => setPhone(text)}
-						maxLength={8}
-						type="phone"
-						locale="en-SG"
-					/>
-				</View>
+
+				<ValidatingInput
+					style={[styles.textInput, styles.robotoReg]}
+					placeholder="Bio"
+					value={bio}
+					onChangeText={text => setBio(text)}
+					maxLength={40}
+					type="alphanumeric"
+					withSpace={true}
+					image={require('../../assets/img/info.png')}
+					height={17}
+					width={17}
+				/>
+
+				<ValidatingInput
+					style={[styles.textInput, styles.robotoReg]}
+					placeholder="Phone"
+					value={phone}
+					onChangeText={text => setPhone(text)}
+					maxLength={8}
+					type="phone"
+					locale="en-SG"
+					image={require('../../assets/img/phone.png')}
+					width={18}
+					height={18}
+				/>
 			</ScrollView>
 			<View style={styles.footer}>
 				<CustomButton

@@ -70,7 +70,7 @@ const Product = ({navigation}) => {
 					<CustomButton
 						text="Contact"
 						onPress={() => {
-							navigation.navigate('Chatting');
+							navigation.navigate('ChattingProduct');
 						}}
 						ButtonHeight={45}
 						ButtonWidth={'33%'}

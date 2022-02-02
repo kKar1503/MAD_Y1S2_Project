@@ -137,32 +137,25 @@ class Login extends Component {
 		const {username, password} = this.state;
 		return (
 			<View>
-				<View style={styles.inputcontainer}>
-					<Image
-						source={require('../assets/img/profile.png')}
-						style={styles.userpic}
-					/>
-					<InputField
-						placeholder="Username"
-						style={styles.textinput}
-						onChangeText={this.changeUserName}
-						value={username}
-					/>
-				</View>
+				<InputField
+					placeholder="Username"
+					style={styles.textinput}
+					onChangeText={this.changeUserName}
+					value={username}
+					image={require('../assets/img/profile.png')}
+				/>
 
-				<View style={styles.inputcontainer}>
-					<Image
-						source={require('../assets/img/password.png')}
-						style={styles.passpic}
-					/>
-					<InputField
-						placeholder="Password"
-						style={styles.textinput}
-						onChangeText={this.changePassword}
-						value={password}
-						secureTextEntry={true}
-					/>
-				</View>
+				<InputField
+					placeholder="Password"
+					style={styles.textinput}
+					onChangeText={this.changePassword}
+					value={password}
+					secureTextEntry={true}
+					image={require('../assets/img/password.png')}
+					height={32}
+					width={18}
+				/>
+
 				<View style={{alignItems: 'center'}}>
 					<CustomButton
 						text="SIGN IN"
@@ -171,7 +164,7 @@ class Login extends Component {
 								.then(user => {
 									this.saveUserIdReference(user.id);
 									this.setState({username: '', password: ''});
-									this.props.navigation.navigate('Explore');
+									this.props.navigation.navigate('Home');
 								})
 								.catch(err => {
 									console.log(err);
@@ -208,51 +201,36 @@ class Login extends Component {
 
 		return (
 			<ScrollView>
-				<View style={styles.inputcontainer}>
-					<Image
-						source={require('../assets/img/profile.png')}
-						style={styles.userpic}
-					/>
-					<ValidatingInput
-						placeholder="Username"
-						style={styles.textinput}
-						onChangeText={this.changeNewUserName}
-						value={newUsername}
-						type="alphanumeric"
-					/>
-				</View>
-				<View style={styles.inputcontainer}>
-					<Image
-						source={require('../assets/img/profile.png')}
-						style={styles.userpic}
-					/>
-					<ValidatingInput
-						placeholder="Full Name"
-						style={styles.textinput}
-						onChangeText={this.changeNewName}
-						value={newName}
-						type="alpha"
-						withSpace={true}
-					/>
-				</View>
-				<View style={styles.inputcontainer}>
-					<Image
-						source={require('../assets/img/email.png')}
-						style={[styles.userpic, {height: 15}]}
-					/>
-					<ValidatingInput
-						placeholder="Email Address"
-						style={styles.textinput}
-						onChangeText={this.changeNewEmail}
-						value={newEmail}
-						type="email"
-					/>
-				</View>
-				<View style={styles.inputcontainer}>
-					<Image
-						source={require('../assets/img/birthday.png')}
-						style={styles.userpic}
-					/>
+				<ValidatingInput
+					placeholder="Username"
+					style={styles.textinput}
+					onChangeText={this.changeNewUserName}
+					value={newUsername}
+					type="alphanumeric"
+					image={require('../assets/img/profile.png')}
+				/>
+
+				<ValidatingInput
+					placeholder="Full Name"
+					style={styles.textinput}
+					onChangeText={this.changeNewName}
+					value={newName}
+					type="alpha"
+					withSpace={true}
+					image={require('../assets/img/profile.png')}
+				/>
+
+				<ValidatingInput
+					placeholder="Email Address"
+					style={styles.textinput}
+					onChangeText={this.changeNewEmail}
+					value={newEmail}
+					type="email"
+					height={15}
+					image={require('../assets/img/email.png')}
+				/>
+
+				<View>
 					<DatePicker
 						modal
 						mode="date"
@@ -282,51 +260,45 @@ class Login extends Component {
 											newBirthday.getMonth() + 1
 									  }/${newBirthday.getFullYear()}`
 							}
+							image={require('../assets/img/birthday.png')}
 						/>
 					</TouchableOpacity>
 				</View>
-				<View style={styles.inputcontainer}>
-					<Image
-						source={require('../assets/img/phone.png')}
-						style={styles.userpic}
-					/>
-					<ValidatingInput
-						placeholder="Mobile Phone"
-						style={styles.textinput}
-						onChangeText={this.changeNewPhone}
-						value={newPhone}
-						type="phone"
-						locale="en-SG"
-					/>
-				</View>
-				<View style={styles.inputcontainer}>
-					<Image
-						source={require('../assets/img/password.png')}
-						style={styles.passpic}
-					/>
-					<ValidatingInput
-						placeholder="Password"
-						style={styles.textinput}
-						onChangeText={this.changeNewPassword}
-						value={newPassword}
-						secureTextEntry={true}
-						type="password"
-					/>
-				</View>
-				<View style={styles.inputcontainer}>
-					<Image
-						source={require('../assets/img/password.png')}
-						style={styles.passpic}
-					/>
-					<ValidatingInput
-						placeholder="Comfirm Password"
-						style={styles.textinput}
-						onChangeText={this.changeNewConfirmPassword}
-						value={newConfirmPassword}
-						secureTextEntry={true}
-						type="password"
-					/>
-				</View>
+
+				<ValidatingInput
+					placeholder="Mobile Phone"
+					style={styles.textinput}
+					onChangeText={this.changeNewPhone}
+					value={newPhone}
+					type="phone"
+					locale="en-SG"
+					image={require('../assets/img/phone.png')}
+				/>
+
+				<ValidatingInput
+					placeholder="Password"
+					style={styles.textinput}
+					onChangeText={this.changeNewPassword}
+					value={newPassword}
+					secureTextEntry={true}
+					type="password"
+					image={require('../assets/img/password.png')}
+					height={32}
+					width={18}
+				/>
+
+				<ValidatingInput
+					placeholder="Comfirm Password"
+					style={styles.textinput}
+					onChangeText={this.changeNewConfirmPassword}
+					value={newConfirmPassword}
+					secureTextEntry={true}
+					type="password"
+					image={require('../assets/img/password.png')}
+					height={32}
+					width={18}
+				/>
+
 				<View style={{alignItems: 'center', bottom: 0}}>
 					<CustomButton
 						text="SIGN UP"

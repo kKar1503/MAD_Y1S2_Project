@@ -45,21 +45,23 @@ const chatNav = () => {
 	return (
 		<Stack.Navigator>
 			<Stack.Screen
-				name="Chats"
+				name="ChatsStack"
 				component={AllChatsScreen}
 				options={{
 					headerStyle: {backgroundColor: '#424242'},
 					headerTintColor: 'white',
 					headerTitleAlign: 'center',
+					title: 'Chats',
 				}}
 			/>
 			<Stack.Screen
-				name="Chatting"
+				name="ChattingStack"
 				component={ChattingScreen}
 				options={{
 					headerTintColor: 'white',
 					headerStyle: {backgroundColor: '#424242'},
 					headerTitleAlign: 'center',
+
 					headerTitle: () => (
 						<View style={{flexDirection: 'row'}}>
 							<Text style={styles.chattingHeader}>
@@ -94,7 +96,7 @@ const productNav = () => {
 				}}
 			/>
 			<Stack.Screen
-				name="Chatting"
+				name="ChattingProduct"
 				component={ChattingScreen}
 				options={{
 					headerTintColor: 'white',
@@ -120,7 +122,7 @@ const productNav = () => {
 					headerTintColor: 'white',
 					headerStyle: {backgroundColor: '#424242'},
 					headerTitleAlign: 'center',
-					title: 'Explore',
+					title: 'Home',
 				}}
 			/>
 		</Stack.Navigator>
@@ -166,6 +168,18 @@ const profileNav = ({navigation}) => {
 					drawerActiveTintColor: 'white',
 				}}
 			/>
+			<Stack.Screen
+				name="My Reviews"
+				component={ReviewsScreen}
+				options={{
+					headerTintColor: 'white',
+					headerStyle: {backgroundColor: '#424242'},
+					headerTitleAlign: 'center',
+					title: 'My Reviews',
+					drawerLabelStyle: styles.drawer,
+					drawerActiveTintColor: 'white',
+				}}
+			/>
 		</Stack.Navigator>
 	);
 };
@@ -185,13 +199,13 @@ const Draw = () => {
 			}}
 			drawerContent={props => <CustomDrawer {...props} />}>
 			<Drawer.Screen
-				name="Explore"
+				name="Home"
 				component={productNav}
 				options={{
 					headerTintColor: 'white',
 					headerStyle: {backgroundColor: '#424242'},
 					headerTitleAlign: 'center',
-					title: 'Explore',
+					title: 'Home',
 					headerShown: false,
 					drawerLabelStyle: styles.drawer,
 					drawerActiveTintColor: 'white',
@@ -236,19 +250,10 @@ const Draw = () => {
 				options={{
 					headerShown: false,
 					drawerLabelStyle: styles.drawer,
+					drawerActiveTintColor: 'white',
 				}}
 			/>
 
-			<Drawer.Screen
-				name="Test"
-				component={TestScreen}
-				options={{
-					headerTintColor: 'white',
-					headerStyle: {backgroundColor: '#424242'},
-					headerTitleAlign: 'center',
-					title: 'Test',
-				}}
-			/>
 			<Drawer.Screen
 				name="Login"
 				component={LoginScreen}
