@@ -151,7 +151,7 @@ const Edit = ({navigation}) => {
 					</TouchableOpacity>
 				</View>
 				<View style={(styles.viewWrapper, styles.inputFields)}>
-					<Image source={require('../../assets/img/location.png')} />
+					<Image source={require('../../assets/img/info.png')} />
 					<ValidatingInput
 						style={[styles.textInput, styles.robotoReg]}
 						placeholder="Bio"
