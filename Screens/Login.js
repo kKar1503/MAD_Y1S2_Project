@@ -116,7 +116,7 @@ class Login extends Component {
 	};
 
 	showInvalidInputsDialog = () => {
-		this.invalidInputDialog.showDialog();
+		this.invalidInputsDialog.showDialog();
 	};
 
 	showSignupFailedDialog = () => {
@@ -131,6 +131,22 @@ class Login extends Component {
 		} catch (e) {
 			console.log('Data not saved');
 		}
+	};
+
+	handleIsValidated = () => {
+		let isValidated = false;
+		if (
+			this.usernameInput.isValid() &&
+			this.fullnameInput.isValid() &&
+			this.emailInput.isValid() &&
+			this.phoneInput.isValid() &&
+			this.passwordInput.isValid() &&
+			this.password2Input.isValid()
+		) {
+			console.log('all valid');
+			isValidated = true;
+		}
+		return isValidated;
 	};
 
 	notactive = () => {
@@ -208,6 +224,7 @@ class Login extends Component {
 					value={newUsername}
 					type="alphanumeric"
 					image={require('../assets/img/profile.png')}
+					ref={r => (this.usernameInput = r)}
 				/>
 
 				<ValidatingInput
@@ -218,6 +235,7 @@ class Login extends Component {
 					type="alpha"
 					withSpace={true}
 					image={require('../assets/img/profile.png')}
+					ref={r => (this.fullnameInput = r)}
 				/>
 
 				<ValidatingInput
@@ -228,6 +246,7 @@ class Login extends Component {
 					type="email"
 					height={15}
 					image={require('../assets/img/email.png')}
+					ref={r => (this.emailInput = r)}
 				/>
 
 				<View>
@@ -273,6 +292,7 @@ class Login extends Component {
 					type="phone"
 					locale="en-SG"
 					image={require('../assets/img/phone.png')}
+					ref={r => (this.phoneInput = r)}
 				/>
 
 				<ValidatingInput
@@ -285,6 +305,7 @@ class Login extends Component {
 					image={require('../assets/img/password.png')}
 					height={32}
 					width={18}
+					ref={r => (this.passwordInput = r)}
 				/>
 
 				<ValidatingInput
@@ -297,6 +318,7 @@ class Login extends Component {
 					image={require('../assets/img/password.png')}
 					height={32}
 					width={18}
+					ref={r => (this.password2Input = r)}
 				/>
 
 				<View style={{alignItems: 'center', bottom: 0}}>
@@ -310,10 +332,11 @@ class Login extends Component {
 							console.log({newPhone});
 							console.log({newPassword});
 							console.log({newConfirmPassword});
-							if (newPassword !== newConfirmPassword) {
-								this.showPasswordMismatchDialog();
-							} else if (!{validInputs}) {
+							this.toggleValidInputs(this.handleIsValidated());
+							if (!validInputs) {
 								this.showInvalidInputsDialog();
+							} else if (newPassword !== newConfirmPassword) {
+								this.showPasswordMismatchDialog();
 							} else {
 								const newUser = {
 									username: newUsername,

@@ -30,9 +30,6 @@ class ValidatingInput extends Component {
 	}
 
 	componentDidUpdate(prevProps, prevState) {
-		if (typeof this.props.onRef === 'function') {
-			this.props.onRef(this.isMounted ? this : undefined);
-		}
 		const props_value = this.parseValue(this.props.value);
 		const state_value = this.parseValue();
 		if (this.props.value == null) {
