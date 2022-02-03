@@ -169,7 +169,7 @@ const Edit = ({navigation}) => {
 					placeholder="Phone"
 					value={phone}
 					onChangeText={text => setPhone(text)}
-					maxLength={8}
+					maxLength={10}
 					type="phone"
 					locale="en-SG"
 					image={require('../../assets/img/phone.png')}

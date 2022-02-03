@@ -223,6 +223,7 @@ class Login extends Component {
 					onChangeText={this.changeNewUserName}
 					value={newUsername}
 					type="alphanumeric"
+					maxLength={20}
 					image={require('../assets/img/profile.png')}
 					ref={r => (this.usernameInput = r)}
 				/>
@@ -234,6 +235,7 @@ class Login extends Component {
 					value={newName}
 					type="alpha"
 					withSpace={true}
+					maxLength={20}
 					image={require('../assets/img/profile.png')}
 					ref={r => (this.fullnameInput = r)}
 				/>
@@ -245,6 +247,7 @@ class Login extends Component {
 					value={newEmail}
 					type="email"
 					height={15}
+					maxLength={30}
 					image={require('../assets/img/email.png')}
 					ref={r => (this.emailInput = r)}
 				/>
@@ -292,6 +295,7 @@ class Login extends Component {
 					type="phone"
 					locale="en-SG"
 					image={require('../assets/img/phone.png')}
+					maxLength={10}
 					ref={r => (this.phoneInput = r)}
 				/>
 
