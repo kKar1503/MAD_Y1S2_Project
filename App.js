@@ -245,16 +245,6 @@ const Draw = () => {
 				}}
 			/>
 			<Drawer.Screen
-				name="Profile"
-				component={profileNav}
-				options={{
-					headerShown: false,
-					drawerLabelStyle: styles.drawer,
-					drawerActiveTintColor: 'white',
-				}}
-			/>
-
-			<Drawer.Screen
 				name="Login"
 				component={LoginScreen}
 				options={{
@@ -262,6 +252,13 @@ const Draw = () => {
 					headerShown: false,
 					swipeEdgeWidth: 0,
 					drawerLabelStyle: styles.drawer,
+				}}
+			/>
+			<Drawer.Screen
+				name="Profile"
+				component={profileNav}
+				options={{
+					drawerItemStyle: {height: 0},
 				}}
 			/>
 		</Drawer.Navigator>
