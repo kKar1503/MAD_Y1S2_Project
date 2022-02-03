@@ -39,7 +39,7 @@ const Explore = ({navigation}) => {
 					<TouchableOpacity
 						onPress={() =>
 							queryAllReviewsOfUser('Jialur')
-								.then(data => console.log(data))
+								.then(data => console.log('hello'))
 								.catch(err => console.log(err))
 						}>
 						<Image
@@ -49,12 +49,11 @@ const Explore = ({navigation}) => {
 					<TouchableOpacity
 						onPress={async () => {
 							const user = await LoadUserData();
-							console.log(user.fullname);
-							postNewReview('Jialur', {
-								stars: 5,
-								reviewee: 'me',
+							postNewReview('Kar Lok', {
+								stars: 1,
+								reviewee: 'yay',
 							})
-								.then(data => console.log(data))
+								.then(data => console.log('help'))
 								.catch(err => console.log(err));
 						}}
 						style={{translateX: 30}}>

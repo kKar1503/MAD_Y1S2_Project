@@ -10,7 +10,7 @@
 // =============================================
 // Import necessary classes for development
 // =============================================
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
 	StyleSheet,
 	Text,
@@ -19,27 +19,13 @@ import {
 	FlatList,
 	SafeAreaView,
 } from 'react-native';
+import {LoadUserData} from '../../database/Account';
+import {queryAllReviewsOfUser, reviewRealm} from '../../database/Schemas';
+import {useIsFocused} from '@react-navigation/native';
 
 // =============================================
 // Main Page Implementation
 // =============================================
-
-const DATA = [
-	{
-		id: '1',
-		title: 'Alyssa Sng',
-		username: ' alyssazxcslapdieyou',
-		source: require('../../assets/img/Chat2.png'),
-		comment: 'No comments written',
-	},
-	{
-		id: '2',
-		title: 'Sum Ting Wong',
-		username: 'somethingwrong',
-		source: require('../../assets/img/Chat2.png'),
-		comment: 'No comments written',
-	},
-];
 const Item = ({title, source, comment, navigation}) => (
 	<View style={styles.reviewContainer}>
 		<Image source={source} style={styles.styleImage} />
@@ -49,7 +35,37 @@ const Item = ({title, source, comment, navigation}) => (
 		</View>
 	</View>
 );
-const allReviews = ({navigation}) => {
+const AllReviews = ({navigation}) => {
+	const [reviews, setReviews] = useState([]);
+
+	const reloadData = async () => {
+		const user = await LoadUserData();
+		queryAllReviewsOfUser(user.fullname)
+			.then(queryReviews => {
+				const restructuredReviews = [];
+				for (let review of queryReviews) {
+					restructuredReviews.push({
+						id: review.id,
+						title: review.reviewee,
+						source: require('../../assets/img/Chat2.png'),
+						comment: `${review.stars} stars`,
+					});
+				}
+				setReviews(restructuredReviews);
+			})
+			.catch(err => {
+				console.log(err);
+				setReviews([]);
+			});
+	};
+
+	const isFocused = useIsFocused();
+
+	useEffect(() => {
+		reloadData();
+		reviewRealm.addListener('change', () => reloadData());
+	}, [isFocused]);
+
 	const renderItem = ({item}) => (
 		<Item
 			title={item.title}
@@ -63,7 +79,7 @@ const allReviews = ({navigation}) => {
 		<SafeAreaView style={styles.container}>
 			<FlatList
 				nestedScrollEnabled={true}
-				data={DATA}
+				data={reviews}
 				renderItem={renderItem}
 				keyExtractor={item => item.id}
 				style={{paddingTop: 10}}
@@ -109,4 +125,4 @@ const styles = StyleSheet.create({
 // =============================================
 // Export
 // =============================================
-export default allReviews;
+export default AllReviews;
