@@ -73,7 +73,7 @@ export default class InputField extends Component {
 }
 
 InputField.propTypes = {
-	image: PropTypes.func,
+	image: PropTypes.number,
 	width: PropTypes.number,
 	height: PropTypes.number,
 };

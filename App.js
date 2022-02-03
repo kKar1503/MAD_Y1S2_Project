@@ -28,7 +28,6 @@ import ProductScreen from './Screens/Listings/ListingPage';
 import LoginScreen from './Screens/Login';
 import AddReviewScreen from './Screens/Reviews/AddReview';
 import ReviewsScreen from './Screens/Reviews/Reviews';
-import TestScreen from './Screens/TestScreen';
 import CustomDrawer from './Screens/CustomComponent/CustomDrawer';
 import {
 	View,
@@ -52,6 +51,8 @@ LogBox.ignoreLogs([
 	'EventEmitter.removeListener',
 	'Reanimated 2',
 	'Require cycle:',
+	'DialogActionList',
+	'componentWillReceiveProps',
 ]);
 
 // =============================================
