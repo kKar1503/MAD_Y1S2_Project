@@ -1,3 +1,5 @@
+/* eslint-disable react-native/no-inline-styles */
+
 // =============================================
 // Mobile Application Development
 // Name:        Yam Kar Lok & Vernell Lim Xi
@@ -44,11 +46,18 @@ export default class InputField extends Component {
 
 	render() {
 		const {isFocused} = this.state;
-		const {image, width, height, onFocus, onBlur, ...otherProps} =
+		const {image, width, height, hasImage, onFocus, onBlur, ...otherProps} =
 			this.props;
 
 		return (
-			<View style={styles.inputcontainer}>
+			<View
+				style={[
+					styles.inputcontainer,
+					{
+						paddingHorizontal: hasImage ? 15 : 0,
+						paddingLeft: hasImage ? 28 : 0,
+					},
+				]}>
 				<Image
 					source={image}
 					style={{alignSelf: 'center', height: height, width: width}}
@@ -76,10 +85,12 @@ InputField.propTypes = {
 	image: PropTypes.number,
 	width: PropTypes.number,
 	height: PropTypes.number,
+	hasImage: PropTypes.bool,
 };
 InputField.defaultProps = {
 	width: 20,
 	height: 20,
+	hasImage: true,
 };
 // =============================================
 // Stylesheet
@@ -91,7 +102,5 @@ const styles = StyleSheet.create({
 	},
 	inputcontainer: {
 		flexDirection: 'row',
-		paddingHorizontal: 15,
-		paddingLeft: 28,
 	},
 });

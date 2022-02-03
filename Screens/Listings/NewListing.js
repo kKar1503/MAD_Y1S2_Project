@@ -10,7 +10,7 @@
 // =============================================
 // Import Necessary Classes for Development
 // =============================================
-import React, {useState} from 'react';
+import React, {forwardRef, useState, useRef} from 'react';
 import {
 	StyleSheet,
 	Text,
@@ -22,6 +22,9 @@ import {
 import {Picker} from '@react-native-picker/picker';
 import RadioGroup from 'react-native-radio-buttons-group';
 import CustomButton from '../CustomComponent/CustomButton';
+import PopupMessageDialog from '../CustomComponent/PopupMessageDialog';
+import {LoadUserData} from '../../database/Account';
+import {postNewListing, queryAllListings} from '../../database/Schemas';
 
 // =============================================
 // RadioButtons Data
@@ -81,21 +84,29 @@ const collectionRadioButtonsData = [
 // =============================================
 const NewProfile = ({navigation}) => {
 	const [dynamicHeight, setDynamicHeight] = useState(60);
-	const [selectedCategory, setSelectedCategory] = useState('Cat1');
+	const [selectedCategory, setSelectedCategory] = useState('stationery');
 	const [radioButtons1, setRadioButtons1] = useState(
 		conditionRadioButtonsData,
 	);
 	const [radioButtons2, setRadioButtons2] = useState(
 		collectionRadioButtonsData,
 	);
+	const [listingName, setListingName] = useState('');
+	const [description, setDescription] = useState('');
 
-	function onPressRadioButton1(radioButtonsArray) {
+	const dialogRef = useRef();
+
+	const onPressRadioButton1 = radioButtonsArray => {
 		setRadioButtons1(radioButtonsArray);
-	}
+	};
 
-	function onPressRadioButton2(radioButtonsArray) {
+	const onPressRadioButton2 = radioButtonsArray => {
 		setRadioButtons2(radioButtonsArray);
-	}
+	};
+
+	const showEmptyDialog = () => {
+		dialogRef.current.showDialog();
+	};
 
 	return (
 		<View style={styles.container}>
@@ -123,6 +134,7 @@ const NewProfile = ({navigation}) => {
 						autoCapitalize="words"
 						multiline
 						numberOfLines={2}
+						onChangeText={text => setListingName(text)}
 					/>
 				</View>
 
@@ -145,8 +157,11 @@ const NewProfile = ({navigation}) => {
 							onValueChange={(itemValue, itemIndex) =>
 								setSelectedCategory(itemValue)
 							}>
-							<Picker.Item label="Category 1" value="cat1" />
-							<Picker.Item label="Category 2" value="cat2" />
+							<Picker.Item
+								label="Stationery"
+								value="stationery"
+							/>
+							<Picker.Item label="Textbooks" value="textbook" />
 						</Picker>
 					</View>
 				</View>
@@ -160,7 +175,6 @@ const NewProfile = ({navigation}) => {
 						layout="row"
 						onPress={() => {
 							onPressRadioButton1;
-							console.log(radioButtons1);
 						}}
 					/>
 				</View>
@@ -174,7 +188,6 @@ const NewProfile = ({navigation}) => {
 						layout="row"
 						onPress={() => {
 							onPressRadioButton2;
-							console.log(radioButtons2);
 						}}
 					/>
 				</View>
@@ -193,7 +206,7 @@ const NewProfile = ({navigation}) => {
 									((text.length - 30) / 170) * 140 + 40;
 							}
 							setDynamicHeight(newHeight);
-							console.log(dynamicHeight);
+							setDescription(text);
 						}}
 						placeholder="Brief Description"
 						placeholderTextColor={'#9E9E9E'}
@@ -206,14 +219,53 @@ const NewProfile = ({navigation}) => {
 			</ScrollView>
 			<View style={styles.footer}>
 				<CustomButton
-					text="NEW AD"
-					onPress={() => navigation.navigate('Home')}
+					text="NEW LISTING"
+					onPress={() => {
+						const selectedCondition = radioButtons1.filter(
+							option => option.selected === true,
+						);
+						const selectedMethod = radioButtons2.filter(
+							option => option.selected === true,
+						);
+						if (
+							listingName === '' ||
+							description === '' ||
+							selectedCondition.length === 0 ||
+							selectedMethod.length === 0
+						) {
+							showEmptyDialog();
+						} else {
+							LoadUserData()
+								.then(data => {
+									postNewListing(data.fullname, {
+										title: listingName,
+										collection: selectedMethod[0].value,
+										category: selectedCategory,
+										condition: selectedCondition[0].value,
+										description: description,
+									});
+									queryAllListings().then(data =>
+										console.log(data.length),
+									);
+								})
+								.catch(err => console.log(err));
+						}
+					}}
 					Color="#e88764"
 				/>
 			</View>
+			<ModifiedMessageDialog ref={dialogRef} />
 		</View>
 	);
 };
+
+const ModifiedMessageDialog = forwardRef((props, ref) => (
+	<PopupMessageDialog
+		header="Error"
+		text="All fields are required to fill in to create a new listing!"
+		ref={ref}
+	/>
+));
 
 // =============================================
 // StyleSheet

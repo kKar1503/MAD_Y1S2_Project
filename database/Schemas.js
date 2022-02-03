@@ -38,7 +38,7 @@ export const ListingSchema = {
 		id: 'int', // Primary Key
 		title: {type: 'string', indexed: true},
 		owner: 'string',
-		collection: 'string[]',
+		collection: 'string',
 		category: 'string',
 		condition: 'string',
 		description: 'string',
@@ -168,6 +168,39 @@ export const queryAllReviewsOfUser = recipient =>
 						review => review.recipient === recipient,
 					);
 					resolve(filteredReviews);
+				}
+			})
+			.catch(err => reject(err));
+	});
+
+export const postNewListing = (user, newListing) =>
+	new Promise((resolve, reject) => {
+		Realm.open(listingDatabaseOptions)
+			.then(realm => {
+				const lastListing = realm
+					.objects(LISTING_SCHEMA)
+					.sorted('id', true)[0];
+				const highestId = lastListing == null ? 0 : lastListing.id;
+				newListing.owner = user;
+				newListing.id = highestId == null ? 1 : highestId + 1;
+				realm.write(() => {
+					realm.create(LISTING_SCHEMA, newListing);
+					console.log('new listing created');
+					resolve(newListing);
+				});
+			})
+			.catch(err => reject(err));
+	});
+
+export const queryAllListings = () =>
+	new Promise((resolve, reject) => {
+		Realm.open(listingDatabaseOptions)
+			.then(realm => {
+				let foundListings = realm.objects(LISTING_SCHEMA);
+				if (foundListings.length === 0 || foundListings == null) {
+					reject();
+				} else {
+					resolve(foundListings);
 				}
 			})
 			.catch(err => reject(err));
