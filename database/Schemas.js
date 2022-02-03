@@ -137,7 +137,7 @@ export const queryUserById = id =>
 			.catch(err => reject(err));
 	});
 
-export const postNewReview = (id, newReview) =>
+export const postNewReview = (recipient, newReview) =>
 	new Promise((resolve, reject) => {
 		Realm.open(reviewDatabaseOptions)
 			.then(realm => {
@@ -145,8 +145,7 @@ export const postNewReview = (id, newReview) =>
 					.objects(REVIEW_SCHEMA)
 					.sorted('id', true)[0];
 				const highestId = lastReview == null ? 0 : lastReview.id;
-				const user = realm.objectForPrimaryKey(USER_SCHEMA, id);
-				newReview.recipient = user;
+				newReview.recipient = recipient;
 				newReview.id = highestId == null ? 1 : highestId + 1;
 				realm.write(() => {
 					realm.create(REVIEW_SCHEMA, newReview);
@@ -157,7 +156,7 @@ export const postNewReview = (id, newReview) =>
 			.catch(err => reject(err));
 	});
 
-export const queryAllReviews = () =>
+export const queryAllReviewsOfUser = recipient =>
 	new Promise((resolve, reject) => {
 		Realm.open(reviewDatabaseOptions)
 			.then(realm => {
@@ -165,7 +164,10 @@ export const queryAllReviews = () =>
 				if (foundReviews.length === 0 || foundReviews == null) {
 					reject();
 				} else {
-					resolve(foundReviews);
+					const filteredReviews = foundReviews.filter(
+						review => review.recipient === recipient,
+					);
+					resolve(filteredReviews);
 				}
 			})
 			.catch(err => reject(err));

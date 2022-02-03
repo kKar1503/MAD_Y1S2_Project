@@ -22,6 +22,7 @@ import {
 } from 'react-native';
 import {LoadUserData} from '../../database/Account';
 import {useIsFocused} from '@react-navigation/native';
+import {queryAllReviewsOfUser} from '../../database/Schemas';
 
 // =============================================
 // Profile Page
@@ -31,16 +32,35 @@ const Profile = ({navigation}) => {
 	const [username, setUsername] = useState('');
 	const [email, setEmail] = useState('');
 	const [bio, setBio] = useState('');
+	const [reviews, setReviews] = useState(0);
+	const [averageStars, setAverageStars] = useState(0);
 
 	const isFocused = useIsFocused();
 
 	useEffect(() => {
 		LoadUserData()
-			.then(data => {
+			.then(async data => {
 				setUsername(data.username);
 				setFullName(data.fullname);
 				setEmail(data.email);
 				setBio(data.bio);
+				try {
+					const queryReviews = await queryAllReviewsOfUser(
+						data.fullname,
+					);
+				} catch (error) {
+					console.log(err);
+				}
+				if (queryReviews != null || queryReviews != undefined) {
+					setReviews(queryReviews.length);
+					const stars = queryReviews.map(reviews => reviews.stars);
+					const average =
+						stars.reduce((a, b) => a + b, 0) / stars.length;
+					setAverageStars(average);
+				} else {
+					setReviews(-1);
+					setAverageStars(-1);
+				}
 			})
 			.catch(err => console.log(err));
 	}, [isFocused]);
@@ -72,7 +92,7 @@ const Profile = ({navigation}) => {
 					style={{
 						color: 'lightgrey',
 						fontSize: 25,
-						padding: 5,
+						paddingVertical: 5,
 					}}>
 					About
 				</Text>
@@ -90,7 +110,10 @@ const Profile = ({navigation}) => {
 					<TouchableOpacity
 						onPress={() => navigation.navigate('My Reviews')}>
 						<Text style={[styles.infoText, {paddingHorizontal: 5}]}>
-							(2)
+							{averageStars === -1
+								? 'No Reviews'
+								: averageStars.toFixed(1)}{' '}
+							Stars {reviews === -1 ? '' : `(${reviews} reviews)`}
 						</Text>
 					</TouchableOpacity>
 				</View>

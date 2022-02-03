@@ -19,6 +19,8 @@ import {
 	TouchableOpacity,
 	TextInput,
 } from 'react-native';
+import {LoadUserData} from '../../database/Account';
+import {postNewReview, queryAllReviewsOfUser} from '../../database/Schemas';
 
 // =============================================
 // Main Page Implementation
@@ -35,13 +37,26 @@ const Explore = ({navigation}) => {
 						maxLength={15}
 					/>
 					<TouchableOpacity
-						onPress={() => alert('This is a button!')}>
+						onPress={() =>
+							queryAllReviewsOfUser('Jialur')
+								.then(data => console.log(data))
+								.catch(err => console.log(err))
+						}>
 						<Image
 							source={require('../../assets/img/search.png')}
 						/>
 					</TouchableOpacity>
 					<TouchableOpacity
-						onPress={() => alert('This is a button!')}
+						onPress={async () => {
+							const user = await LoadUserData();
+							console.log(user.fullname);
+							postNewReview('Jialur', {
+								stars: 5,
+								reviewee: 'me',
+							})
+								.then(data => console.log(data))
+								.catch(err => console.log(err));
+						}}
 						style={{translateX: 30}}>
 						<Image
 							source={require('../../assets/img/filter.png')}
