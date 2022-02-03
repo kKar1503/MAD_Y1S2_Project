@@ -44,16 +44,15 @@ const Profile = ({navigation}) => {
 				setFullName(data.fullname);
 				setEmail(data.email);
 				setBio(data.bio);
+				let queryReviews;
 				try {
-					const queryReviews = await queryAllReviewsOfUser(
-						data.fullname,
-					);
+					queryReviews = await queryAllReviewsOfUser(data.fullname);
 				} catch (error) {
-					console.log(err);
+					console.log(error);
 				}
-				if (queryReviews != null || queryReviews != undefined) {
+				if (queryReviews != null || queryReviews !== undefined) {
 					setReviews(queryReviews.length);
-					const stars = queryReviews.map(reviews => reviews.stars);
+					const stars = queryReviews.map(review => review.stars);
 					const average =
 						stars.reduce((a, b) => a + b, 0) / stars.length;
 					setAverageStars(average);
