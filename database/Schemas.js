@@ -157,22 +157,20 @@ export const postNewReview = (id, newReview) =>
 			.catch(err => reject(err));
 	});
 
-// Working halfway
-export const queryAllReviews = id =>
+export const queryAllReviews = () =>
 	new Promise((resolve, reject) => {
-		Realm.open(userDatabaseOptions)
+		Realm.open(reviewDatabaseOptions)
 			.then(realm => {
-				let foundUser = realm.objectForPrimaryKey(USER_SCHEMA, id);
-				if (
-					foundUser.reviews.length === 0 ||
-					foundUser.reviews == null
-				) {
+				let foundReviews = realm.objects(REVIEW_SCHEMA);
+				if (foundReviews.length === 0 || foundReviews == null) {
 					reject();
 				} else {
-					resolve(foundUser.reviews);
+					resolve(foundReviews);
 				}
 			})
 			.catch(err => reject(err));
 	});
 
-export default new Realm(userDatabaseOptions);
+export const userRealm = new Realm(userDatabaseOptions);
+export const reviewRealm = new Realm(reviewDatabaseOptions);
+export const listingRealm = new Realm(listingDatabaseOptions);

@@ -16,7 +16,6 @@ import {
 	Text,
 	View,
 	ScrollView,
-	TextInput,
 	TouchableOpacity,
 	Image,
 } from 'react-native';
@@ -61,14 +60,12 @@ const Edit = ({navigation}) => {
 		<View style={styles.container}>
 			<ScrollView>
 				<View style={[styles.viewWrapper, {marginBottom: 50}]}>
-					<TouchableOpacity>
-						<Image
-							source={require('../../assets/img/Profile_Image.png')}
-							style={{
-								borderRadius: 60,
-							}}
-						/>
-					</TouchableOpacity>
+					<Image
+						source={require('../../assets/img/Profile_Image.png')}
+						style={{
+							borderRadius: 60,
+						}}
+					/>
 					<View style={{marginLeft: 30, alignSelf: 'center'}}>
 						<Text
 							style={[

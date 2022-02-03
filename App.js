@@ -30,13 +30,29 @@ import AddReviewScreen from './Screens/Reviews/AddReview';
 import ReviewsScreen from './Screens/Reviews/Reviews';
 import TestScreen from './Screens/TestScreen';
 import CustomDrawer from './Screens/CustomComponent/CustomDrawer';
-import {View, StyleSheet, Text, Image, TouchableOpacity} from 'react-native';
+import {
+	View,
+	StyleSheet,
+	Text,
+	Image,
+	TouchableOpacity,
+	LogBox,
+} from 'react-native';
 
 // =============================================
 // Initialize Native Stack & Drawer Navigator
 // =============================================
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
+
+// =============================================
+// Initialize Native Stack & Drawer Navigator
+// =============================================
+LogBox.ignoreLogs([
+	'EventEmitter.removeListener',
+	'Reanimated 2',
+	'Require cycle:',
+]);
 
 // =============================================
 // Chat Stack Navigator
