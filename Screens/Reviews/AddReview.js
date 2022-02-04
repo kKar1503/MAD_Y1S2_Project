@@ -8,7 +8,7 @@
 // =============================================
 // Import Necessary Classes for Development
 // =============================================
-import React from 'react';
+import React, {useState} from 'react';
 import {
 	StyleSheet,
 	Text,
@@ -18,11 +18,13 @@ import {
 	Image,
 	Dimensions,
 } from 'react-native';
+import {Picker} from '@react-native-picker/picker';
 
 // =============================================
 // Main Page Implementation
 // =============================================
 const Review = ({navigation}) => {
+	const [selectedCategory, setSelectedCategory] = useState(1);
 	return (
 		<View style={styles.container}>
 			<View style={styles.orangeContainer}>
@@ -31,18 +33,53 @@ const Review = ({navigation}) => {
 					style={styles.styleimage}
 				/>
 				<Text style={styles.text}>Please rate your experience!</Text>
-				<View style={styles.inputContainer}>
-					<TextInput
-						placeholder="Comments"
-						placeholderTextColor="#e3e3e3"
-						style={styles.textInput}
-						multiline={true}
-					/>
+				<View
+					style={{
+						flexDirection: 'row',
+						paddingLeft: 50,
+						alignContent: 'center',
+						alignItems: 'center',
+						alignSelf: 'flex-start',
+						flex: 1,
+					}}>
+					<Text
+						style={{
+							color: 'white',
+							marginTop: 15,
+							fontSize: 20,
+							padding: 20,
+						}}>
+						Stars:
+					</Text>
+					<View
+						style={{
+							borderColor: 'white',
+							borderWidth: 3,
+							marginTop: 15,
+							height: '30%',
+							width: '50%',
+						}}>
+						<Picker
+							style={{
+								color: 'white',
+							}}
+							dropdownIconColor="#9E9E9E"
+							selectedValue={selectedCategory}
+							onValueChange={(itemValue, itemIndex) =>
+								setSelectedCategory(itemValue)
+							}>
+							<Picker.Item label="1 stars" value={1} />
+							<Picker.Item label="2 stars" value={2} />
+							<Picker.Item label="3 stars" value={3} />
+							<Picker.Item label="4 stars" value={4} />
+							<Picker.Item label="5 stars" value={5} />
+						</Picker>
+					</View>
 				</View>
 				<View style={styles.buttonContainer}>
 					<TouchableOpacity
 						onPress={() => {
-							navigation.navigate('Home');
+							navigation.navigate('Listing');
 						}}>
 						<View>
 							<Text style={styles.buttonText}>SUBMIT</Text>
@@ -50,7 +87,7 @@ const Review = ({navigation}) => {
 					</TouchableOpacity>
 					<TouchableOpacity
 						onPress={() => {
-							navigation.navigate('Home');
+							navigation.navigate('Listing');
 						}}>
 						<View>
 							<Text style={styles.buttonText}>CANCEL</Text>
@@ -79,13 +116,13 @@ const styles = StyleSheet.create({
 	orangeContainer: {
 		backgroundColor: '#f0855b',
 		width: '99%',
-		height: '80%',
+		height: '57%',
 		alignSelf: 'center',
-		justifyContentL: 'center',
+		justifyContent: 'center',
 	},
 	styleimage: {
 		width: '20%',
-		height: '10%',
+		height: '15%',
 		marginTop: 50,
 		marginBottom: 30,
 		alignSelf: 'center',
