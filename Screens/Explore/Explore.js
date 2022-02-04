@@ -141,7 +141,7 @@ const Explore = ({navigation}) => {
 							source={require('../../assets/img/cat1.png')}
 						/>
 						<Text style={[styles.catText, styles.robotoReg]}>
-							Art Tools
+							Art Supplies
 						</Text>
 						<Text style={[styles.catItemsText, styles.robotoReg]}>
 							0 Items
@@ -157,7 +157,7 @@ const Explore = ({navigation}) => {
 const ModifiedMessageDialog = forwardRef((props, ref) => (
 	<PopupMessageDialog
 		header="Coming Soon!"
-		text="We will be releasing the Art Tools category soon! Checkout the other categories in the meantime!"
+		text="We will be releasing the Art Supplies category soon! Checkout the other categories in the meantime!"
 		ref={ref}
 	/>
 ));

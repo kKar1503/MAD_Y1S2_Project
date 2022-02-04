@@ -9,7 +9,7 @@
 // =============================================
 // Import necessary classes for development
 // =============================================
-import React, {forwardRef, useRef} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
 	StyleSheet,
 	Text,
@@ -18,21 +18,64 @@ import {
 	Image,
 	TouchableOpacity,
 	TextInput,
-    FlatList,
+	FlatList,
 } from 'react-native';
 import {LoadUserData} from '../../../database/Account';
-import {postNewReview, queryAllReviewsOfUser} from '../../../database/Schemas';
-import PopupMessageDialog from '../../CustomComponent/PopupMessageDialog';
+import {listingRealm, queryAllListings} from '../../../database/Schemas';
+import {useIsFocused} from '@react-navigation/native';
 
 // =============================================
 // Main Page Implementation
 // =============================================
-const Explore = ({navigation}) => {
-	const comingSoonDialog = useRef();
+const Item = ({name, source, description, navigation}) => (
+	<View style={styles.listingContainer}>
+		<Image source={source} style={styles.listingImage} />
+		<View style={styles.textContainer}>
+			<Text style={styles.name}>{name}</Text>
+			<Text style={styles.description}>{description}</Text>
+		</View>
+	</View>
+);
 
-	const showComingSoonDialog = () => {
-		comingSoonDialog.current.showDialog();
+const Explore = ({navigation}) => {
+	const [listings, setListings] = useState([]);
+
+	const reloadData = async () => {
+		queryAllListings()
+			.then(queryListings => {
+				const restructuredListings = [];
+				for (let listing of queryListings) {
+					restructuredListings.push({
+						id: listing.id,
+						name: listing.name,
+						source: require('../../assets/img/Chat2.png'),
+						description: listing.description,
+					});
+				}
+				setListings(restructuredListings);
+			})
+			.catch(err => {
+				console.log(err);
+				setListings([]);
+			});
 	};
+
+	const isFocused = useIsFocused();
+
+	useEffect(() => {
+		reloadData();
+		listingRealm.addListener('change', () => reloadData());
+	}, [isFocused]);
+
+	const renderItem = ({item}) => {
+		<Item
+			name={item.name}
+			source={item.source}
+			description={item.description}
+			navigation={navigation}
+		/>;
+	};
+
 	return (
 		<View style={styles.container}>
 			<ScrollView>
@@ -43,48 +86,25 @@ const Explore = ({navigation}) => {
 						placeholderTextColor={'#9E9E9E'}
 						maxLength={15}
 					/>
-					<TouchableOpacity
-						onPress={() =>
-							queryAllReviewsOfUser('Jialur')
-								.then(data => console.log('hello'))
-								.catch(err => console.log(err))
-						}>
+					<TouchableOpacity onPress={() => alert('search button')}>
 						<Image
 							source={require('../../assets/img/search.png')}
-						/>
-					</TouchableOpacity>
-					<TouchableOpacity
-						onPress={async () => {
-							const user = await LoadUserData();
-							postNewReview('Kar Lok', {
-								stars: 1,
-								reviewee: 'yay',
-							})
-								.then(data => console.log('help'))
-								.catch(err => console.log(err));
-						}}
-						style={{translateX: 30}}>
-						<Image
-							source={require('../../assets/img/filter.png')}
 						/>
 					</TouchableOpacity>
 				</View>
 
 				<View style={styles.viewWrapper}>
-					<FlatList>
+					<FlatList
+						nestedScrollEnabled={true}
+						data={listings}
+						renderItem={renderItem}
+						keyExtractor={item => item.id}
+					/>
 				</View>
 			</ScrollView>
 		</View>
 	);
 };
-
-const ModifiedMessageDialog = forwardRef((props, ref) => (
-	<PopupMessageDialog
-		header="Coming Soon!"
-		text="We will be releasing the Art Tools category soon! Checkout the other categories in the meantime!"
-		ref={ref}
-	/>
-));
 
 // =============================================
 // StyleSheet

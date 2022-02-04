@@ -206,6 +206,23 @@ export const queryAllListings = () =>
 			.catch(err => reject(err));
 	});
 
+export const queryListingByCategory = category =>
+	new Promise((resolve, reject) => {
+		Realm.open(listingDatabaseOptions)
+			.then(realm => {
+				let foundListings = realm.objects(LISTING_SCHEMA);
+				if (foundListings.length === 0 || foundListings == null) {
+					reject();
+				} else {
+					let filteredListings = foundListings.filter(
+						listing => listing.category === category,
+					);
+					resolve(filteredListings);
+				}
+			})
+			.catch(err => reject(err));
+	});
+
 export const userRealm = new Realm(userDatabaseOptions);
 export const reviewRealm = new Realm(reviewDatabaseOptions);
 export const listingRealm = new Realm(listingDatabaseOptions);
