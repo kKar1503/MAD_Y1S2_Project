@@ -240,6 +240,19 @@ export const queryListingBySearch = search =>
 			.catch(err => reject(err));
 	});
 
+export const queryListingById = id =>
+	new Promise((resolve, reject) => {
+		Realm.open(listingDatabaseOptions)
+			.then(realm => {
+				let foundListing = realm.objectForPrimaryKey(
+					LISTING_SCHEMA,
+					id,
+				);
+				resolve(foundListing);
+			})
+			.catch(err => reject(err));
+	});
+
 export const userRealm = new Realm(userDatabaseOptions);
 export const reviewRealm = new Realm(reviewDatabaseOptions);
 export const listingRealm = new Realm(listingDatabaseOptions);
