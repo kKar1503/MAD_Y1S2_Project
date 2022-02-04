@@ -24,7 +24,7 @@ import EditProfileScreen from './Screens/Profiles/EditProfile';
 import ProfileScreen from './Screens/Profiles/Profile';
 import AllChatsScreen from './Screens/Chats/Chats';
 import ChattingScreen from './Screens/Chats/Chatting';
-import ProductScreen from './Screens/Listings/ListingPage';
+import ListingScreen from './Screens/Listings/ListingPage';
 import LoginScreen from './Screens/Login';
 import AddReviewScreen from './Screens/Reviews/AddReview';
 import ReviewsScreen from './Screens/Reviews/Reviews';
@@ -107,8 +107,8 @@ const productNav = () => {
 	return (
 		<Stack.Navigator initialRouteName="Explore">
 			<Stack.Screen
-				name="Product"
-				component={ProductScreen}
+				name="Listing"
+				component={ListingScreen}
 				options={{
 					headerTintColor: 'white',
 					headerStyle: {backgroundColor: '#424242'},

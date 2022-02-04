@@ -28,13 +28,15 @@ import {LoadSearch} from '../../../database/Listings';
 // Main Page Implementation
 // =============================================
 const Item = ({title, source, description, navigation}) => (
-	<View style={styles.listingContainer}>
+	<TouchableOpacity
+		style={styles.listingContainer}
+		onPress={() => navigation.navigate('Listing')}>
 		<Image source={source} style={styles.listingImage} />
 		<View style={styles.textContainer}>
 			<Text style={styles.name}>{title}</Text>
 			<Text style={styles.description}>{description}</Text>
 		</View>
-	</View>
+	</TouchableOpacity>
 );
 
 const SearchScreen = ({navigation}) => {

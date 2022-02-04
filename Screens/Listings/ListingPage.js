@@ -17,7 +17,7 @@ import CustomButton from '../CustomComponent/CustomButton';
 // =============================================
 // Main Page Implementation
 // =============================================
-const Product = ({navigation}) => {
+const ListingScreen = ({navigation}) => {
 	return (
 		<View style={styles.container}>
 			<ScrollView style={{paddingTop: 40}}>
@@ -151,4 +151,4 @@ const styles = StyleSheet.create({
 // =============================================
 // Export
 // =============================================
-export default Product;
+export default ListingScreen;
