@@ -57,6 +57,7 @@ LogBox.ignoreLogs([
 	'DialogActionList',
 	'componentWillReceiveProps',
 	'PopupDialog.js:73',
+	'memory leak',
 ]);
 
 // =============================================

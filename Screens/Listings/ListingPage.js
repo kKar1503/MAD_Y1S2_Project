@@ -101,16 +101,18 @@ const ListingScreen = ({navigation}) => {
 			<Prompt1
 				ref={prompt1}
 				onPressConfirm={() => {
+					hidePrompt1();
 					showPrompt2();
 				}}
 				onPressCancel={() => {
-					hidePrompt2();
+					hidePrompt1();
 				}}
 			/>
 			<Prompt2
 				ref={prompt2}
 				onPressConfirm={() => {
-					showPrompt2();
+					hidePrompt2();
+					navigation.navigate('AddReviews');
 				}}
 				onPressCancel={() => {
 					hidePrompt2();
