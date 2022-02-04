@@ -154,7 +154,7 @@ const profileNav = ({navigation}) => {
 	return (
 		<Stack.Navigator initialRouteName="Profile">
 			<Stack.Screen
-				name="Profile"
+				name="ProfileStack"
 				component={ProfileScreen}
 				options={{
 					headerTintColor: 'white',
@@ -277,6 +277,7 @@ const Draw = () => {
 				component={profileNav}
 				options={{
 					drawerItemStyle: {height: 0},
+					headerShown: false,
 				}}
 			/>
 		</Drawer.Navigator>
