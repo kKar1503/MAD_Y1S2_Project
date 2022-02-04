@@ -94,21 +94,6 @@ const Explore = ({navigation}) => {
 							source={require('../../assets/img/search.png')}
 						/>
 					</TouchableOpacity>
-					<TouchableOpacity
-						onPress={async () => {
-							const user = await LoadUserData();
-							postNewReview('Kar Lok', {
-								stars: 1,
-								reviewee: 'yay',
-							})
-								.then(data => console.log('help'))
-								.catch(err => console.log(err));
-						}}
-						style={{translateX: 30}}>
-						<Image
-							source={require('../../assets/img/filter.png')}
-						/>
-					</TouchableOpacity>
 				</View>
 
 				<View style={styles.viewWrapper}>
@@ -170,7 +155,7 @@ const Explore = ({navigation}) => {
 					</TouchableOpacity>
 					<TouchableOpacity
 						onPress={() => {
-							saveCategory('stationery');
+							saveCategory('textbook');
 							navigation.navigate('Categorised');
 						}}
 						style={styles.viewWrapperVertical}>
@@ -240,7 +225,7 @@ const styles = StyleSheet.create({
 	textInput: {
 		borderBottomColor: '#666666',
 		borderBottomWidth: 3,
-		width: 250,
+		width: '86%',
 		maxHeight: 60,
 		color: 'white',
 		fontSize: 20,

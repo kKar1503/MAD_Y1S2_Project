@@ -32,8 +32,8 @@ import {postNewListing, queryAllListings} from '../../database/Schemas';
 const conditionRadioButtonsData = [
 	{
 		id: '1',
-		label: 'New',
-		value: 'new',
+		label: 'Brand New',
+		value: 'Brand New',
 		borderColor: '#666666',
 		color: '#666666',
 		labelStyle: {
@@ -44,7 +44,7 @@ const conditionRadioButtonsData = [
 	{
 		id: '2',
 		label: 'Used',
-		value: 'used',
+		value: 'Used',
 		borderColor: '#666666',
 		color: '#666666',
 		labelStyle: {
@@ -58,7 +58,7 @@ const collectionRadioButtonsData = [
 	{
 		id: '1',
 		label: 'Self-Collect',
-		value: 'collection',
+		value: 'Self-Collect',
 		borderColor: '#666666',
 		color: '#666666',
 		labelStyle: {
@@ -68,8 +68,8 @@ const collectionRadioButtonsData = [
 	},
 	{
 		id: '2',
-		label: 'Delivery',
-		value: 'delivery',
+		label: 'Delivery via Mailing',
+		value: 'Delivery via Mailing',
 		borderColor: '#666666',
 		color: '#666666',
 		labelStyle: {
@@ -159,9 +159,9 @@ const NewProfile = ({navigation}) => {
 							}>
 							<Picker.Item
 								label="Stationery"
-								value="stationery"
+								value="Stationery"
 							/>
-							<Picker.Item label="Textbooks" value="textbook" />
+							<Picker.Item label="Textbooks" value="Textbook" />
 						</Picker>
 					</View>
 				</View>

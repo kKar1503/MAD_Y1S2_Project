@@ -23,6 +23,18 @@ import PropTypes from 'prop-types';
 // Implements Popup Prompt Component
 // =============================================
 export default class PopupPromptComponent extends Component {
+	state = {
+		visibility: false,
+	};
+
+	showDialog() {
+		this.setState({visibility: true});
+	}
+
+	hideDialog() {
+		this.setState({visibility: false});
+	}
+
 	render() {
 		const {
 			header,
@@ -31,8 +43,8 @@ export default class PopupPromptComponent extends Component {
 			confirmButtonText,
 			onPressCancel,
 			cancelButtonText,
-			visible,
 		} = this.props;
+		const {visibility} = this.state;
 		return (
 			<PopupDialog
 				onTouchOutside={() => onPressCancel()}
@@ -44,7 +56,7 @@ export default class PopupPromptComponent extends Component {
 					/>
 				}
 				width={0.7}
-				visible={visible}
+				visible={visibility}
 				dialogAnimation={
 					new SlideAnimation({
 						slideFrom: 'bottom',
@@ -82,7 +94,6 @@ PopupPromptComponent.propTypes = {
 	confirmButtonText: PropTypes.string,
 	onPressCancel: PropTypes.func.isRequired,
 	cancelButtonText: PropTypes.string,
-	visible: PropTypes.bool.isRequired,
 };
 
 // =============================================

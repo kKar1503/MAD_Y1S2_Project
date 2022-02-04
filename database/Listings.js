@@ -46,7 +46,7 @@ export const LoadSearch = () =>
 export const PressedListing = id =>
 	new Promise((resolve, reject) => {
 		AsyncStorage.removeItem(STORAGE_LISTING);
-		AsyncStorage.setItem(STORAGE_LISTING, id)
+		AsyncStorage.setItem(STORAGE_LISTING, id.toString())
 			.then(() => resolve())
 			.catch(err => reject(err));
 	});

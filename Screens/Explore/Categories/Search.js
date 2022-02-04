@@ -49,7 +49,7 @@ const SearchScreen = ({navigation}) => {
 					restructuredListings.push({
 						id: listing.id,
 						title: listing.title,
-						source: require('../../../assets/img/Chat2.png'),
+						source: require('../../../assets/img/cat2.png'),
 						description: listing.description,
 					});
 				}

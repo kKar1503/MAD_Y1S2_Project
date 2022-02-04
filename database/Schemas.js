@@ -227,14 +227,13 @@ export const queryListingBySearch = search =>
 	new Promise((resolve, reject) => {
 		Realm.open(listingDatabaseOptions)
 			.then(realm => {
-				let foundListings = realm.objects(LISTING_SCHEMA);
+				let foundListings = realm
+					.objects(LISTING_SCHEMA)
+					.filtered(`title CONTAINS[c] "${search}"`);
 				if (foundListings.length === 0 || foundListings == null) {
 					reject();
 				} else {
-					let filteredListings = foundListings.filter(
-						listing => listing.title === search,
-					);
-					resolve(filteredListings);
+					resolve(foundListings);
 				}
 			})
 			.catch(err => reject(err));

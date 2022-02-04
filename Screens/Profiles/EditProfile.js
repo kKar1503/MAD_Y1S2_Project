@@ -187,7 +187,7 @@ const Edit = ({navigation}) => {
 							phone: parseInt(phone, 10),
 						};
 						updateUser(userObj)
-							.then(() => console.log('updated ur mom'))
+							.then(() => console.log('updated profile'))
 							.catch(err => console.log(err));
 						navigation.navigate('Profile');
 					}}

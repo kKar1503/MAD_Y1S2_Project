@@ -17,7 +17,6 @@ import {
 	View,
 	ScrollView,
 	TouchableOpacity,
-	Image,
 	ImageBackground,
 } from 'react-native';
 import {LoadUserData} from '../../database/Account';
@@ -32,6 +31,7 @@ const Profile = ({navigation}) => {
 	const [username, setUsername] = useState('');
 	const [email, setEmail] = useState('');
 	const [bio, setBio] = useState('');
+	const [birthday, setBirthday] = useState(new Date());
 	const [reviews, setReviews] = useState(0);
 	const [averageStars, setAverageStars] = useState(0);
 
@@ -44,6 +44,7 @@ const Profile = ({navigation}) => {
 				setFullName(data.fullname);
 				setEmail(data.email);
 				setBio(data.bio);
+				setBirthday(data.birthday);
 				let queryReviews;
 				try {
 					queryReviews = await queryAllReviewsOfUser(data.fullname);
@@ -108,7 +109,16 @@ const Profile = ({navigation}) => {
 					<Text style={styles.infoText}>Reviews:</Text>
 					<TouchableOpacity
 						onPress={() => navigation.navigate('My Reviews')}>
-						<Text style={[styles.infoText, {paddingHorizontal: 5}]}>
+						<Text
+							style={[
+								styles.infoText,
+								{
+									paddingHorizontal: 5,
+									paddingTop: 0,
+									position: 'absolute',
+									left: 20,
+								},
+							]}>
 							{averageStars === -1
 								? 'No Reviews'
 								: averageStars.toFixed(1)}{' '}
@@ -119,41 +129,36 @@ const Profile = ({navigation}) => {
 				<View style={{paddingVertical: 10, flexDirection: 'row'}}>
 					<Text style={styles.infoText}>Email:</Text>
 
-					<Text style={[styles.infoText, {paddingHorizontal: 5}]}>
+					<Text
+						style={[
+							styles.infoText,
+							{
+								paddingHorizontal: 5,
+								paddingTop: 10,
+								position: 'absolute',
+								left: 100,
+							},
+						]}>
 						{email}
 					</Text>
 				</View>
-				<View style={{paddingVertical: 10}}>
-					<Text style={styles.infoText}>Listings:</Text>
-					<ScrollView
-						horizontal={true}
-						style={{
-							marginTop: 20,
-							marginLeft: 9,
-							marginBottom: 30,
-						}}>
-						<View style={{paddingBottom: 10}}>
-							<Image
-								source={require('../../assets/img/cat1.png')}
-								style={styles.catImages}
-							/>
-							<Text style={styles.infoText}>Six of Brushes</Text>
-						</View>
-						<View style={{paddingBottom: 10}}>
-							<Image
-								source={require('../../assets/img/cat2.png')}
-								style={styles.catImages}
-							/>
-							<Text style={styles.infoText}>Math Books</Text>
-						</View>
-						<View style={{paddingBottom: 10}}>
-							<Image
-								source={require('../../assets/img/cat3.png')}
-								style={styles.catImages}
-							/>
-							<Text style={styles.infoText}>Math Books</Text>
-						</View>
-					</ScrollView>
+				<View style={{paddingVertical: 10, flexDirection: 'row'}}>
+					<Text style={styles.infoText}>Birthday:</Text>
+
+					<Text
+						style={[
+							styles.infoText,
+							{
+								paddingHorizontal: 5,
+								paddingTop: 10,
+								position: 'absolute',
+								left: 100,
+							},
+						]}>
+						{`${birthday.getDate()}/${
+							birthday.getMonth() + 1
+						}/${birthday.getFullYear()}`}
+					</Text>
 				</View>
 			</ScrollView>
 		</View>

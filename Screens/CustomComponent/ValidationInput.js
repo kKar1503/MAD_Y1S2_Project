@@ -223,7 +223,7 @@ class ValidatingInput extends Component {
 // =============================================
 ValidatingInput.propTypes = {
 	type: PropTypes.string,
-	value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+	value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 	locale: PropTypes.string,
 	onChangeText: PropTypes.func,
 	withSpace: PropTypes.bool,
