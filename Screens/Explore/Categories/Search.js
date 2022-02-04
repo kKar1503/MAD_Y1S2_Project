@@ -25,17 +25,17 @@ import {LoadSearch} from '../../../database/Listings';
 // =============================================
 // Main Page Implementation
 // =============================================
-const Item = ({name, source, description, navigation}) => (
+const Item = ({title, source, description, navigation}) => (
 	<View style={styles.listingContainer}>
 		<Image source={source} style={styles.listingImage} />
 		<View style={styles.textContainer}>
-			<Text style={styles.name}>{name}</Text>
+			<Text style={styles.name}>{title}</Text>
 			<Text style={styles.description}>{description}</Text>
 		</View>
 	</View>
 );
 
-const Explore = ({navigation}) => {
+const SearchScreen = ({navigation}) => {
 	const [listings, setListings] = useState([]);
 
 	const reloadData = async () => {
@@ -46,8 +46,8 @@ const Explore = ({navigation}) => {
 				for (let listing of queryListings) {
 					restructuredListings.push({
 						id: listing.id,
-						name: listing.name,
-						source: require('../../assets/img/Chat2.png'),
+						title: listing.title,
+						source: require('../../../assets/img/Chat2.png'),
 						description: listing.description,
 					});
 				}
@@ -66,14 +66,14 @@ const Explore = ({navigation}) => {
 		listingRealm.addListener('change', () => reloadData());
 	}, [isFocused]);
 
-	const renderItem = ({item}) => {
+	const renderItem = ({item}) => (
 		<Item
-			name={item.name}
+			title={item.title}
 			source={item.source}
 			description={item.description}
 			navigation={navigation}
-		/>;
-	};
+		/>
+	);
 
 	return (
 		<View style={styles.container}>
@@ -150,9 +150,31 @@ const styles = StyleSheet.create({
 	montBold: {
 		fontFamily: 'Montserrat-ExtraBold',
 	},
+	listingImage: {
+		width: 80,
+		height: 80,
+	},
+	listingContainer: {
+		backgroundColor: 'black',
+		padding: 15,
+		flexDirection: 'row',
+		margin: 3,
+		borderRadius: 3,
+	},
+	name: {
+		color: 'white',
+		fontSize: 20,
+		marginBottom: 5,
+	},
+	description: {
+		color: 'grey',
+	},
+	textContainer: {
+		padding: 10,
+	},
 });
 
 // =============================================
 // Export
 // =============================================
-export default Explore;
+export default SearchScreen;

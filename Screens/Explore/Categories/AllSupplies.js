@@ -51,7 +51,7 @@ const AllSuppliesScreen = ({navigation}) => {
 					restructuredListings.push({
 						id: listing.id,
 						title: listing.title,
-						source: require('../../../assets/img/Chat2.png'),
+						source: require('../../../assets/img/cat2.png'),
 						description: listing.description,
 					});
 				}
@@ -138,6 +138,28 @@ const styles = StyleSheet.create({
 	},
 	montBold: {
 		fontFamily: 'Montserrat-ExtraBold',
+	},
+	listingImage: {
+		width: 80,
+		height: 80,
+	},
+	listingContainer: {
+		backgroundColor: 'black',
+		padding: 15,
+		flexDirection: 'row',
+		margin: 3,
+		borderRadius: 3,
+	},
+	name: {
+		color: 'white',
+		fontSize: 20,
+		marginBottom: 5,
+	},
+	description: {
+		color: 'grey',
+	},
+	textContainer: {
+		padding: 10,
 	},
 });
 
