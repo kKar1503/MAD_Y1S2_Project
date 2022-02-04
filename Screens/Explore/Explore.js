@@ -108,7 +108,7 @@ const Explore = ({navigation}) => {
 
 				<View style={styles.viewWrapper}>
 					<TouchableOpacity
-						onPress={() => navigation.navigate('Product')}
+						onPress={() => navigation.navigate('AllSupplies')}
 						style={{
 							borderRadius: 10,
 						}}>
