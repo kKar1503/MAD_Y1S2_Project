@@ -180,9 +180,6 @@ const productNav = () => {
 				name="AddReviews"
 				component={AddReviewScreen}
 				options={{
-					headerTintColor: 'white',
-					headerStyle: {backgroundColor: '#424242'},
-					headerTitleAlign: 'center',
 					headerShown: false,
 				}}
 			/>
