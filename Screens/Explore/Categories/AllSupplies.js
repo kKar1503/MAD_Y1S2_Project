@@ -27,17 +27,17 @@ import {useIsFocused} from '@react-navigation/native';
 // =============================================
 // Main Page Implementation
 // =============================================
-const Item = ({name, source, description, navigation}) => (
+const Item = ({title, source, description, navigation}) => (
 	<View style={styles.listingContainer}>
 		<Image source={source} style={styles.listingImage} />
 		<View style={styles.textContainer}>
-			<Text style={styles.name}>{name}</Text>
+			<Text style={styles.name}>{title}</Text>
 			<Text style={styles.description}>{description}</Text>
 		</View>
 	</View>
 );
 
-const Explore = ({navigation}) => {
+const AllSuppliesScreen = ({navigation}) => {
 	const [listings, setListings] = useState([]);
 
 	const reloadData = async () => {
@@ -47,8 +47,8 @@ const Explore = ({navigation}) => {
 				for (let listing of queryListings) {
 					restructuredListings.push({
 						id: listing.id,
-						name: listing.name,
-						source: require('../../assets/img/Chat2.png'),
+						title: listing.title,
+						source: require('../../../assets/img/Chat2.png'),
 						description: listing.description,
 					});
 				}
@@ -69,7 +69,7 @@ const Explore = ({navigation}) => {
 
 	const renderItem = ({item}) => {
 		<Item
-			name={item.name}
+			title={item.title}
 			source={item.source}
 			description={item.description}
 			navigation={navigation}
@@ -78,30 +78,12 @@ const Explore = ({navigation}) => {
 
 	return (
 		<View style={styles.container}>
-			<ScrollView>
-				<View style={[styles.viewWrapper, styles.searchInputField]}>
-					<TextInput
-						style={[styles.textInput, styles.robotoReg]}
-						placeholder="Search"
-						placeholderTextColor={'#9E9E9E'}
-						maxLength={15}
-					/>
-					<TouchableOpacity onPress={() => alert('search button')}>
-						<Image
-							source={require('../../assets/img/search.png')}
-						/>
-					</TouchableOpacity>
-				</View>
-
-				<View style={styles.viewWrapper}>
-					<FlatList
-						nestedScrollEnabled={true}
-						data={listings}
-						renderItem={renderItem}
-						keyExtractor={item => item.id}
-					/>
-				</View>
-			</ScrollView>
+			<FlatList
+				nestedScrollEnabled={true}
+				data={listings}
+				renderItem={renderItem}
+				keyExtractor={item => item.id}
+			/>
 		</View>
 	);
 };
@@ -126,23 +108,7 @@ const styles = StyleSheet.create({
 	viewWrapperVertical: {
 		flexDirection: 'column',
 	},
-	searchInputField: {
-		alignItems: 'center',
-	},
-	textInput: {
-		borderBottomColor: '#666666',
-		borderBottomWidth: 3,
-		width: 250,
-		maxHeight: 60,
-		color: 'white',
-		fontSize: 20,
-		paddingBottom: 20,
-		textAlignVertical: 'bottom',
-	},
-	headerText: {
-		color: 'white',
-		fontSize: 25,
-	},
+
 	catImages: {
 		width: 200,
 		height: undefined,
@@ -174,4 +140,4 @@ const styles = StyleSheet.create({
 // =============================================
 // Export
 // =============================================
-export default Explore;
+export default AllSuppliesScreen;

@@ -29,6 +29,8 @@ import LoginScreen from './Screens/Login';
 import AddReviewScreen from './Screens/Reviews/AddReview';
 import ReviewsScreen from './Screens/Reviews/Reviews';
 import CustomDrawer from './Screens/CustomComponent/CustomDrawer';
+import AllSuppliesScreen from './Screens/Explore/Categories/AllSupplies';
+
 import {
 	View,
 	StyleSheet,
@@ -141,6 +143,16 @@ const productNav = () => {
 					headerStyle: {backgroundColor: '#424242'},
 					headerTitleAlign: 'center',
 					title: 'Home',
+				}}
+			/>
+			<Stack.Screen
+				name="AllSupplies"
+				component={AllSuppliesScreen}
+				options={{
+					headerTintColor: 'white',
+					headerStyle: {backgroundColor: '#424242'},
+					headerTitleAlign: 'center',
+					title: 'All Supplies',
 				}}
 			/>
 		</Stack.Navigator>
