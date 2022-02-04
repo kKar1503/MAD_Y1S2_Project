@@ -1,4 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
+
 // =============================================
 // Mobile Application Development
 // Name:        Yam Kar Lok & Vernell Lim Xi
@@ -14,11 +15,10 @@ import {
 	StyleSheet,
 	Text,
 	View,
-	ScrollView,
 	Image,
 	TouchableOpacity,
-	TextInput,
 	FlatList,
+	SafeAreaView,
 } from 'react-native';
 import {listingRealm, queryAllListings} from '../../../database/Schemas';
 import {useIsFocused} from '@react-navigation/native';
@@ -66,14 +66,14 @@ const AllSuppliesScreen = ({navigation}) => {
 		listingRealm.addListener('change', () => reloadData());
 	}, [isFocused]);
 
-	const renderItem = ({item}) => {
+	const renderItem = ({item}) => (
 		<Item
 			title={item.title}
 			source={item.source}
 			description={item.description}
 			navigation={navigation}
-		/>;
-	};
+		/>
+	);
 
 	return (
 		<View style={styles.container}>

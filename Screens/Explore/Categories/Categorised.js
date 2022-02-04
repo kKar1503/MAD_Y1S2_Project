@@ -22,6 +22,7 @@ import {
 } from 'react-native';
 import {listingRealm, queryListingByCategory} from '../../../database/Schemas';
 import {useIsFocused} from '@react-navigation/native';
+import {LoadCategory} from '../../../database/Listings';
 
 // =============================================
 // Main Page Implementation
@@ -40,7 +41,8 @@ const Explore = ({navigation}) => {
 	const [listings, setListings] = useState([]);
 
 	const reloadData = async () => {
-		queryListingByCategory()
+		const category = await LoadCategory();
+		queryListingByCategory(category)
 			.then(queryListings => {
 				const restructuredListings = [];
 				for (let listing of queryListings) {

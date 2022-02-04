@@ -20,7 +20,11 @@ import {
 	TextInput,
 } from 'react-native';
 import {LoadUserData} from '../../database/Account';
-import {queryListingByCategory} from '../../database/Schemas';
+import {
+	queryListingByCategory,
+	queryAllReviewsOfUser,
+	postNewReview,
+} from '../../database/Schemas';
 import PopupMessageDialog from '../CustomComponent/PopupMessageDialog';
 import AsyncStorage from '@react-native-community/async-storage';
 import {useIsFocused} from '@react-navigation/native';
@@ -146,7 +150,12 @@ const Explore = ({navigation}) => {
 				<ScrollView
 					style={{marginTop: 20, marginLeft: 9, marginBottom: 30}}
 					horizontal={true}>
-					<TouchableOpacity style={styles.viewWrapperVertical}>
+					<TouchableOpacity
+						onPress={() => {
+							saveCategory('stationery');
+							navigation.navigate('Categorised');
+						}}
+						style={styles.viewWrapperVertical}>
 						<Image
 							style={styles.catImages}
 							source={require('../../assets/img/cat3.png')}
@@ -158,7 +167,12 @@ const Explore = ({navigation}) => {
 							{numberOfStationery} Items
 						</Text>
 					</TouchableOpacity>
-					<TouchableOpacity style={styles.viewWrapperVertical}>
+					<TouchableOpacity
+						onPress={() => {
+							saveCategory('stationery');
+							navigation.navigate('Categorised');
+						}}
+						style={styles.viewWrapperVertical}>
 						<Image
 							style={styles.catImages}
 							source={require('../../assets/img/cat2.png')}
