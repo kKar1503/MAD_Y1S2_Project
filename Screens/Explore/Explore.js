@@ -37,6 +37,7 @@ const Explore = ({navigation}) => {
 	const comingSoonDialog = useRef();
 	const [numberOfStationery, setNumberOfStationery] = useState(0);
 	const [numberOfTextbooks, setNumberOfTextbooks] = useState(0);
+	const [search, setSearch] = useState('');
 
 	const showComingSoonDialog = () => {
 		comingSoonDialog.current.showDialog();
@@ -82,13 +83,13 @@ const Explore = ({navigation}) => {
 						placeholder="Search"
 						placeholderTextColor={'#9E9E9E'}
 						maxLength={15}
+						onChangeText={text => setSearch(text)}
 					/>
 					<TouchableOpacity
-						onPress={() =>
-							queryAllReviewsOfUser('Jialur')
-								.then(data => console.log('hello'))
-								.catch(err => console.log(err))
-						}>
+						onPress={() => {
+							saveSearch(search);
+							navigation.navigate('Search');
+						}}>
 						<Image
 							source={require('../../assets/img/search.png')}
 						/>
