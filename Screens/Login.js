@@ -46,7 +46,6 @@ class Login extends Component {
 			newPhone: '',
 			newPassword: '',
 			newConfirmPassword: '',
-			validInputs: false,
 			showDatePicker: false,
 		};
 	}
@@ -93,10 +92,6 @@ class Login extends Component {
 
 	changeNewConfirmPassword = text => {
 		this.setState({newConfirmPassword: text});
-	};
-
-	toggleValidInputs = validation => {
-		this.setState({validInputs: validation});
 	};
 
 	toggleDatePicker = show => {
@@ -336,8 +331,7 @@ class Login extends Component {
 							console.log({newPhone});
 							console.log({newPassword});
 							console.log({newConfirmPassword});
-							this.toggleValidInputs(this.handleIsValidated());
-							if (!validInputs) {
+							if (!this.handleIsValidated()) {
 								this.showInvalidInputsDialog();
 							} else if (newPassword !== newConfirmPassword) {
 								this.showPasswordMismatchDialog();

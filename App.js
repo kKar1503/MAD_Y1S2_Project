@@ -53,6 +53,7 @@ LogBox.ignoreLogs([
 	'Require cycle:',
 	'DialogActionList',
 	'componentWillReceiveProps',
+	'PopupDialog.js:73',
 ]);
 
 // =============================================
