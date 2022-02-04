@@ -12,14 +12,22 @@
 // =============================================
 import React, {useState, useCallback, useEffect} from 'react';
 import {GiftedChat, Bubble} from 'react-native-gifted-chat';
-import {View, StyleSheet} from 'react-native';
+import {View} from 'react-native';
 import reply from './ChatFunction/Replies';
+import AsyncStorage from '@react-native-community/async-storage';
+import {useIsFocused} from '@react-navigation/native';
+import {useDrawerStatus} from '@react-navigation/drawer';
 // =============================================
 // Main Page Implementation
 // =============================================
+const STORAGE_MODE = '@current_mode';
 const Chatting = ({navigation}, props) => {
+	const [lightMode, setLightMode] = useState(false);
 	const [messages, setMessages] = useState([]);
 	const [count, setCount] = useState(0);
+
+	const isFocused = useIsFocused();
+	const drawerStatus = useDrawerStatus();
 
 	const user1 = {
 		_id: 1,
@@ -62,6 +70,22 @@ const Chatting = ({navigation}, props) => {
 			},
 		]);
 	}, []);
+
+	useEffect(() => {
+		AsyncStorage.getItem(STORAGE_MODE, (err, res) => {
+			if (!err) {
+				if (parseInt(res, 10) === 2) {
+					console.log('light');
+					setLightMode(true);
+				} else {
+					console.log('dark');
+					setLightMode(false);
+				}
+			} else {
+				console.log(err);
+			}
+		});
+	}, [isFocused, drawerStatus]);
 
 	// Define onSend Function
 	const onSend = (newMessages = []) => {
@@ -111,12 +135,9 @@ const Chatting = ({navigation}, props) => {
 					wrapperStyle={{
 						left: {
 							backgroundColor: '#666666',
-							//width:300
 						},
 						right: {
 							backgroundColor: '#666666',
-							//width:300,
-							//alignContent:"flex-start"
 						},
 					}}
 				/>
@@ -125,7 +146,8 @@ const Chatting = ({navigation}, props) => {
 	};
 
 	return (
-		<View style={styles.container}>
+		<View
+			style={{flex: 1, backgroundColor: lightMode ? 'white' : '#303030'}}>
 			<GiftedChat
 				{...props}
 				messages={messages}
@@ -138,18 +160,6 @@ const Chatting = ({navigation}, props) => {
 		</View>
 	);
 };
-
-// =============================================
-// StyleSheet
-// =============================================
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		//justifyContent: 'center',
-		//alignItems: 'center',
-		backgroundColor: '#303030',
-	},
-});
 
 // =============================================
 // Export

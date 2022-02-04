@@ -13,12 +13,13 @@ import {
 	StyleSheet,
 	Text,
 	View,
-	TextInput,
 	TouchableOpacity,
 	Image,
 	Dimensions,
 } from 'react-native';
 import {Picker} from '@react-native-picker/picker';
+import {postNewReview} from '../../database/Schemas';
+import {LoadUserData} from '../../database/Account';
 
 // =============================================
 // Main Page Implementation
@@ -78,7 +79,12 @@ const Review = ({navigation}) => {
 				</View>
 				<View style={styles.buttonContainer}>
 					<TouchableOpacity
-						onPress={() => {
+						onPress={async () => {
+							const user = await LoadUserData();
+							postNewReview(user.fullname, {
+								stars: selectedCategory,
+								reviewee: user.fullname,
+							});
 							navigation.navigate('Listing');
 						}}>
 						<View>

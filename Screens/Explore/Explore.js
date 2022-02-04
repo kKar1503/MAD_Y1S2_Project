@@ -175,7 +175,12 @@ const Explore = ({navigation}) => {
 							]}>
 							Stationeries
 						</Text>
-						<Text style={[styles.catItemsText, styles.robotoReg]}>
+						<Text
+							style={[
+								styles.catItemsText,
+								styles.robotoReg,
+								{color: lightMode ? 'black' : '#666666'},
+							]}>
 							{numberOfStationery} Items
 						</Text>
 					</TouchableOpacity>
@@ -189,10 +194,20 @@ const Explore = ({navigation}) => {
 							style={styles.catImages}
 							source={require('../../assets/img/cat2.png')}
 						/>
-						<Text style={[styles.catText, styles.robotoReg]}>
+						<Text
+							style={[
+								styles.catText,
+								styles.robotoReg,
+								{color: lightMode ? 'black' : 'white'},
+							]}>
 							Textbooks
 						</Text>
-						<Text style={[styles.catItemsText, styles.robotoReg]}>
+						<Text
+							style={[
+								styles.catItemsText,
+								styles.robotoReg,
+								{color: lightMode ? 'black' : '#666666'},
+							]}>
 							{numberOfTextbooks} Items
 						</Text>
 					</TouchableOpacity>
@@ -203,10 +218,20 @@ const Explore = ({navigation}) => {
 							style={[styles.catImages, {marginRight: 0}]}
 							source={require('../../assets/img/cat1.png')}
 						/>
-						<Text style={[styles.catText, styles.robotoReg]}>
+						<Text
+							style={[
+								styles.catText,
+								styles.robotoReg,
+								{color: lightMode ? 'black' : 'white'},
+							]}>
 							Art Supplies
 						</Text>
-						<Text style={[styles.catItemsText, styles.robotoReg]}>
+						<Text
+							style={[
+								styles.catItemsText,
+								styles.robotoReg,
+								{color: lightMode ? 'black' : '#666666'},
+							]}>
 							0 Items
 						</Text>
 					</TouchableOpacity>
@@ -269,12 +294,10 @@ const styles = StyleSheet.create({
 		marginBottom: 30,
 	},
 	catText: {
-		color: 'white',
 		fontSize: 20,
 		marginBottom: 10,
 	},
 	catItemsText: {
-		color: '#666666',
 		fontSize: 15,
 	},
 	robotoReg: {

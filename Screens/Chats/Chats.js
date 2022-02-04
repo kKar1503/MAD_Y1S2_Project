@@ -10,7 +10,7 @@
 // =============================================
 // Import Necessary Classes for Development
 // =============================================
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
 	SafeAreaView,
 	View,
@@ -20,10 +20,13 @@ import {
 	Image,
 	TouchableOpacity,
 } from 'react-native';
-
+import AsyncStorage from '@react-native-community/async-storage';
+import {useIsFocused} from '@react-navigation/native';
+import {useDrawerStatus} from '@react-navigation/drawer';
 // =============================================
 // Data Declaration for Gifted Chat
 // =============================================
+const STORAGE_MODE = '@current_mode';
 const DATA = [
 	{
 		id: '1',
@@ -49,6 +52,27 @@ const Item = ({title, username, source, navigation}) => (
 // Chat Screen Implementation
 // =============================================
 const Chats = ({navigation}) => {
+	const [lightMode, setLightMode] = useState(false);
+
+	const isFocused = useIsFocused();
+	const drawerStatus = useDrawerStatus();
+
+	useEffect(() => {
+		AsyncStorage.getItem(STORAGE_MODE, (err, res) => {
+			if (!err) {
+				if (parseInt(res, 10) === 2) {
+					console.log('light');
+					setLightMode(true);
+				} else {
+					console.log('dark');
+					setLightMode(false);
+				}
+			} else {
+				console.log(err);
+			}
+		});
+	}, [isFocused, drawerStatus]);
+
 	const renderItem = ({item}) => (
 		<Item
 			title={item.title}
@@ -59,7 +83,11 @@ const Chats = ({navigation}) => {
 	);
 
 	return (
-		<SafeAreaView style={styles.container}>
+		<SafeAreaView
+			style={[
+				styles.container,
+				{backgroundColor: lightMode ? 'white' : '#303030'},
+			]}>
 			<FlatList
 				nestedScrollEnabled={true}
 				data={DATA}
@@ -77,8 +105,6 @@ const Chats = ({navigation}) => {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-
-		backgroundColor: '#303030',
 	},
 	button: {
 		flexDirection: 'row',
