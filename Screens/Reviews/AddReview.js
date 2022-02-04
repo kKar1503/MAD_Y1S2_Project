@@ -8,7 +8,7 @@
 // =============================================
 // Import Necessary Classes for Development
 // =============================================
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
 	StyleSheet,
 	Text,
@@ -19,14 +19,40 @@ import {
 	Dimensions,
 } from 'react-native';
 import {Picker} from '@react-native-picker/picker';
+import {useIsFocused} from '@react-navigation/native';
+import {useDrawerStatus} from '@react-navigation/drawer';
+import AsyncStorage from '@react-native-community/async-storage';
 
 // =============================================
 // Main Page Implementation
 // =============================================
 const Review = ({navigation}) => {
 	const [selectedCategory, setSelectedCategory] = useState(1);
+	const [lightMode, setLightMode] = useState(false);
+	const isFocused = useIsFocused();
+	const drawerStatus = useDrawerStatus();
+	const STORAGE_MODE = '@current_mode';
+	useEffect(() => {
+		AsyncStorage.getItem(STORAGE_MODE, (err, res) => {
+			if (!err) {
+				if (parseInt(res, 10) === 2) {
+					console.log('light');
+					setLightMode(true);
+				} else {
+					console.log('dark');
+					setLightMode(false);
+				}
+			} else {
+				console.log(err);
+			}
+		});
+	}, [isFocused, drawerStatus]);
 	return (
-		<View style={styles.container}>
+		<View
+			style={[
+				styles.container,
+				{backgroundColor: lightMode ? 'white' : '#303030'},
+			]}>
 			<View style={styles.orangeContainer}>
 				<Image
 					source={require('../../assets/img/ratingscreen.png')}
