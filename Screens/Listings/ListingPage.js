@@ -23,6 +23,8 @@ import {useDrawerStatus} from '@react-navigation/drawer';
 // =============================================
 // Main Page Implementation
 // =============================================
+const STORAGE_OWNER = '@current_owner';
+
 const ListingScreen = ({navigation}) => {
 	const [title, setTitle] = useState('');
 	const [owner, setOwner] = useState('');
@@ -192,6 +194,8 @@ const ListingScreen = ({navigation}) => {
 				<CustomButton
 					text={buttonText}
 					onPress={() => {
+						AsyncStorage.removeItem(STORAGE_OWNER);
+						AsyncStorage.setItem(STORAGE_OWNER, owner);
 						setButtonColor('grey');
 						setButtonText('RESERVED');
 						showPrompt1();
