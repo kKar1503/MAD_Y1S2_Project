@@ -18,10 +18,11 @@ import {
 	Image,
 	TouchableOpacity,
 	TextInput,
+    FlatList,
 } from 'react-native';
-import {LoadUserData} from '../../database/Account';
-import {postNewReview, queryAllReviewsOfUser} from '../../database/Schemas';
-import PopupMessageDialog from '../CustomComponent/PopupMessageDialog';
+import {LoadUserData} from '../../../database/Account';
+import {postNewReview, queryAllReviewsOfUser} from '../../../database/Schemas';
+import PopupMessageDialog from '../../CustomComponent/PopupMessageDialog';
 
 // =============================================
 // Main Page Implementation
@@ -70,85 +71,8 @@ const Explore = ({navigation}) => {
 				</View>
 
 				<View style={styles.viewWrapper}>
-					<TouchableOpacity
-						onPress={() => navigation.navigate('Product')}
-						style={{
-							borderRadius: 10,
-						}}>
-						<Image
-							source={require('../../assets/img/main.png')}
-							style={{
-								width: '100%',
-								height: undefined,
-								aspectRatio: 1.6,
-								borderRadius: 10,
-							}}
-						/>
-						<View
-							style={{
-								position: 'absolute',
-								bottom: 15,
-								right: 15,
-							}}>
-							<Text
-								style={[
-									{color: 'white', fontSize: 20},
-									styles.robotoReg,
-								]}>
-								Back to School Supplies
-							</Text>
-						</View>
-					</TouchableOpacity>
+					<FlatList>
 				</View>
-
-				<View style={styles.viewWrapper}>
-					<Text style={[styles.headerText, styles.robotoBold]}>
-						Categories
-					</Text>
-				</View>
-				<ScrollView
-					style={{marginTop: 20, marginLeft: 9, marginBottom: 30}}
-					horizontal={true}>
-					<TouchableOpacity style={styles.viewWrapperVertical}>
-						<Image
-							style={styles.catImages}
-							source={require('../../assets/img/cat3.png')}
-						/>
-						<Text style={[styles.catText, styles.robotoReg]}>
-							Stationeries
-						</Text>
-						<Text style={[styles.catItemsText, styles.robotoReg]}>
-							132 Items
-						</Text>
-					</TouchableOpacity>
-					<TouchableOpacity style={styles.viewWrapperVertical}>
-						<Image
-							style={styles.catImages}
-							source={require('../../assets/img/cat2.png')}
-						/>
-						<Text style={[styles.catText, styles.robotoReg]}>
-							Textbooks
-						</Text>
-						<Text style={[styles.catItemsText, styles.robotoReg]}>
-							564 Items
-						</Text>
-					</TouchableOpacity>
-					<TouchableOpacity
-						onPress={() => showComingSoonDialog()}
-						style={styles.viewWrapperVertical}>
-						<Image
-							style={[styles.catImages, {marginRight: 0}]}
-							source={require('../../assets/img/cat1.png')}
-						/>
-						<Text style={[styles.catText, styles.robotoReg]}>
-							Art Tools
-						</Text>
-						<Text style={[styles.catItemsText, styles.robotoReg]}>
-							0 Items
-						</Text>
-					</TouchableOpacity>
-					<ModifiedMessageDialog ref={comingSoonDialog} />
-				</ScrollView>
 			</ScrollView>
 		</View>
 	);
