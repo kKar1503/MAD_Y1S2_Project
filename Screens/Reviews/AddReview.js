@@ -13,12 +13,13 @@ import {
 	StyleSheet,
 	Text,
 	View,
-	TextInput,
 	TouchableOpacity,
 	Image,
 	Dimensions,
 } from 'react-native';
 import {Picker} from '@react-native-picker/picker';
+import {postNewReview} from '../../database/Schemas';
+import {LoadUserData} from '../../database/Account';
 import {useIsFocused} from '@react-navigation/native';
 import {useDrawerStatus} from '@react-navigation/drawer';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -26,12 +27,16 @@ import AsyncStorage from '@react-native-community/async-storage';
 // =============================================
 // Main Page Implementation
 // =============================================
+const STORAGE_OWNER = '@current_owner';
+
 const Review = ({navigation}) => {
 	const [selectedCategory, setSelectedCategory] = useState(1);
 	const [lightMode, setLightMode] = useState(false);
+	const [owner, setOwner] = useState('');
 	const isFocused = useIsFocused();
 	const drawerStatus = useDrawerStatus();
 	const STORAGE_MODE = '@current_mode';
+
 	useEffect(() => {
 		AsyncStorage.getItem(STORAGE_MODE, (err, res) => {
 			if (!err) {
@@ -42,6 +47,13 @@ const Review = ({navigation}) => {
 					console.log('dark');
 					setLightMode(false);
 				}
+			} else {
+				console.log(err);
+			}
+		});
+		AsyncStorage.getItem(STORAGE_OWNER, (err, res) => {
+			if (!err) {
+				setOwner(res);
 			} else {
 				console.log(err);
 			}
@@ -104,7 +116,13 @@ const Review = ({navigation}) => {
 				</View>
 				<View style={styles.buttonContainer}>
 					<TouchableOpacity
-						onPress={() => {
+						onPress={async () => {
+							const user = await LoadUserData();
+							postNewReview(user.fullname, {
+								stars: selectedCategory,
+								reviewee: user.fullname,
+								owner: owner,
+							});
 							navigation.navigate('Listing');
 						}}>
 						<View>

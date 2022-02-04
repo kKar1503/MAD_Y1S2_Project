@@ -10,7 +10,7 @@
 // =============================================
 // Import Necessary Classes for Development
 // =============================================
-import React, {forwardRef, useState, useRef} from 'react';
+import React, {forwardRef, useState, useRef, useEffect} from 'react';
 import {
 	StyleSheet,
 	Text,
@@ -25,10 +25,13 @@ import CustomButton from '../CustomComponent/CustomButton';
 import PopupMessageDialog from '../CustomComponent/PopupMessageDialog';
 import {LoadUserData} from '../../database/Account';
 import {postNewListing, queryAllListings} from '../../database/Schemas';
-
+import AsyncStorage from '@react-native-community/async-storage';
+import {useIsFocused} from '@react-navigation/native';
+import {useDrawerStatus} from '@react-navigation/drawer';
 // =============================================
 // RadioButtons Data
 // =============================================
+const STORAGE_MODE = '@current_mode';
 const conditionRadioButtonsData = [
 	{
 		id: '1',
@@ -93,8 +96,28 @@ const NewProfile = ({navigation}) => {
 	);
 	const [listingName, setListingName] = useState('');
 	const [description, setDescription] = useState('');
+	const [lightMode, setLightMode] = useState(false);
+
+	const isFocused = useIsFocused();
+	const drawerStatus = useDrawerStatus();
 
 	const dialogRef = useRef();
+
+	useEffect(() => {
+		AsyncStorage.getItem(STORAGE_MODE, (err, res) => {
+			if (!err) {
+				if (parseInt(res, 10) === 2) {
+					console.log('light');
+					setLightMode(true);
+				} else {
+					console.log('dark');
+					setLightMode(false);
+				}
+			} else {
+				console.log(err);
+			}
+		});
+	}, [isFocused, drawerStatus]);
 
 	const onPressRadioButton1 = radioButtonsArray => {
 		setRadioButtons1(radioButtonsArray);
@@ -109,7 +132,11 @@ const NewProfile = ({navigation}) => {
 	};
 
 	return (
-		<View style={styles.container}>
+		<View
+			style={[
+				styles.container,
+				{backgroundColor: lightMode ? 'white' : '#303030'},
+			]}>
 			<ScrollView>
 				<View style={styles.inputField}>
 					<Image
@@ -127,7 +154,11 @@ const NewProfile = ({navigation}) => {
 
 				<View style={styles.inputField}>
 					<TextInput
-						style={[styles.textInput, styles.robotoReg]}
+						style={[
+							styles.textInput,
+							styles.robotoReg,
+							{color: lightMode ? 'black' : 'white'},
+						]}
 						placeholder="Listing Name"
 						placeholderTextColor={'#9E9E9E'}
 						maxLength={50}
@@ -139,7 +170,12 @@ const NewProfile = ({navigation}) => {
 				</View>
 
 				<View style={styles.inputField}>
-					<Text style={[styles.robotoBold, styles.fieldHeader]}>
+					<Text
+						style={[
+							styles.robotoBold,
+							styles.fieldHeader,
+							{color: lightMode ? 'black' : 'white'},
+						]}>
 						Category
 					</Text>
 					<View
@@ -167,7 +203,12 @@ const NewProfile = ({navigation}) => {
 				</View>
 
 				<View style={styles.inputField}>
-					<Text style={[styles.robotoBold, styles.fieldHeader]}>
+					<Text
+						style={[
+							styles.robotoBold,
+							styles.fieldHeader,
+							{color: lightMode ? 'black' : 'white'},
+						]}>
 						Condition
 					</Text>
 					<RadioGroup
@@ -180,7 +221,12 @@ const NewProfile = ({navigation}) => {
 				</View>
 
 				<View style={styles.inputField}>
-					<Text style={[styles.robotoBold, styles.fieldHeader]}>
+					<Text
+						style={[
+							styles.robotoBold,
+							styles.fieldHeader,
+							{color: lightMode ? 'black' : 'white'},
+						]}>
 						Method of Collection
 					</Text>
 					<RadioGroup
@@ -197,6 +243,7 @@ const NewProfile = ({navigation}) => {
 						style={[
 							styles.textInput,
 							styles.robotoReg,
+							{color: lightMode ? 'black' : 'white'},
 							{maxHeight: dynamicHeight},
 						]}
 						onChangeText={text => {
@@ -275,7 +322,6 @@ const styles = StyleSheet.create({
 		flex: 1,
 		justifyContent: 'center',
 		alignItems: 'center',
-		backgroundColor: '#303030',
 		paddingHorizontal: 15,
 	},
 	inputField: {
@@ -288,13 +334,11 @@ const styles = StyleSheet.create({
 		width: 325,
 		maxHeight: 60,
 		alignSelf: 'center',
-		color: 'white',
 		fontSize: 20,
 		paddingBottom: 20,
 		textAlignVertical: 'top',
 	},
 	fieldHeader: {
-		color: 'white',
 		fontSize: 25,
 	},
 	footer: {
