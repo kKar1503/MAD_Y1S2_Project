@@ -31,12 +31,6 @@ const DATA = [
 		username: ' alyssazxcslapdieyou',
 		source: require('../../assets/img/Chat2.png'),
 	},
-	{
-		id: '2',
-		title: 'Sum Ting Wong',
-		username: 'somethingwrong',
-		source: require('../../assets/img/Chat1.png'),
-	},
 ];
 
 const Item = ({title, username, source, navigation}) => (
