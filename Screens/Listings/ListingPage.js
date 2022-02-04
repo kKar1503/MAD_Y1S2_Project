@@ -10,14 +10,43 @@
 // =============================================
 // Import Necessary Classes for Development
 // =============================================
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text, View, ScrollView, Image} from 'react-native';
 import CustomButton from '../CustomComponent/CustomButton';
-
+import {queryListingById} from '../../database/Schemas';
+import {LoadListingId} from '../../database/Listings';
+import {useIsFocused} from '@react-navigation/native';
 // =============================================
 // Main Page Implementation
 // =============================================
-const ListingScreen = ({navigation}) => {
+const Product = ({navigation}) => {
+	const [title, setTitle] = useState('');
+	const [owner, setOwner] = useState('');
+	const [collection, setCollection] = useState('');
+	const [category, setCategory] = useState('');
+	const [condition, setCondition] = useState('');
+	const [description, setDescription] = useState('');
+}
+
+const isFocused = useIsFocused();
+
+const fetchData = async() => {
+    const listingId = await LoadListingId();
+    const listing = queryListingById(listingId);
+    return new Promise((resolve,reject) => resolve(listing))
+}
+
+useEffect(() => {
+    fetchData().then(listing => {
+        setTitle(listing.title)
+        setOwner(listing.owner)
+        setCollection(listing.collection)
+        setCategory(listing.category)
+        setCondition(listing.condition)
+        setDescription(listing.description)
+    })
+}, [isFocused])
+
 	return (
 		<View style={styles.container}>
 			<ScrollView style={{paddingTop: 40}}>

@@ -15,6 +15,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 // =============================================
 const STORAGE_CATEGORY = '@current_category';
 const STORAGE_SEARCH = '@current_search';
+const STORAGE_LISTING = '@current_listing';
 
 export const LoadCategory = () =>
 	new Promise((resolve, reject) => {
@@ -35,6 +36,27 @@ export const LoadSearch = () =>
 			.then(search => {
 				if (search != null) {
 					resolve(search);
+				} else {
+					reject();
+				}
+			})
+			.catch(err => reject(err));
+	});
+
+export const PressedListing = id =>
+	new Promise((resolve, reject) => {
+		AsyncStorage.removeItem(STORAGE_LISTING);
+		AsyncStorage.setItem(STORAGE_LISTING, id)
+			.then(() => resolve())
+			.catch(err => reject(err));
+	});
+
+export const LoadListingId = () =>
+	new Promise((resolve, reject) => {
+		AsyncStorage.getItem(STORAGE_LISTING)
+			.then(id => {
+				if (id != null) {
+					resolve(id);
 				} else {
 					reject();
 				}

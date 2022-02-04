@@ -14,10 +14,8 @@ import {
 	StyleSheet,
 	Text,
 	View,
-	ScrollView,
 	Image,
 	TouchableOpacity,
-	TextInput,
 	FlatList,
 } from 'react-native';
 import {listingRealm, queryListingBySearch} from '../../../database/Schemas';

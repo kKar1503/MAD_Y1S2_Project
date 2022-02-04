@@ -18,18 +18,20 @@ import {
 	Image,
 	TouchableOpacity,
 	FlatList,
-	SafeAreaView,
 } from 'react-native';
 import {listingRealm, queryAllListings} from '../../../database/Schemas';
 import {useIsFocused} from '@react-navigation/native';
-
+import {PressedListing} from '../../../database/Listings';
 // =============================================
 // Main Page Implementation
 // =============================================
-const Item = ({title, source, description, navigation}) => (
+const Item = ({title, source, description, navigation, id}) => (
 	<TouchableOpacity
-		style={styles.listingContainer}
-		onPress={() => navigation.navigate('Listing')}>
+		onPress={() => {
+			PressedListing(id);
+			navigation.navigate('Listing');
+		}}
+		style={styles.listingContainer}>
 		<Image source={source} style={styles.listingImage} />
 		<View style={styles.textContainer}>
 			<Text style={styles.name}>{title}</Text>
@@ -74,6 +76,7 @@ const AllSuppliesScreen = ({navigation}) => {
 			source={item.source}
 			description={item.description}
 			navigation={navigation}
+			id={item.id}
 		/>
 	);
 
