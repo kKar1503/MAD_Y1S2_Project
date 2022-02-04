@@ -19,33 +19,32 @@ import {useIsFocused} from '@react-navigation/native';
 // =============================================
 // Main Page Implementation
 // =============================================
-const Product = ({navigation}) => {
+const ListingScreen = ({navigation}) => {
 	const [title, setTitle] = useState('');
 	const [owner, setOwner] = useState('');
 	const [collection, setCollection] = useState('');
 	const [category, setCategory] = useState('');
 	const [condition, setCondition] = useState('');
 	const [description, setDescription] = useState('');
-}
 
-const isFocused = useIsFocused();
+	const isFocused = useIsFocused();
 
-const fetchData = async() => {
-    const listingId = await LoadListingId();
-    const listing = queryListingById(listingId);
-    return new Promise((resolve,reject) => resolve(listing))
-}
+	const fetchData = async () => {
+		const listingId = await LoadListingId();
+		const listing = queryListingById(listingId);
+		return new Promise((resolve, reject) => resolve(listing));
+	};
 
-useEffect(() => {
-    fetchData().then(listing => {
-        setTitle(listing.title)
-        setOwner(listing.owner)
-        setCollection(listing.collection)
-        setCategory(listing.category)
-        setCondition(listing.condition)
-        setDescription(listing.description)
-    })
-}, [isFocused])
+	useEffect(() => {
+		fetchData().then(listing => {
+			setTitle(listing.title);
+			setOwner(listing.owner);
+			setCollection(listing.collection);
+			setCategory(listing.category);
+			setCondition(listing.condition);
+			setDescription(listing.description);
+		});
+	}, [isFocused]);
 
 	return (
 		<View style={styles.container}>
