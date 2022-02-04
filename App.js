@@ -30,7 +30,8 @@ import AddReviewScreen from './Screens/Reviews/AddReview';
 import ReviewsScreen from './Screens/Reviews/Reviews';
 import CustomDrawer from './Screens/CustomComponent/CustomDrawer';
 import AllSuppliesScreen from './Screens/Explore/Categories/AllSupplies';
-
+import CategorisedScreen from './Screens/Explore/Categories/Categorised';
+import SearchScreen from './Screens/Explore/Categories/Search';
 import {
 	View,
 	StyleSheet,
@@ -153,6 +154,26 @@ const productNav = () => {
 					headerStyle: {backgroundColor: '#424242'},
 					headerTitleAlign: 'center',
 					title: 'All Supplies',
+				}}
+			/>
+			<Stack.Screen
+				name="Categorised"
+				component={CategorisedScreen}
+				options={{
+					headerTintColor: 'white',
+					headerStyle: {backgroundColor: '#424242'},
+					headerTitleAlign: 'center',
+					title: 'Category',
+				}}
+			/>
+			<Stack.Screen
+				name="Search"
+				component={SearchScreen}
+				options={{
+					headerTintColor: 'white',
+					headerStyle: {backgroundColor: '#424242'},
+					headerTitleAlign: 'center',
+					title: 'Search',
 				}}
 			/>
 		</Stack.Navigator>

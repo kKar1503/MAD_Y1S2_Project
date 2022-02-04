@@ -37,7 +37,7 @@ const Item = ({name, source, description, navigation}) => (
 	</View>
 );
 
-const Explore = ({navigation}) => {
+const SearchScreen = ({navigation}) => {
 	const [listings, setListings] = useState([]);
 
 	const reloadData = async () => {
@@ -49,7 +49,7 @@ const Explore = ({navigation}) => {
 					restructuredListings.push({
 						id: listing.id,
 						name: listing.name,
-						source: require('../../assets/img/Chat2.png'),
+						source: require('../../../assets/img/Chat2.png'),
 						description: listing.description,
 					});
 				}
@@ -68,14 +68,14 @@ const Explore = ({navigation}) => {
 		listingRealm.addListener('change', () => reloadData());
 	}, [isFocused]);
 
-	const renderItem = ({item}) => {
+	const renderItem = ({item}) => (
 		<Item
 			name={item.name}
 			source={item.source}
 			description={item.description}
 			navigation={navigation}
-		/>;
-	};
+		/>
+	);
 
 	return (
 		<View style={styles.container}>
@@ -157,4 +157,4 @@ const styles = StyleSheet.create({
 // =============================================
 // Export
 // =============================================
-export default Explore;
+export default SearchScreen;
