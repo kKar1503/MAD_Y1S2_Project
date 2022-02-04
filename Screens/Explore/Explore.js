@@ -19,31 +19,30 @@ import {
 	TouchableOpacity,
 	TextInput,
 } from 'react-native';
-import {LoadUserData} from '../../database/Account';
-import {
-	queryListingByCategory,
-	queryAllReviewsOfUser,
-	postNewReview,
-} from '../../database/Schemas';
+import {queryListingByCategory} from '../../database/Schemas';
 import PopupMessageDialog from '../CustomComponent/PopupMessageDialog';
 import AsyncStorage from '@react-native-community/async-storage';
 import {useIsFocused} from '@react-navigation/native';
+import {useDrawerStatus} from '@react-navigation/drawer';
 // =============================================
 // Main Page Implementation
 // =============================================
 const STORAGE_CATEGORY = '@current_category';
 const STORAGE_SEARCH = '@current_search';
+const STORAGE_MODE = '@current_mode';
 const Explore = ({navigation}) => {
 	const comingSoonDialog = useRef();
 	const [numberOfStationery, setNumberOfStationery] = useState(0);
 	const [numberOfTextbooks, setNumberOfTextbooks] = useState(0);
 	const [search, setSearch] = useState('');
+	const [lightMode, setLightMode] = useState(false);
 
 	const showComingSoonDialog = () => {
 		comingSoonDialog.current.showDialog();
 	};
 
 	const isFocused = useIsFocused();
+	const drawerStatus = useDrawerStatus();
 
 	const saveCategory = async cat => {
 		try {
@@ -72,10 +71,27 @@ const Explore = ({navigation}) => {
 		queryListingByCategory('textbook')
 			.then(listings => setNumberOfTextbooks(listings.length))
 			.catch(err => console.log(err));
-	}, [isFocused]);
+		AsyncStorage.getItem(STORAGE_MODE, (err, res) => {
+			if (!err) {
+				if (parseInt(res, 10) === 2) {
+					console.log('light');
+					setLightMode(true);
+				} else {
+					console.log('dark');
+					setLightMode(false);
+				}
+			} else {
+				console.log(err);
+			}
+		});
+	}, [isFocused, drawerStatus]);
 
 	return (
-		<View style={styles.container}>
+		<View
+			style={[
+				styles.container,
+				{backgroundColor: lightMode ? 'white' : '#303030'},
+			]}>
 			<ScrollView>
 				<View style={[styles.viewWrapper, styles.searchInputField]}>
 					<TextInput
@@ -129,7 +145,12 @@ const Explore = ({navigation}) => {
 				</View>
 
 				<View style={styles.viewWrapper}>
-					<Text style={[styles.headerText, styles.robotoBold]}>
+					<Text
+						style={[
+							styles.headerText,
+							styles.robotoBold,
+							{color: lightMode ? 'black' : 'white'},
+						]}>
 						Categories
 					</Text>
 				</View>
@@ -146,7 +167,12 @@ const Explore = ({navigation}) => {
 							style={styles.catImages}
 							source={require('../../assets/img/cat3.png')}
 						/>
-						<Text style={[styles.catText, styles.robotoReg]}>
+						<Text
+							style={[
+								styles.catText,
+								styles.robotoReg,
+								{color: lightMode ? 'black' : 'white'},
+							]}>
 							Stationeries
 						</Text>
 						<Text style={[styles.catItemsText, styles.robotoReg]}>
@@ -207,7 +233,6 @@ const styles = StyleSheet.create({
 		flex: 1,
 		justifyContent: 'center',
 		alignContent: 'flex-start',
-		backgroundColor: '#303030',
 		paddingHorizontal: 15,
 	},
 	viewWrapper: {
@@ -233,7 +258,6 @@ const styles = StyleSheet.create({
 		textAlignVertical: 'bottom',
 	},
 	headerText: {
-		color: 'white',
 		fontSize: 25,
 	},
 	catImages: {

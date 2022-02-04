@@ -19,16 +19,19 @@ import {StyleSheet, Text, View, TouchableOpacity, Image} from 'react-native';
 import CustomSwitch from './CustomSwitch';
 import {useState, useEffect} from 'react';
 import {LoadUserData} from '../../database/Account';
+import AsyncStorage from '@react-native-community/async-storage';
 // =============================================
 // Drawer Component
 // =============================================
+const STORAGE_MODE = '@current_mode';
 const CustomDrawer = props => {
 	const [night, setNight] = useState(true);
 	const [username, setUsername] = useState('');
 	const [fullName, setFullName] = useState('');
 
 	const onSelectSwitch = index => {
-		alert('Selected index: ' + index);
+		AsyncStorage.removeItem(STORAGE_MODE);
+		AsyncStorage.setItem(STORAGE_MODE, index.toString());
 	};
 
 	useEffect(() => {
@@ -63,7 +66,7 @@ const CustomDrawer = props => {
 			</DrawerContentScrollView>
 			<View style={{padding: 20, alignSelf: 'flex-end'}}>
 				<CustomSwitch
-					selectionMode={2}
+					selectionMode={1}
 					roundCorner={true}
 					option1={'Dark'}
 					option2={'Light'}
