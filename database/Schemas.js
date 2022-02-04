@@ -223,6 +223,23 @@ export const queryListingByCategory = category =>
 			.catch(err => reject(err));
 	});
 
+export const queryListingBySearch = search =>
+	new Promise((resolve, reject) => {
+		Realm.open(listingDatabaseOptions)
+			.then(realm => {
+				let foundListings = realm.objects(LISTING_SCHEMA);
+				if (foundListings.length === 0 || foundListings == null) {
+					reject();
+				} else {
+					let filteredListings = foundListings.filter(
+						listing => listing.title === search,
+					);
+					resolve(filteredListings);
+				}
+			})
+			.catch(err => reject(err));
+	});
+
 export const userRealm = new Realm(userDatabaseOptions);
 export const reviewRealm = new Realm(reviewDatabaseOptions);
 export const listingRealm = new Realm(listingDatabaseOptions);
