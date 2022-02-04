@@ -177,6 +177,13 @@ const productNav = () => {
 					title: 'Search',
 				}}
 			/>
+			<Stack.Screen
+				name="AddReviews"
+				component={AddReviewScreen}
+				options={{
+					headerShown: false,
+				}}
+			/>
 		</Stack.Navigator>
 	);
 };
