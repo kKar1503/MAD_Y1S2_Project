@@ -28,7 +28,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 // Main Page Implementation
 // =============================================
 
-const Item = ({title, source, description, navigation, id,lightMode}) => (
+const Item = ({title, source, description, navigation, id, lightMode}) => (
 	<TouchableOpacity
 		onPress={() => {
 			PressedListing(id);
@@ -36,12 +36,20 @@ const Item = ({title, source, description, navigation, id,lightMode}) => (
 		}}
 		style={[
 			styles.listingContainer,
-			{backgroundColor: lightMode ? 'white' : '#303030'},
+			{backgroundColor: lightMode ? 'grey' : 'black'},
 		]}>
 		<Image source={source} style={styles.listingImage} />
 		<View style={styles.textContainer}>
-			<Text style={styles.name}>{title}</Text>
-			<Text style={styles.description}>{description}</Text>
+			<Text style={[styles.name, {color: lightMode ? 'black' : 'white'}]}>
+				{title}
+			</Text>
+			<Text
+				style={[
+					styles.description,
+					{color: lightMode ? 'black' : 'white'},
+				]}>
+				{description}
+			</Text>
 		</View>
 	</TouchableOpacity>
 );
@@ -99,12 +107,16 @@ const AllSuppliesScreen = ({navigation}) => {
 			description={item.description}
 			navigation={navigation}
 			id={item.id}
-            lightMode={lightMode}
+			lightMode={lightMode}
 		/>
 	);
 
 	return (
-		<View style={styles.container}>
+		<View
+			style={[
+				styles.container,
+				{backgroundColor: lightMode ? 'white' : '#303030'},
+			]}>
 			<FlatList
 				nestedScrollEnabled={true}
 				data={listings}

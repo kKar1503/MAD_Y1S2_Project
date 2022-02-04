@@ -95,7 +95,11 @@ const Explore = ({navigation}) => {
 			<ScrollView>
 				<View style={[styles.viewWrapper, styles.searchInputField]}>
 					<TextInput
-						style={[styles.textInput, styles.robotoReg]}
+						style={[
+							styles.textInput,
+							styles.robotoReg,
+							{color: lightMode ? 'black' : 'white'},
+						]}
 						placeholder="Search"
 						placeholderTextColor={'#9E9E9E'}
 						maxLength={15}

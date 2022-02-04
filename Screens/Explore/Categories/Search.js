@@ -21,18 +21,30 @@ import {
 import {listingRealm, queryListingBySearch} from '../../../database/Schemas';
 import {useIsFocused} from '@react-navigation/native';
 import {LoadSearch} from '../../../database/Listings';
-
+import {useDrawerStatus} from '@react-navigation/drawer';
+import AsyncStorage from '@react-native-community/async-storage';
 // =============================================
 // Main Page Implementation
 // =============================================
-const Item = ({title, source, description, navigation}) => (
+const Item = ({title, source, description, navigation, lightMode}) => (
 	<TouchableOpacity
-		style={styles.listingContainer}
+		style={[
+			styles.listingContainer,
+			{backgroundColor: lightMode ? 'grey' : 'black'},
+		]}
 		onPress={() => navigation.navigate('Listing')}>
 		<Image source={source} style={styles.listingImage} />
 		<View style={styles.textContainer}>
-			<Text style={styles.name}>{title}</Text>
-			<Text style={styles.description}>{description}</Text>
+			<Text style={[styles.name, {color: lightMode ? 'black' : 'white'}]}>
+				{title}
+			</Text>
+			<Text
+				style={[
+					styles.description,
+					{color: lightMode ? 'black' : 'white'},
+				]}>
+				{description}
+			</Text>
 		</View>
 	</TouchableOpacity>
 );
@@ -61,12 +73,28 @@ const SearchScreen = ({navigation}) => {
 			});
 	};
 
+	const STORAGE_MODE = '@current_mode';
 	const isFocused = useIsFocused();
+	const drawerStatus = useDrawerStatus();
+	const [lightMode, setLightMode] = useState(false);
 
 	useEffect(() => {
 		reloadData();
 		listingRealm.addListener('change', () => reloadData());
-	}, [isFocused]);
+		AsyncStorage.getItem(STORAGE_MODE, (err, res) => {
+			if (!err) {
+				if (parseInt(res, 10) === 2) {
+					console.log('light');
+					setLightMode(true);
+				} else {
+					console.log('dark');
+					setLightMode(false);
+				}
+			} else {
+				console.log(err);
+			}
+		});
+	}, [isFocused, drawerStatus]);
 
 	const renderItem = ({item}) => (
 		<Item
@@ -74,11 +102,16 @@ const SearchScreen = ({navigation}) => {
 			source={item.source}
 			description={item.description}
 			navigation={navigation}
+			lightMode={lightMode}
 		/>
 	);
 
 	return (
-		<View style={styles.container}>
+		<View
+			style={[
+				styles.container,
+				{backgroundColor: lightMode ? 'white' : '#303030'},
+			]}>
 			<FlatList
 				nestedScrollEnabled={true}
 				data={listings}
