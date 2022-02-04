@@ -20,7 +20,7 @@ import {
 	TextInput,
 	FlatList,
 } from 'react-native';
-import {listingRealm, queryAllListings} from '../../../database/Schemas';
+import {listingRealm, queryListingByCategory} from '../../../database/Schemas';
 import {useIsFocused} from '@react-navigation/native';
 
 // =============================================
@@ -40,7 +40,7 @@ const Explore = ({navigation}) => {
 	const [listings, setListings] = useState([]);
 
 	const reloadData = async () => {
-		queryAllListings()
+		queryListingByCategory()
 			.then(queryListings => {
 				const restructuredListings = [];
 				for (let listing of queryListings) {
