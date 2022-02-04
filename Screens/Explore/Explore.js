@@ -9,7 +9,7 @@
 // =============================================
 // Import necessary classes for development
 // =============================================
-import React, {forwardRef, useRef} from 'react';
+import React, {useEffect, forwardRef, useRef, useState} from 'react';
 import {
 	StyleSheet,
 	Text,
@@ -20,18 +20,55 @@ import {
 	TextInput,
 } from 'react-native';
 import {LoadUserData} from '../../database/Account';
-import {postNewReview, queryAllReviewsOfUser} from '../../database/Schemas';
+import {queryListingByCategory} from '../../database/Schemas';
 import PopupMessageDialog from '../CustomComponent/PopupMessageDialog';
-
+import AsyncStorage from '@react-native-community/async-storage';
+import {useIsFocused} from '@react-navigation/native';
 // =============================================
 // Main Page Implementation
 // =============================================
+const STORAGE_CATEGORY = '@current_category';
+const STORAGE_SEARCH = '@current_search';
 const Explore = ({navigation}) => {
 	const comingSoonDialog = useRef();
+	const [numberOfStationery, setNumberOfStationery] = useState(0);
+	const [numberOfTextbooks, setNumberOfTextbooks] = useState(0);
 
 	const showComingSoonDialog = () => {
 		comingSoonDialog.current.showDialog();
 	};
+
+	const isFocused = useIsFocused();
+
+	const saveCategory = async cat => {
+		try {
+			AsyncStorage.removeItem(STORAGE_CATEGORY);
+			await AsyncStorage.setItem(STORAGE_CATEGORY, cat);
+			console.log('Category saved');
+		} catch (e) {
+			console.log('Category not saved');
+		}
+	};
+
+	const saveSearch = async search => {
+		try {
+			AsyncStorage.removeItem(STORAGE_SEARCH);
+			await AsyncStorage.setItem(STORAGE_SEARCH, search);
+			console.log('Search saved');
+		} catch (e) {
+			console.log('Search not saved');
+		}
+	};
+
+	useEffect(() => {
+		queryListingByCategory('stationery')
+			.then(listings => setNumberOfStationery(listings.length))
+			.catch(err => console.log(err));
+		queryListingByCategory('textbook')
+			.then(listings => setNumberOfTextbooks(listings.length))
+			.catch(err => console.log(err));
+	}, [isFocused]);
+
 	return (
 		<View style={styles.container}>
 			<ScrollView>
@@ -118,7 +155,7 @@ const Explore = ({navigation}) => {
 							Stationeries
 						</Text>
 						<Text style={[styles.catItemsText, styles.robotoReg]}>
-							132 Items
+							{numberOfStationery} Items
 						</Text>
 					</TouchableOpacity>
 					<TouchableOpacity style={styles.viewWrapperVertical}>
@@ -130,7 +167,7 @@ const Explore = ({navigation}) => {
 							Textbooks
 						</Text>
 						<Text style={[styles.catItemsText, styles.robotoReg]}>
-							564 Items
+							{numberOfTextbooks} Items
 						</Text>
 					</TouchableOpacity>
 					<TouchableOpacity
