@@ -22,16 +22,30 @@ import {
 import {LoadUserData} from '../../database/Account';
 import {queryAllReviewsOfUser, reviewRealm} from '../../database/Schemas';
 import {useIsFocused} from '@react-navigation/native';
-
+import {useDrawerStatus} from '@react-navigation/drawer';
+import AsyncStorage from '@react-native-community/async-storage';
 // =============================================
 // Main Page Implementation
 // =============================================
-const Item = ({title, source, comment, navigation}) => (
-	<View style={styles.reviewContainer}>
+const Item = ({title, source, comment, navigation, lightMode}) => (
+	<View
+		style={[
+			styles.reviewContainer,
+			{backgroundColor: lightMode ? 'grey' : 'black'},
+		]}>
 		<Image source={source} style={styles.styleImage} />
 		<View style={styles.textContainer}>
-			<Text style={styles.title}>{title}</Text>
-			<Text style={styles.comment}>{comment}</Text>
+			<Text
+				style={[styles.title, {color: lightMode ? 'black' : 'white'}]}>
+				{title}
+			</Text>
+			<Text
+				style={[
+					styles.comment,
+					{color: lightMode ? 'black' : 'white'},
+				]}>
+				{comment}
+			</Text>
 		</View>
 	</View>
 );
@@ -59,12 +73,28 @@ const AllReviews = ({navigation}) => {
 			});
 	};
 
+	const STORAGE_MODE = '@current_mode';
 	const isFocused = useIsFocused();
+	const drawerStatus = useDrawerStatus();
+	const [lightMode, setLightMode] = useState(false);
 
 	useEffect(() => {
 		reloadData();
 		reviewRealm.addListener('change', () => reloadData());
-	}, [isFocused]);
+		AsyncStorage.getItem(STORAGE_MODE, (err, res) => {
+			if (!err) {
+				if (parseInt(res, 10) === 2) {
+					console.log('light');
+					setLightMode(true);
+				} else {
+					console.log('dark');
+					setLightMode(false);
+				}
+			} else {
+				console.log(err);
+			}
+		});
+	}, [isFocused, drawerStatus]);
 
 	const renderItem = ({item}) => (
 		<Item
@@ -72,11 +102,16 @@ const AllReviews = ({navigation}) => {
 			source={item.source}
 			comment={item.comment}
 			navigation={navigation}
+			lightMode={lightMode}
 		/>
 	);
 
 	return (
-		<SafeAreaView style={styles.container}>
+		<SafeAreaView
+			style={[
+				styles.container,
+				{backgroundColor: lightMode ? 'white' : '#303030'},
+			]}>
 			<FlatList
 				nestedScrollEnabled={true}
 				data={reviews}
