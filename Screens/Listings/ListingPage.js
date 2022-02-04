@@ -17,6 +17,9 @@ import {queryListingById} from '../../database/Schemas';
 import {LoadListingId} from '../../database/Listings';
 import {useIsFocused} from '@react-navigation/native';
 import PopupPromptDialog from '../CustomComponent/PopupPromptDialog';
+import AsyncStorage from '@react-native-community/async-storage';
+import {useDrawerStatus} from '@react-navigation/drawer';
+
 // =============================================
 // Main Page Implementation
 // =============================================
@@ -29,9 +32,13 @@ const ListingScreen = ({navigation}) => {
 	const [description, setDescription] = useState('');
 	const [buttonColor, setButtonColor] = useState('#e88764');
 	const [buttonText, setButtonText] = useState('RESERVE');
+	const [lightMode, setLightMode] = useState(false);
 
 	const prompt1 = useRef();
 	const prompt2 = useRef();
+	const STORAGE_MODE = '@current_mode';
+	const isFocused = useIsFocused();
+	const drawerStatus = useDrawerStatus();
 
 	const showPrompt1 = () => {
 		prompt1.current.showDialog();
@@ -48,8 +55,6 @@ const ListingScreen = ({navigation}) => {
 	const hidePrompt2 = () => {
 		prompt2.current.hideDialog();
 	};
-
-	const isFocused = useIsFocused();
 
 	const fetchData = async () => {
 		const listingId = await LoadListingId();
@@ -68,34 +73,94 @@ const ListingScreen = ({navigation}) => {
 				setDescription(listing.description);
 			})
 			.then(err => console.log(err));
-	}, [isFocused]);
+
+		AsyncStorage.getItem(STORAGE_MODE, (err, res) => {
+			if (!err) {
+				if (parseInt(res, 10) === 2) {
+					console.log('light');
+					setLightMode(true);
+				} else {
+					console.log('dark');
+					setLightMode(false);
+				}
+			} else {
+				console.log(err);
+			}
+		});
+	}, [isFocused, drawerStatus]);
 
 	return (
-		<View style={styles.container}>
+		<View
+			style={[
+				styles.container,
+				{backgroundColor: lightMode ? 'white' : '#303030'},
+			]}>
 			<ScrollView style={{paddingTop: 40}}>
 				<Image
 					source={require('../../assets/img/Product1.png')}
 					style={styles.productpic}
 				/>
 
-				<Text style={styles.title}>{title}</Text>
+				<Text
+					style={[
+						styles.title,
+						{color: lightMode ? 'black' : 'white'},
+					]}>
+					{title}
+				</Text>
 
 				<Text style={styles.user}>{owner}</Text>
 
-				<Text style={styles.collection}>{collection}</Text>
+				<Text
+					style={[
+						styles.collection,
+						{color: lightMode ? 'black' : 'white'},
+					]}>
+					{collection}
+				</Text>
 
 				<View style={{flexDirection: 'row', paddingTop: 10}}>
-					<Text style={styles.category}>Category:</Text>
-					<Text style={styles.cname}>{category}</Text>
+					<Text
+						style={[
+							styles.category,
+							{color: lightMode ? 'black' : 'white'},
+						]}>
+						Category:
+					</Text>
+					<Text
+						style={[
+							styles.cname,
+							{color: lightMode ? 'black' : 'white'},
+						]}>
+						{category}
+					</Text>
 				</View>
 
 				<View style={{flexDirection: 'row', paddingTop: 10}}>
-					<Text style={styles.condition}>Condition:</Text>
-					<Text style={styles.condition}>{condition}</Text>
+					<Text
+						style={[
+							styles.condition,
+							{color: lightMode ? 'black' : 'white'},
+						]}>
+						Condition:
+					</Text>
+					<Text
+						style={[
+							styles.condition,
+							{color: lightMode ? 'black' : 'white'},
+						]}>
+						{condition}
+					</Text>
 				</View>
 
 				<View style={{paddingLeft: 10, paddingTop: 10}}>
-					<Text style={styles.content}>{description}</Text>
+					<Text
+						style={[
+							styles.content,
+							{color: lightMode ? 'black' : 'grey'},
+						]}>
+						{description}
+					</Text>
 				</View>
 			</ScrollView>
 			<Prompt1
@@ -143,9 +208,9 @@ const ListingScreen = ({navigation}) => {
 					}}
 					ButtonHeight={45}
 					ButtonWidth={'33%'}
-					Color="white"
+					Color={lightMode ? 'grey' : 'white'}
 					TextFont={25}
-					TextColor="black"
+					TextColor={lightMode ? 'white' : 'black'}
 				/>
 			</View>
 		</View>
@@ -177,11 +242,9 @@ const styles = StyleSheet.create({
 		flex: 1,
 		justifyContent: 'center',
 		alignItems: 'center',
-		backgroundColor: '#303030',
 	},
 	content: {
 		fontSize: 15,
-		color: '#999999',
 		lineHeight: 25,
 	},
 	productpic: {
